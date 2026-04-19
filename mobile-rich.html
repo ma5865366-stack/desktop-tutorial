@@ -887,7 +887,7 @@ function saveUi(){localStorage.setItem(UI_KEY,JSON.stringify(uiState));}
 function isDone(id){return Boolean(tasksState[id]);}
 function normalize(text){return String(text).toLowerCase();}
 function matchesQuery(parts){const q=normalize(uiState.search.trim());if(!q) return true;return parts.some((part)=>normalize(part).includes(q));}
-function getTodayIndex(){const today=new Date().toISOString().slice(0,10);const idx=tripDates.indexOf(today);if(idx!==-1) return idx; if(today < tripDates[0]) return 0; return tripDates.length-1;}
+function getTodayIndex(){const now=new Date();const pad=(value)=>String(value).padStart(2,'0');const today=`${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}`;const idx=tripDates.indexOf(today);if(idx!==-1) return idx; if(today < tripDates[0]) return 0; return tripDates.length-1;}
 function copyText(text){navigator.clipboard?.writeText(text).then(()=>alert('已复制，可直接粘贴到地图或备忘录。')).catch(()=>prompt('请手动复制下面内容：',text));}
 function sharePage(){const data={title:'韩国旅行清单增强版',text:'手机直接打开就能用的韩国旅行清单',url:location.href};if(navigator.share){navigator.share(data).catch(()=>{});}else{copyText(location.href);}}
 function setSearch(value){uiState.search=value;saveUi();render();}
