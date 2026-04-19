@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0d8a74" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="format-detection" content="telephone=no" />
+  <title>落地夜极简页</title>
+  <style>
+    :root {
+      --bg: #f4ede1;
+      --surface: rgba(255, 252, 246, 0.88);
+      --line: rgba(34, 62, 56, 0.12);
+      --text: #142d28;
+      --muted: #687974;
+      --mint: #0d8a74;
+      --mint-dark: #075f52;
+      --mint-soft: rgba(13, 138, 116, 0.12);
+      --warn: #ef8a56;
+      --warn-soft: rgba(239, 138, 86, 0.16);
+      --ok: #2f9a5c;
+      --ok-soft: rgba(47, 154, 92, 0.14);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --shadow: 0 24px 60px rgba(24, 48, 43, 0.12);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: max(1rem, env(safe-area-inset-top, 0px)) 1rem calc(2rem + env(safe-area-inset-bottom, 0px));
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Noto Sans SC", "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 10% -8%, rgba(13, 138, 116, 0.22), transparent 20rem),
+        radial-gradient(circle at 100% 6%, rgba(239, 138, 86, 0.24), transparent 18rem),
+        linear-gradient(180deg, #fffaf2 0%, #f4ede1 48%, #eadfce 100%);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .app {
+      width: min(100%, 760px);
+      margin: 0 auto;
+      display: grid;
+      gap: 1rem;
+    }
+
+    .hero,
+    .card {
+      border: 1px solid rgba(255, 255, 255, 0.78);
+      border-radius: var(--radius-xl);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(255, 249, 240, 0.88)),
+        var(--surface);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      min-height: 300px;
+      display: grid;
+      align-content: end;
+      gap: 0.8rem;
+      padding: 1.15rem;
+      color: #fff;
+      background:
+        radial-gradient(circle at 18% 12%, rgba(126, 236, 215, 0.34), transparent 12rem),
+        radial-gradient(circle at 92% 14%, rgba(247, 183, 105, 0.26), transparent 11rem),
+        linear-gradient(145deg, #072f2a 0%, #0d7e6b 46%, #153139 100%);
+      box-shadow: 0 32px 80px rgba(7, 58, 50, 0.28);
+    }
+
+    .hero::before {
+      content: "ARRIVAL NIGHT";
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      padding: 0.42rem 0.68rem;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+      color: rgba(255, 255, 255, 0.86);
+      font-size: 0.7rem;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+    }
+
+    h1, h2, h3, p { margin: 0; }
+    h1 { max-width: 8ch; font-size: clamp(2.2rem, 13vw, 4.1rem); line-height: .96; letter-spacing: -.065em; }
+    h2 { font-size: 1.26rem; line-height: 1.14; letter-spacing: -.03em; }
+    h3 { font-size: 1rem; line-height: 1.28; }
+    p { color: var(--muted); line-height: 1.72; }
+    .hero p { color: rgba(255,255,255,.8); max-width: 28rem; }
+
+    .eyebrow, .chip, .status {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      min-height: 1.9rem;
+      padding: .26rem .72rem;
+      border-radius: 999px;
+      background: var(--mint-soft);
+      color: var(--mint-dark);
+      font-size: .76rem;
+      font-weight: 800;
+      letter-spacing: .04em;
+    }
+
+    .hero .eyebrow,
+    .hero .chip,
+    .hero .status {
+      background: rgba(255,255,255,.14);
+      color: #fff;
+    }
+
+    .status.ok { background: var(--ok-soft); color: var(--ok); }
+    .status.warn { background: var(--warn-soft); color: #92451f; }
+
+    .card {
+      display: grid;
+      gap: .85rem;
+      padding: 1rem;
+    }
+
+    .steps, .checks, .phrases {
+      display: grid;
+      gap: .65rem;
+    }
+
+    .step, .phrase, .check {
+      border: 1px solid rgba(34, 62, 56, 0.1);
+      border-radius: var(--radius-lg);
+      background: rgba(255,255,255,.76);
+      padding: .92rem;
+    }
+
+    .step strong, .phrase strong {
+      display: block;
+      margin-bottom: .35rem;
+      color: var(--text);
+      font-size: .92rem;
+    }
+
+    .check {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: .7rem;
+      align-items: start;
+      cursor: pointer;
+    }
+
+    .check input {
+      appearance: none;
+      width: 1.22rem;
+      height: 1.22rem;
+      margin: .1rem 0 0;
+      border: 1.5px solid rgba(13,138,116,.44);
+      border-radius: .44rem;
+      background: #fff;
+      position: relative;
+    }
+
+    .check input:checked {
+      border-color: var(--mint);
+      background: var(--mint);
+    }
+
+    .check input:checked::after {
+      content: "";
+      position: absolute;
+      left: .31rem;
+      top: .1rem;
+      width: .32rem;
+      height: .62rem;
+      border-right: 2px solid #fff;
+      border-bottom: 2px solid #fff;
+      transform: rotate(45deg);
+    }
+
+    .check.done {
+      border-color: rgba(13,138,116,.2);
+      background:
+        linear-gradient(90deg, rgba(13,138,116,.11), rgba(255,255,255,.78)),
+        rgba(233,248,244,.92);
+      box-shadow: inset 4px 0 0 rgba(13,138,116,.46);
+    }
+
+    .check.done .check-text {
+      color: rgba(20,45,40,.58);
+      text-decoration: line-through;
+      text-decoration-thickness: 2px;
+      text-decoration-color: rgba(13,138,116,.42);
+    }
+
+    .copy-row, .pill-row {
+      display: grid;
+      gap: .65rem;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    button, a.link-btn {
+      appearance: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 2.9rem;
+      padding: .82rem 1rem;
+      border: 1px solid rgba(34, 62, 56, 0.14);
+      border-radius: 18px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.98), rgba(255,255,255,.88));
+      color: var(--text);
+      text-decoration: none;
+      font: inherit;
+      font-weight: 800;
+      box-shadow: 0 10px 24px rgba(24,48,43,.06);
+    }
+
+    button:active, a.link-btn:active { transform: scale(.986); }
+
+    .note {
+      padding: .95rem 1rem;
+      border: 1px solid rgba(239,138,86,.18);
+      border-radius: 20px;
+      background: linear-gradient(135deg, rgba(239,138,86,.14), rgba(255,255,255,.8));
+      color: #8a4526;
+      line-height: 1.72;
+    }
+
+    @media (max-width: 640px) {
+      .copy-row, .pill-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <section class="hero">
+      <span class="eyebrow">落地夜专用</span>
+      <h1>T1 出关就照着走</h1>
+      <p>这页只保留最关键的：出关、N6002、付款、固定问句、酒店入住。凌晨落地时不要翻长文，直接看这里。</p>
+      <div class="pill-row">
+        <span class="chip">23:50 落地</span>
+        <span class="status warn">目标 01:40 N6002</span>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>今晚只做这 5 件事</h2>
+      <div class="checks" id="checks"></div>
+    </section>
+
+    <section class="card">
+      <h2>从 T1 到弘大怎么走</h2>
+      <div class="steps">
+        <div class="step">
+          <strong>1. 出海关后找 1F 到达层</strong>
+          <p>现实里大概率 <strong>01:00–01:30</strong> 才会出到公共区域。不要在行李区和便利店停太久。</p>
+        </div>
+        <div class="step">
+          <strong>2. 看这些英文就够</strong>
+          <p><strong>Bus / Airport Bus / Late-night Bus / Bus Ticket</strong>。主住弘大就找 <strong>N6002 to Hongdae</strong>。</p>
+        </div>
+        <div class="step">
+          <strong>3. 付款怎么做</strong>
+          <p>先拿出 <strong>20,000 KRW</strong> 现金。N6002 票价按 <strong>17,000 KRW</strong> 预留。现金优先，现场支持再用 Visa。</p>
+        </div>
+        <div class="step">
+          <strong>4. 车程多久</strong>
+          <p>T1 到弘大大概 <strong>45–65 分钟</strong>。01:40 上车，大概率 <strong>02:25–02:45</strong> 到弘大。</p>
+        </div>
+        <div class="step">
+          <strong>5. 到站后怎么做</strong>
+          <p>只用 <strong>Naver Map</strong> 走去酒店，夜里不去明洞、不去汉江、不找夜宵店。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>不会韩语就直接复制这些</h2>
+      <div class="phrases">
+        <div class="phrase">
+          <strong>问夜巴</strong>
+          <p>Does this bus go to Hongdae?<br />이 버스 홍대 가나요?</p>
+        </div>
+        <div class="phrase">
+          <strong>买票</strong>
+          <p>N6002 to Hongdae, one person, please.<br />N6002 홍대 방향 한 명이요.</p>
+        </div>
+        <div class="phrase">
+          <strong>问付款</strong>
+          <p>Can I pay by Visa?<br />비자카드 결제 되나요?</p>
+        </div>
+        <div class="phrase">
+          <strong>酒店说明</strong>
+          <p>I will arrive after midnight. Do you support self check-in?</p>
+        </div>
+      </div>
+      <div class="copy-row">
+        <button id="copy-bus">复制 N6002 问句</button>
+        <button id="copy-hotel">复制酒店提醒</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>错过 01:40 怎么办</h2>
+      <div class="note">
+        先看 <strong>04:00 / 04:40</strong> 后续夜巴，再考虑机场 / 云西过渡住宿。真要打车，只走官方出租车站，不跟路边拉客司机谈价。
+      </div>
+      <a class="link-btn" href="./mobile-rich.html?v=20260419-night" rel="noopener noreferrer">返回完整版</a>
+    </section>
+  </main>
+
+  <script>
+    const KEY = "kr-night-lite-v1";
+    const checks = [
+      "eSIM 已开，Naver Map 能正常打开",
+      "护照、酒店地址截图、20,000 KRW 现金已在手边",
+      "已找到 Bus / Late-night Bus / Bus Ticket 指示",
+      "已确认 N6002 方向是 Hongdae / Cheongnyangni",
+      "到弘大后只走去酒店，不开新支线",
+    ];
+
+    function load() {
+      try {
+        return JSON.parse(localStorage.getItem(KEY) || "{}");
+      } catch {
+        return {};
+      }
+    }
+
+    function save(state) {
+      localStorage.setItem(KEY, JSON.stringify(state));
+    }
+
+    let state = load();
+    const host = document.querySelector("#checks");
+
+    function render() {
+      host.innerHTML = checks
+        .map((text, index) => {
+          const id = `night-${index}`;
+          const done = Boolean(state[id]);
+          return `
+            <label class="check ${done ? "done" : ""}">
+              <input type="checkbox" data-id="${id}" ${done ? "checked" : ""} />
+              <span class="check-text">${text}</span>
+            </label>
+          `;
+        })
+        .join("");
+
+      host.querySelectorAll("[data-id]").forEach((input) => {
+        input.addEventListener("change", (event) => {
+          state[event.target.dataset.id] = event.target.checked;
+          save(state);
+          render();
+        });
+      });
+    }
+
+    function copyText(text) {
+      navigator.clipboard?.writeText(text).then(() => {
+        alert("已复制。");
+      }).catch(() => {
+        prompt("请手动复制：", text);
+      });
+    }
+
+    document.querySelector("#copy-bus")?.addEventListener("click", () => {
+      copyText("Does this bus go to Hongdae? / 이 버스 홍대 가나요?\\nN6002 to Hongdae, one person, please. / N6002 홍대 방향 한 명이요.");
+    });
+
+    document.querySelector("#copy-hotel")?.addEventListener("click", () => {
+      copyText("I will arrive after midnight. Do you support self check-in?");
+    });
+
+    render();
+  </script>
+</body>
+</html>
