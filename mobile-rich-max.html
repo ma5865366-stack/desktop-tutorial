@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0d8a74" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="format-detection" content="telephone=no" />
+  <title>韩国旅行清单增强版</title>
+  <style>
+
+:root {
+  --bg: #f3efe6;
+  --paper: #fffaf1;
+  --paper-strong: #fffdf8;
+  --ink: #142d28;
+  --muted: #6b7c77;
+  --hairline: rgba(39, 69, 62, 0.12);
+  --hairline-strong: rgba(39, 69, 62, 0.2);
+  --mint: #0d8a74;
+  --mint-dark: #075f52;
+  --mint-soft: rgba(13, 138, 116, 0.12);
+  --clay: #ef8a56;
+  --clay-soft: rgba(239, 138, 86, 0.16);
+  --blue: #426ed8;
+  --blue-soft: rgba(66, 110, 216, 0.14);
+  --danger: #bd5a45;
+  --danger-soft: rgba(189, 90, 69, 0.13);
+  --ok: #2f9a5c;
+  --ok-soft: rgba(47, 154, 92, 0.14);
+  --radius-xl: 28px;
+  --radius-lg: 22px;
+  --radius-md: 16px;
+  --shadow-soft: 0 18px 42px rgba(28, 49, 44, 0.08);
+  --shadow-lift: 0 24px 60px rgba(28, 49, 44, 0.13);
+  --nav-height: 5.8rem;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  padding-bottom: calc(var(--nav-height) + env(safe-area-inset-bottom, 0px));
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Noto Sans SC", "Segoe UI", sans-serif;
+  background:
+    radial-gradient(circle at 12% -4%, rgba(13, 138, 116, 0.22), transparent 30rem),
+    radial-gradient(circle at 96% 8%, rgba(239, 138, 86, 0.2), transparent 26rem),
+    linear-gradient(180deg, #fffbf3 0%, var(--bg) 48%, #ede5d7 100%);
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.34) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.28) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.38), transparent 86%);
+  opacity: 0.55;
+}
+
+.app {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 820px);
+  margin: 0 auto;
+  padding: 0.9rem 0.9rem 2.2rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  margin: 0;
+}
+
+h1 {
+  max-width: 9ch;
+  color: #fff;
+  font-size: clamp(2.2rem, 13vw, 4.4rem);
+  line-height: 0.96;
+  letter-spacing: -0.065em;
+}
+
+h2 {
+  font-size: 1.38rem;
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+}
+
+h3 {
+  font-size: 1.07rem;
+  line-height: 1.32;
+  letter-spacing: -0.018em;
+}
+
+p,
+li {
+  line-height: 1.72;
+}
+
+p,
+ul {
+  color: var(--muted);
+}
+
+ul {
+  margin: 0;
+  padding-left: 1.15rem;
+}
+
+.card,
+details {
+  border: 1px solid rgba(255, 255, 255, 0.74);
+  border-radius: var(--radius-xl);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(255, 250, 242, 0.88)),
+    var(--paper);
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(18px);
+}
+
+.card {
+  display: grid;
+  gap: 0.95rem;
+  padding: 1rem;
+}
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  min-height: 270px;
+  margin-bottom: 1.05rem;
+  padding: 1.15rem;
+  align-content: end;
+  border-color: rgba(255, 255, 255, 0.22);
+  color: #fff;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(95, 203, 184, 0.34), transparent 13rem),
+    radial-gradient(circle at 96% 10%, rgba(255, 180, 121, 0.28), transparent 12rem),
+    linear-gradient(135deg, #07352f 0%, #0a5d50 48%, #102f35 100%);
+  box-shadow: 0 26px 70px rgba(9, 52, 46, 0.28);
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  right: -3.4rem;
+  bottom: -3.6rem;
+  width: 12rem;
+  height: 12rem;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+.hero p {
+  max-width: 33rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.hero .chip,
+.hero .status,
+.hero .build-note,
+.hero button {
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+.eyebrow,
+.chip,
+.status,
+.time-chip,
+.pill,
+.quick-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  min-height: 1.9rem;
+  padding: 0.28rem 0.72rem;
+  border-radius: 999px;
+  background: var(--mint-soft);
+  color: var(--mint-dark);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.eyebrow {
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.pill.warn,
+.status.warn {
+  background: var(--clay-soft);
+  color: #98471f;
+}
+
+.pill.bad {
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+
+.status.ok {
+  background: var(--ok-soft);
+  color: var(--ok);
+}
+
+.section {
+  margin-top: 1.1rem;
+  scroll-margin-top: 1rem;
+}
+
+.section-head {
+  display: grid;
+  gap: 0.32rem;
+  margin: 0 0 0.75rem;
+  padding: 0 0.15rem;
+}
+
+.section-head p,
+.mini,
+.build-note {
+  font-size: 0.88rem;
+}
+
+.list,
+.days,
+.guide-grid,
+.shop-grid {
+  display: grid;
+  gap: 0.78rem;
+}
+
+.phase-top,
+.day-top,
+.copy-row,
+.mode-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+}
+
+.checklist {
+  display: grid;
+  gap: 0.55rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.task {
+  overflow: hidden;
+  border: 1px solid rgba(39, 69, 62, 0.1);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.78);
+  transition: transform 0.24s ease, border-color 0.24s ease, background 0.24s ease;
+}
+
+.task:active {
+  transform: scale(0.988);
+}
+
+.task.done {
+  border-color: rgba(13, 138, 116, 0.24);
+  background:
+    linear-gradient(90deg, rgba(13, 138, 116, 0.11), rgba(255, 255, 255, 0.78)),
+    rgba(233, 248, 244, 0.92);
+}
+
+.task label {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.72rem;
+  align-items: start;
+  padding: 0.86rem 0.9rem;
+}
+
+.task input {
+  position: relative;
+  width: 1.22rem;
+  height: 1.22rem;
+  margin: 0.1rem 0 0;
+  appearance: none;
+  border: 1.5px solid rgba(13, 138, 116, 0.44);
+  border-radius: 0.42rem;
+  background: #fff;
+  box-shadow: inset 0 1px 1px rgba(20, 45, 40, 0.08);
+}
+
+.task input:checked {
+  border-color: var(--mint);
+  background: var(--mint);
+}
+
+.task input:checked::after {
+  content: "";
+  position: absolute;
+  left: 0.31rem;
+  top: 0.11rem;
+  width: 0.32rem;
+  height: 0.62rem;
+  border-right: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  transform: rotate(45deg);
+}
+
+.task-text {
+  color: var(--ink);
+  line-height: 1.68;
+  transition: color 0.25s ease, text-decoration-color 0.25s ease;
+}
+
+.task.done .task-text {
+  color: rgba(20, 45, 40, 0.58);
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+  text-decoration-color: rgba(13, 138, 116, 0.42);
+}
+
+details {
+  overflow: hidden;
+}
+
+summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  padding: 1rem;
+  color: var(--ink);
+  cursor: pointer;
+  list-style: none;
+  font-weight: 850;
+  letter-spacing: -0.015em;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+
+summary::after {
+  content: "+";
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 1.85rem;
+  height: 1.85rem;
+  border-radius: 999px;
+  background: var(--mint-soft);
+  color: var(--mint-dark);
+  transition: transform 0.22s ease;
+}
+
+details[open] summary {
+  border-bottom: 1px solid var(--hairline);
+}
+
+details[open] summary::after {
+  transform: rotate(45deg);
+}
+
+details .content {
+  display: grid;
+  gap: 0.8rem;
+  padding: 0.1rem 1rem 1rem;
+}
+
+.time-row,
+.quick-row,
+.chip-row,
+.shop-price {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.46rem;
+}
+
+.time-chip {
+  background: rgba(66, 110, 216, 0.1);
+  color: #315aaa;
+}
+
+.search-box {
+  position: sticky;
+  top: 0.55rem;
+  z-index: 8;
+  display: grid;
+  gap: 0.75rem;
+  border-color: rgba(255, 255, 255, 0.72);
+  background: rgba(255, 252, 246, 0.88);
+  backdrop-filter: blur(18px);
+}
+
+.search-wrap {
+  display: grid;
+  gap: 0.65rem;
+}
+
+button,
+a.link,
+.ghost-input {
+  appearance: none;
+  min-height: 2.55rem;
+  border: 1px solid var(--hairline-strong);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.88);
+  color: var(--ink);
+  font: inherit;
+  font-weight: 780;
+  text-decoration: none;
+  box-shadow: 0 8px 20px rgba(28, 49, 44, 0.05);
+  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+button,
+a.link {
+  padding: 0.72rem 0.95rem;
+}
+
+button:active,
+a.link:active,
+.quick-chip:active {
+  transform: scale(0.985);
+}
+
+.ghost-input {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  font-weight: 560;
+}
+
+.ghost-input:focus {
+  outline: 3px solid rgba(13, 138, 116, 0.14);
+  border-color: rgba(13, 138, 116, 0.4);
+  background: #fff;
+}
+
+.quick-chip {
+  border: 1px solid var(--hairline);
+  cursor: pointer;
+  box-shadow: none;
+}
+
+.note {
+  padding: 0.95rem 1rem;
+  border: 1px solid rgba(239, 138, 86, 0.2);
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(239, 138, 86, 0.14), rgba(255, 255, 255, 0.72));
+  color: #87452b;
+  line-height: 1.72;
+}
+
+.shop-card {
+  display: grid;
+  gap: 0.62rem;
+  padding: 1rem;
+  border: 1px solid rgba(39, 69, 62, 0.11);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.75);
+}
+
+.meta-list {
+  display: grid;
+  gap: 0.52rem;
+}
+
+.meta-row {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.meta-label {
+  color: var(--ink);
+  font-weight: 850;
+}
+
+.result-chip {
+  background: var(--blue-soft);
+  color: #3459b4;
+}
+
+.empty {
+  padding: 1rem;
+  border: 1px dashed rgba(39, 69, 62, 0.2);
+  border-radius: 20px;
+  color: var(--muted);
+  text-align: center;
+  background: rgba(255, 255, 255, 0.58);
+}
+
+.toolbar {
+  position: sticky;
+  bottom: calc(0.75rem + env(safe-area-inset-bottom, 0px));
+  z-index: 12;
+  margin-top: 1rem;
+}
+
+.toolbar-inner {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.4rem;
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 28px;
+  background: rgba(255, 253, 249, 0.9);
+  box-shadow: 0 20px 44px rgba(28, 49, 44, 0.16);
+  backdrop-filter: blur(20px);
+}
+
+.toolbar-inner .link,
+.toolbar-inner button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.55rem;
+  padding: 0.45rem 0.5rem;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  box-shadow: none;
+}
+
+@media (min-width: 760px) {
+  .app {
+    padding-top: 1.2rem;
+  }
+
+  .days,
+  .shop-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .hero {
+    min-height: 340px;
+  }
+}
+/* Premium UI polish layer */
+:root {
+  --ink-900: #102923;
+  --gold: #d99b4a;
+  --gold-soft: rgba(217, 155, 74, 0.18);
+  --glass: rgba(255, 255, 255, 0.74);
+  --glass-strong: rgba(255, 255, 255, 0.9);
+}
+
+body {
+  background:
+    radial-gradient(circle at 0% 0%, rgba(13, 138, 116, 0.26), transparent 20rem),
+    radial-gradient(circle at 100% 4%, rgba(217, 155, 74, 0.26), transparent 18rem),
+    radial-gradient(circle at 50% 105%, rgba(40, 77, 71, 0.12), transparent 18rem),
+    linear-gradient(180deg, #fffaf0 0%, #f4ecdf 50%, #ebe1d1 100%);
+}
+
+.app {
+  padding-top: max(1rem, env(safe-area-inset-top, 0px));
+}
+
+.hero {
+  min-height: 390px;
+  padding: 1.25rem;
+  border-radius: 36px;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.12), transparent 34%),
+    radial-gradient(circle at 20% 10%, rgba(126, 236, 215, 0.34), transparent 12rem),
+    radial-gradient(circle at 88% 14%, rgba(247, 183, 105, 0.26), transparent 11rem),
+    linear-gradient(145deg, #062d27 0%, #0d7e6b 46%, #153139 100%);
+  box-shadow:
+    0 34px 80px rgba(7, 58, 50, 0.32),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
+}
+
+.hero::before {
+  content: "ICN T1  ·  SEOUL";
+  position: absolute;
+  top: 1.05rem;
+  right: 1.05rem;
+  z-index: 1;
+  padding: 0.42rem 0.68rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.13em;
+}
+
+.hero h1 {
+  text-wrap: balance;
+  text-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+}
+
+.hero p {
+  max-width: 28rem;
+  font-size: 0.98rem;
+}
+
+.hero .copy-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.hero .copy-row button {
+  min-height: 3rem;
+  border-radius: 18px;
+}
+
+.card:not(.hero),
+details,
+.shop-card {
+  border-color: rgba(255, 255, 255, 0.8);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 250, 241, 0.82)),
+    var(--glass);
+  box-shadow:
+    0 18px 44px rgba(35, 54, 49, 0.085),
+    inset 0 1px 0 rgba(255, 255, 255, 0.86);
+}
+
+.section-head {
+  margin-top: 0.15rem;
+  padding-left: 0.1rem;
+}
+
+.section-head h2 {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.section-head h2::before {
+  content: "";
+  display: inline-block;
+  width: 0.52rem;
+  height: 1.35rem;
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--mint), var(--gold));
+  box-shadow: 0 8px 18px rgba(13, 138, 116, 0.2);
+}
+
+.search-box {
+  top: max(0.7rem, env(safe-area-inset-top, 0px));
+  border-radius: 30px;
+  border-color: rgba(255, 255, 255, 0.88);
+  background: rgba(255, 250, 242, 0.88);
+}
+
+.ghost-input {
+  min-height: 3.2rem;
+  border-radius: 20px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0.86));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.quick-row {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.quick-chip,
+#clear-search {
+  min-height: 2.35rem;
+  padding: 0.5rem 0.35rem;
+  border-radius: 16px;
+  font-size: 0.76rem;
+}
+
+.phase-top,
+.day-top {
+  align-items: flex-start;
+  padding-bottom: 0.15rem;
+}
+
+.list > .card,
+.days > .card {
+  position: relative;
+  overflow: hidden;
+}
+
+.list > .card::after,
+.days > .card::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 4px;
+  background: linear-gradient(90deg, var(--mint), rgba(217, 155, 74, 0.86), transparent);
+  opacity: 0.8;
+}
+
+.days > .card {
+  padding-left: 1.08rem;
+}
+
+.time-row {
+  padding: 0.2rem 0 0.05rem;
+}
+
+.time-chip {
+  min-height: 2rem;
+  background:
+    linear-gradient(180deg, rgba(66, 110, 216, 0.14), rgba(255, 255, 255, 0.68));
+  color: #2f56aa;
+}
+
+details {
+  border-radius: 25px;
+}
+
+summary {
+  min-height: 3.8rem;
+}
+
+details[open] {
+  box-shadow:
+    0 22px 54px rgba(35, 54, 49, 0.11),
+    inset 0 1px 0 rgba(255, 255, 255, 0.88);
+}
+
+details[open] summary {
+  color: var(--mint-dark);
+}
+
+details .content {
+  padding-bottom: 1.05rem;
+}
+
+.task {
+  border-radius: 18px;
+}
+
+.task label {
+  padding: 0.92rem 0.95rem;
+}
+
+.task.done {
+  box-shadow: inset 4px 0 0 rgba(13, 138, 116, 0.46);
+}
+
+.task input {
+  width: 1.28rem;
+  height: 1.28rem;
+  border-radius: 0.46rem;
+}
+
+.shop-card {
+  border-radius: 22px;
+}
+
+.shop-card h3 {
+  color: var(--ink-900);
+}
+
+.pill.bad {
+  color: #9c402d;
+}
+
+.toolbar {
+  bottom: calc(0.72rem + env(safe-area-inset-bottom, 0px));
+}
+
+.toolbar-inner {
+  border-radius: 30px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(255, 248, 238, 0.88));
+}
+
+.toolbar-inner .link,
+.toolbar-inner button {
+  flex-direction: column;
+  gap: 0.12rem;
+  min-height: 3rem;
+  border: 0;
+  background: transparent;
+  color: rgba(16, 41, 35, 0.8);
+  font-size: 0.74rem;
+}
+
+.toolbar-inner .link:nth-child(1)::before { content: "✓"; }
+.toolbar-inner .link:nth-child(2)::before { content: "i"; }
+.toolbar-inner .link:nth-child(3)::before { content: "D"; }
+.toolbar-inner .link:nth-child(4)::before { content: "¥"; }
+.toolbar-inner button::before { content: "↺"; }
+
+.toolbar-inner .link::before,
+.toolbar-inner button::before {
+  display: grid;
+  place-items: center;
+  width: 1.35rem;
+  height: 1.35rem;
+  border-radius: 999px;
+  background: var(--mint-soft);
+  color: var(--mint-dark);
+  font-size: 0.75rem;
+  font-weight: 900;
+}
+
+@media (max-width: 430px) {
+  .hero {
+    min-height: 370px;
+  }
+
+  .hero .copy-row,
+  .quick-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .toolbar-inner {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+  </style>
+</head>
+<body>
+<div class="app" id="app"></div>
+<script>
+const TASK_KEY='kr-trip-rich-mobile-v2-tasks';
+const UI_KEY='kr-trip-rich-mobile-v2-ui';
+const hotelAddress='22-3 Wausan-ro 29ra-gil, Mapo-gu, Seoul';
+const tripDates=['2026-04-24','2026-04-25','2026-04-26','2026-04-27','2026-04-28'];
+const phases=[
+  {title:'阶段一｜出发前',subtitle:'本地环境配置',items:['买好韩国 eSIM，保存二维码、安装说明和客服截图。','装好 Naver Map、Papago、Kakao T，并保存酒店地址。','有 Visa 就把它设为主卡，再用支付宝国内预付 + 韩元现金落地 + WOWPASS 本地刷卡做三层兜底。','提前用支付宝 / 微信把酒店、eSIM 和能预付的项目先付掉。','提前确认 Visa 已开通境外支付、额度够用、短信或 App 验证正常。','提前下乐天 / 新罗 / 新世界免税 App 领券；如果线上免税支付卡住，就改走线下 OY 即时退税。']},
+  {title:'阶段二｜抵达机场',subtitle:'系统初始化',items:['落地后优先出关，不在机场乱逛。','主住弘大就盯 N6002；主住钟路 / 首尔站才看 N6701。','第一晚用韩元现金解决夜巴和便利店，不把支付宝当夜巴主支付。','第二天在弘大买 Climate Card，不在落地夜研究复杂交通卡。','第二天再找弘大 / 明洞 / 首尔站一带办 WOWPASS，小额试刷成功后再当主力。']},
+  {title:'阶段三｜首尔执行',subtitle:'游玩与购物',items:['景福宫 / 北村 / 益善洞 / 广藏市场走经典线。','药妆只买 1+1、SALE、即时退税款。','衣服主战场是 GOTO Mall，不是潮牌街。','吃饭优先吐司、饭卷、汤饭、炸酱面。']},
+  {title:'阶段四｜回程',subtitle:'收口与资源释放',items:['大额退税商品别先托运。','先确认退税 / 提货，再托运，再安检。','回程日不开新景点，只做补漏和去机场。']}
+];
+const guideSections=[
+  {title:'🌙 T1 到 N6002 保姆线',open:true,bullets:['23:50 抵达仁川 T1，现实里大概率 01:00–01:30 出到 1F 到达层公共区域。','出到公共区后直接找 Bus / Airport Bus / Late-night Bus / Bus Ticket，不先逛便利店。','主住弘大就买 N6002 to Hongdae，目标 T1 01:00 / 01:40，最现实盯 01:40。','成人票按 17,000 KRW 准备，单独拿 20,000 KRW 韩元现金；现金优先，现场支持再用 Visa / 交通卡，支付宝不当夜巴主支付。','T1 到弘大约 45–65 分钟，到站后用 Naver Map 步行去酒店，02:30 左右入住是正常节奏。','错过 01:40：先看 04:00 / 04:40 后续夜巴，再考虑机场 / 云西过渡；真打车只走官方出租车站。']},
+  {title:'📱 App 与硬通货',open:false,bullets:['导航用 Naver Map，翻译用 Papago，打车用 Kakao T。','eSIM、转换插头、充电宝、Visa、支付宝、微信、韩元现金、人民币现金和能用的银联卡都要提前准备。','你现在有 Visa：Visa 负责大部分刷卡消费，支付宝负责国内预付和部分韩国商户补位，韩元现金负责落地夜巴和交通充值，WOWPASS 负责市区刷卡兜底。','WOWPASS 可以做支付和交通卡兜底，但它不是免费神卡。']},
+  {title:'💳 有 Visa 怎么付更稳',open:false,bullets:['出发前：酒店、eSIM、保险和能预约的项目优先用支付宝 / 微信在国内付完，订单截图离线保存；Visa 作为境外主卡。','落地第一晚：优先用韩元现金解决 N6002 夜巴、便利店和应急，不在机场深夜研究复杂支付。','第二天：到弘大 / 明洞 / 首尔站一带办 WOWPASS，小额试刷成功后作为 Visa 之外的韩国本地支付兜底。','支付宝：看到 Alipay+ / ZeroPay 或店员确认 Alipay okay 再用；传统市场、路边小店、交通充值和老式储物柜仍按现金准备。','购物退税：Olive Young / Daiso / 大型商场优先刷 Visa；如果失败再切 WOWPASS 或支付宝，结账前问 Alipay okay? Tax refund okay? 即时退税看护照和店铺规则，不是必须 Visa。']},
+  {title:'🛍 买什么更丰富：面膜 / 口红 / 香水 / 衣服',open:false,bullets:['面膜 / 棉片优先看 Olive Young：Mediheal、Abib、Biodance、Torriden 这类更适合你这次少量带回。','彩妆优先看唇妆，不要第一次就重仓底妆；平价看 rom&nd、3CE，想更精致可以看 HERA。','香氛优先小容量和礼盒：Tamburins、Nonfiction、Granhand 适合线下闻；大牌香水先在线上免税比价再决定。','衣服分两路：GOTO Mall 买平价基础款和小配件，Musinsa Standard 买真正会穿回国的主力单品。','伴手礼优先海苔、杏仁、咖啡包、护手霜、旅行装；不要买大件摆件和一堆普通面膜。','你 17 岁，这次买得丰富可以，但别买得像库存。']},
+    {title:'💸 预算分档怎么买',open:false,bullets:['500 RMB 左右：主打痘痘贴、护手霜、唇膏、面膜 / 棉片、海苔、杏仁、旅行装；Olive Young + Daiso / 便利店就够。','1000 RMB 左右：在 500 档基础上加 Dr.G、Torriden、Mediheal，再挑 1 支唇釉或 1 件基础款衣服。','2000 RMB 左右：这是你这次最稳主力档，药妆主清单 + 1–2 件基础款衣服 + 1 个香氛小件或 1–2 支彩妆。','3000 RMB 以上：才考虑大牌护肤、免税香水、HERA / 3CE 等更精致彩妆，但仍然要先线上免税比价。','一旦预算快到顶，就优先保留 Dr.G、Torriden、痘痘贴和真会穿的衣服，砍掉冲动加购。']},
+  {title:'🗺 按区域逛店：明洞 / 弘大 / GOTO / 免税',open:false,bullets:['明洞：主买 Olive Young 药妆、防晒、精华、痘痘贴、棉片和唇部小彩妆；不建议一路买主街小吃。','弘大 / 延南：主买文具、小物、帽子、袜子、轻配饰和伴手礼，适合慢逛，不适合做全场大采购。','GOTO Mall：主买基础款上衣、薄外套、裙子、袜子、小包和简单饰品；先逛一圈再回头补。','Musinsa Standard：主买真的会穿回国的卫衣、T 恤、衬衫、牛仔和基础裤；不是最便宜，但更稳。','线上免税：只看大牌护肤、香水、彩妆、礼盒；先比价、领券、再下单，不在线下免税店临时冲动买。']},
+  {title:'🏨 住宿预订注意事项',open:false,bullets:['现在就订，最晚不要晚于出发前 3–5 天；你要抢的是 17 岁可入住、凌晨 2 点后 self check-in、能国内预付或 Visa 担保。','首选 Hongik Univ. Station / 홍대입구역，尤其 2、3、8 号口附近，步行 3–8 分钟最好；次选 Hapjeong Station / 합정역。','下单前必须问：17 岁能否单独入住、是否接受 guardian consent form、是否支持 after 2:00 AM self check-in、是否能在线预付或 Visa 担保。','直接发酒店：I am 17 years old and will arrive after midnight. Can I check in alone with guardian consent form? Do you support self check-in after 2:00 AM?','不要订 motel / love hotel / 成人限定、23:00 前必须入住、离地铁 12 分钟以上、山坡房、只有韩文说明或房东不回消息的房。']},
+  {title:'🚇 交通卡怎么买最便宜',open:false,bullets:['这趟不是买一次性 4 天票。4/24 深夜 N6002 机场夜巴单独用韩元现金，4/25 早上再处理市区交通卡。','Plan A：Climate Card 短期票，优先看 5 日票，覆盖 4/25、4/26、4/27、4/28 市区地铁公交；实体卡和票价以现场机器显示为准。','你有 Visa，可以先试机器是否支持海外 Visa；不行就用韩元现金。','Plan B：T-money / WOWPASS 交通功能。交通余额通常要用 KRW 现金单独充值，购物余额和交通余额不是一回事。','身上至少留 10,000–20,000 KRW 专门给交通充值，别全花在购物。','如果 Climate Card 机器卡住，不要耗太久，直接退一步用 T-money / WOWPASS 交通功能。']},
+  {title:'🗣 软件怎么搜 / 怎么问',open:false,bullets:['Naver Map 搜索：Incheon Airport Terminal 1 / 인천공항1터미널；Hongik Univ. Station / 홍대입구역；Gyeongbokgung Station / 경복궁역；Express Bus Terminal Station / 고속터미널역。','明洞药妆搜 Olive Young Myeongdong Town / 올리브영 명동타운；GOTO Mall 搜 고투몰；汉江搜 Banpo Hangang Park / 반포한강공원。','Papago 问夜巴：Does this bus go to Hongdae? / 이 버스 홍대 가나요?','买票：N6002 to Hongdae, one person, please. / N6002 홍대 방향 한 명이요.','付款：Can I pay by Visa? / 비자카드 결제 되나요?；支付宝：Can I use Alipay? / 알리페이 되나요?','退税：Immediate tax refund, please. / 즉시 환급 해주세요.','酒店：I am 17 years old. Can I check in alone with guardian consent form?']},
+  {title:'💳 WOWPASS（金卡）怎么办',open:false,bullets:['你有 Visa，WOWPASS 不是必须主卡，是韩国本地支付、换汇和交通兜底。','第一晚不办：23:50 到 T1 后直接用韩元现金坐 N6002 去弘大。','官方 FAQ 写明仁川机场目前没有可用 WOW Exchange kiosk；第二天去弘大 / 明洞 / 首尔站附近机器再办。','办卡时选 English / Chinese，按机器提示发行卡、充值、绑定 App；第一次只充 50,000–100,000 KRW 试刷。','WOWPASS 的购物余额和 T-money 交通余额分开，交通余额通常要用 KRW 现金在便利店或地铁蓝色 T-money 机器充值。','丢卡后如果已绑定 App，先在 App 里暂停卡片；刷卡失败就切 Visa。']},
+  {title:'🛒 购物具体流程',open:false,bullets:['Olive Young：进店先看 1+1、SALE、Tax Refund，再拿 Dr.G、Torriden、痘痘贴、Mediheal、Round Lab。','结账前实体护照拿手上，直接问 Alipay okay? Tax refund okay?；付款顺序是 Visa → WOWPASS → 支付宝 → 现金。','结账后看小票有没有即时退税或 tax refund 信息，小票和未拆封商品分开放。','GOTO Mall：先设 50,000–100,000 KRW 预算，只买基础款和小配件；小店现金最稳，能刷再刷 Visa。','机场退税：先退税 / 海关验货，再托运行李，再安检；大额退税商品不要先托运。','回酒店当天就清点买了什么、几件、多少钱、是否退税，不要拖到回程日。']},
+  {title:'🚫 海关与 17 岁特别注意',open:false,bullets:['肉类、水果、蔬菜、种子、中药材这类别带。','你 17 岁，不建议碰烟酒额度逻辑，最稳就是不买不带。','酒店可能要求监护人同意书和监护人证件复印件，提前邮件确认。']},
+  {title:'💸 退税顺序',open:false,bullets:['即时退税先在店里直接做，记得带实体护照。','高额商品默认按先机场确认、后托运处理。','过安检后再去免税提货点拿线上订单。']}
+];
+const days=[
+  {day:'Day 1｜4/24 周五晚',goal:'T1 出关 → N6002 → 弘大酒店',times:['23:50–00:20 落地开网','00:20–01:15 边检取行李','01:00 / 01:40 N6002','02:00–02:50 弘大入住'],tasks:[{id:'d1a',text:'落地后已开 eSIM，手机能查 Naver Map 和酒店地址'},{id:'d1b',text:'已过边检、取行李，出到 T1 1F 到达层公共区域'},{id:'d1c',text:'已按 Bus / Late-night Bus / Bus Ticket 指示找到 N6002 站台'},{id:'d1d',text:'已准备 20,000 KRW 现金，N6002 票价按 17,000 KRW 预留'},{id:'d1e',text:'已坐上 01:00 或 01:40 的 N6002，方向确认是 Hongdae / Cheongnyangni'},{id:'d1f',text:'到弘大后已用 Naver Map 步行到酒店，完成凌晨入住'},{id:'d1g',text:'手机和充电宝已充电，第二天路线已截图'}],note:'第一晚不要研究复杂支付：现金优先，现场支持再用 Visa / 交通卡；支付宝不当夜巴主支付。'},
+  {day:'Day 2｜4/25 周六',goal:'交通卡 → 景福宫 → 北村 → 益善洞 → 广藏',times:['09:00–10:40 早餐交通卡','11:00–13:30 景福宫','13:30–16:30 北村益善洞','16:30–20:30 广藏清溪川'],tasks:[{id:'d2a',text:'早餐控制在 5,000–8,000 KRW，没有吃重餐'},{id:'d2b',text:'已在弘大附近处理 Climate Card / 交通卡，现场按机器显示付款'},{id:'d2c',text:'已从 Hongik Univ. Station 去 Gyeongbokgung Station，不硬搜中文店名'},{id:'d2d',text:'景福宫已放在第一站，没有拖到周二闭馆日'},{id:'d2e',text:'北村只顺路看 30–40 分钟，没有在居民区绕太久'},{id:'d2f',text:'广藏市场只吃最想吃的 1–2 样，已用小额现金控制预算'},{id:'d2g',text:'晚上已顺路回弘大，没有再加江南或塔'}],note:'今天是经典线，一整天靠地铁和步行走顺，别把路线打散。'},
+  {day:'Day 3｜4/26 周日',goal:'弘大 / 延南慢逛 + 明洞 OY 采购',times:['10:00–14:00 弘大延南','14:00–18:30 明洞 OY','18:30–21:00 回弘大整理'],tasks:[{id:'d3a',text:'今天 10 点后再出门，没有一早赶景点'},{id:'d3b',text:'弘大 / 延南已慢逛，没跨城乱跑'},{id:'d3c',text:'Olive Young 已先看 1+1、SALE、Tax Refund 标签'},{id:'d3d',text:'采购优先刷 Visa，失败再切 WOWPASS / 支付宝 / 现金'},{id:'d3e',text:'结账已出示实体护照，并确认即时退税 / 小票'},{id:'d3f',text:'购物总额没有超过 2000 RMB 预算'},{id:'d3g',text:'退税小票和未拆封商品已分开放好'}],note:'明洞今天只做药妆和补货；Visa 是主卡，支付宝、WOWPASS 和现金是备用。'},
+  {day:'Day 4｜4/27 周一',goal:'GOTO Mall 便宜衣服 + 盘浦汉江',times:['09:30–13:00 GOTO 第一轮','13:00–16:30 午饭补缺','17:00–20:00 汉江回弘大'],tasks:[{id:'d4a',text:'已从弘大直接去 Express Bus Terminal / GOTO Mall，没有临时加圣水或江南'},{id:'d4b',text:'已给 GOTO Mall 设置 50,000–100,000 KRW 服饰上限'},{id:'d4c',text:'只买基础款和小配件，没有拿大件或难带商品'},{id:'d4d',text:'小店用韩元现金，能刷店优先 Visa，付款方式没有卡住'},{id:'d4e',text:'午饭和晚饭保持一人食简餐，没有冲商场高价正餐'},{id:'d4f',text:'傍晚去了盘浦汉江看免费夜景，没有加收费项目'},{id:'d4g',text:'晚上已预整理行李、退税单、充电宝和护照'}],note:'今天是便宜购物和免费夜景，不给潮牌、咖啡和临时收费项目留预算。'},
+  {day:'Day 5｜4/28 周二',goal:'补漏 → 退税 → 托运 → 登机',times:['10:00–15:00 最后补漏','15:00–18:00 回酒店打包','18:30–23:40 机场流程'],tasks:[{id:'d5a',text:'最后补货只买清单缺项，没有开新景点或新商场'},{id:'d5b',text:'退税小票、护照、未拆封商品已放在随手可拿的位置'},{id:'d5c',text:'充电宝已放随身包，没有放进托运行李'},{id:'d5d',text:'液体、刀剪和大件已进托运；大额退税商品未提前托运'},{id:'d5e',text:'已按 18:30–19:00 从弘大出发去仁川 T1'},{id:'d5f',text:'到机场先确认退税 / 海关验货，再托运行李，再安检'},{id:'d5g',text:'过安检后已去免税提货点，登机前 40–60 分钟到登机口附近'}],note:'4/28 23:40 起飞，4/29 凌晨到国内；今天只收口，不开新景点。'}
+];
+const shopping=[
+  {kind:'护肤 / 防晒',zone:'明洞 / Olive Young',budget:'500–2000 档',name:'Dr.G Green Mild Up Sun+ 50ml',where:'Olive Young',fit:'最稳回购线',kr:'60–90 RMB',cn:'129–169 RMB',gap:'价差约 40–80',tip:'第一梯队，小体积、需求广、最好带。'},
+  {kind:'护肤 / 精华',zone:'明洞 / Olive Young',budget:'500–2000 档',name:'Torriden Dive-In Serum 50ml',where:'Olive Young',fit:'补水稳定线',kr:'75–105 RMB',cn:'109–159 RMB',gap:'价差约 20–50',tip:'回购率高，适合自己用也适合送人。'},
+  {kind:'面膜 / 棉片',zone:'明洞 / Olive Young',budget:'500–2000 档',name:'Mediheal Madecassoside Blemish Pad 100+100',where:'Olive Young',fit:'活动期很值',kr:'95–135 RMB',cn:'129–189 RMB',gap:'价差约 30–60',tip:'棉片比普通面膜更稳，但体积偏大。'},
+  {kind:'面膜 / 贴片',zone:'明洞 / Olive Young',budget:'500–1000 档',name:'Abib / Biodance 面膜线',where:'Olive Young',fit:'适合少量带回',kr:'看活动',cn:'国内同款通常更贵',gap:'靠 1+1 和套装拉差价',tip:'优先买功能明确的面膜，不囤普通片装大箱。'},
+  {kind:'痘痘贴 / 小物',zone:'明洞 / Olive Young',budget:'500 档',name:'Olive Young Care Plus Scar Cover 102pcs',where:'Olive Young',fit:'最轻最好塞',kr:'28–40 RMB',cn:'45–69 RMB',gap:'价差约 10–25',tip:'最适合顺手多带几盒，像自用也像送人。'},
+  {kind:'护肤 / 爽肤水',zone:'明洞 / Olive Young',budget:'1000–2000 档',name:'Round Lab 1025 Dokdo Toner 200ml',where:'Olive Young',fit:'自用稳',kr:'55–75 RMB',cn:'89–119 RMB',gap:'价差约 20–45',tip:'液体占行李，最多带 1–2 瓶。'},
+  {kind:'唇妆 / 平价',zone:'明洞 / Olive Young',budget:'500–1000 档',name:'rom&nd Juicy Lasting Tint / Glasting 系列',where:'Olive Young / 明洞彩妆店',fit:'适合自己用',kr:'看活动',cn:'国内旗舰常常更贵',gap:'活动价差更明显',tip:'买 1–2 支最实用，不要按代带思路囤一排色号。'},
+  {kind:'唇妆 / 韩系大牌',zone:'明洞 / 百货 / 免税',budget:'1000–3000 档',name:'3CE / HERA 唇釉和唇膏线',where:'明洞 / 免税店 / 百货',fit:'想买更精致的彩妆',kr:'看柜台与免税',cn:'国内专柜通常更贵',gap:'免税和券后更有优势',tip:'先试色，不要第一次就重仓底妆。'},
+  {kind:'底妆 / 谨慎买',zone:'明洞 / 百货 / 免税',budget:'1000–3000 档',name:'HERA / Laneige 气垫和底妆线',where:'百货 / 免税',fit:'试色后再买',kr:'看柜台与免税',cn:'国内专柜通常更贵',gap:'免税时更有优势',tip:'底妆色号风险高，只建议你自己明确色号后买。'},
+  {kind:'香氛 / 韩系',zone:'圣水 / 明洞 / 旗舰店',budget:'1000–2000 档',name:'Tamburins / Nonfiction / Granhand 小容量香氛',where:'圣水 / 明洞 / 百货 / 旗舰店',fit:'体验感强',kr:'看线下套装和礼盒',cn:'国内代购价通常偏高',gap:'小容量和礼盒更划算',tip:'优先手霜、香膏、旅行装，小容量最稳。'},
+  {kind:'香水 / 免税大牌',zone:'线上免税',budget:'2000–3000 档',name:'Jo Malone / Diptyque / Byredo / Replica 小瓶或礼盒',where:'乐天 / 新罗 / 新世界线上免税',fit:'先比价再决定',kr:'看券后和提货价',cn:'国内专柜更贵',gap:'叠券后差距大',tip:'大牌香水优先线上免税，不在机场线下临时冲动买。'},
+  {kind:'护肤 / 免税大牌',zone:'线上免税',budget:'2000–3000 档',name:'Sulwhasoo / HERA / Laneige 大牌护肤线',where:'乐天 / 新罗 / 新世界线上免税',fit:'先锁定明确需求',kr:'看券后和套装',cn:'国内专柜通常更贵',gap:'套装和券后更强',tip:'有明确自己要用或送谁再买，不然容易买贵。'},
+  {kind:'衣服 / 基础款',zone:'Musinsa Standard',budget:'1000–3000 档',name:'Musinsa Standard 卫衣、T 恤、衬衫、牛仔',where:'Musinsa Standard',fit:'稳定不翻车',kr:'看门店活动',cn:'国内同类基础款未必更便宜',gap:'主要赢在版型和质感',tip:'买 1–2 件真正会穿回国的主力单品。'},
+  {kind:'衣服 / 平价线',zone:'GOTO Mall',budget:'500–2000 档',name:'GOTO Mall 基础款上衣、裙子、袜子、小包',where:'GOTO Mall',fit:'预算优先',kr:'现金友好',cn:'同类款国内也有，但首尔现场更好挑',gap:'胜在便宜和顺手买',tip:'先设预算，只买轻、薄、真会穿的。'},
+  {kind:'鞋包 / 配饰',zone:'GOTO Mall / 弘大',budget:'500–1000 档',name:'帽子、袜子、小包、发饰、轻配饰',where:'GOTO Mall / 弘大选物店',fit:'顺手补位最值',kr:'看店铺和现金价',cn:'同类小物国内也有',gap:'胜在现场好挑',tip:'只买轻小件，不买占箱子的大摆件。'},
+  {kind:'伴手礼 / 小物',zone:'便利店 / Daiso / Olive Young',budget:'500–1000 档',name:'海苔、杏仁、咖啡包、护手霜、旅行装',where:'便利店 / 超市 / Daiso / Olive Young',fit:'最适合分给朋友',kr:'看组合装',cn:'国内代购价更高',gap:'量小但稳定省心',tip:'不要买大件摆件，轻、小、能分掉最重要。'},
+  {kind:'保健 / 功能线',zone:'明洞 / Olive Young',budget:'1000–2000 档',name:'Lactofit Gold / 小型营养线',where:'Olive Young',fit:'只少量带',kr:'45–65 RMB',cn:'79–109 RMB',gap:'价差约 25–45',tip:'有差价，但别带太多，避免像保健品囤货。'}
+]
+function renderShopping(){const visible=shopping.filter((item)=>matchesQuery([item.kind,item.zone,item.budget,item.name,item.where,item.fit,item.kr,item.cn,item.gap,item.tip])); if(!visible.length) return '<div class="empty">购物区没有匹配结果。</div>'; return visible.map((item)=>`<article class="shop-card"><div class="shop-price"><span class="pill">${item.kind}</span><span class="pill warn">${item.zone}</span><span class="pill bad">${item.budget}</span></div><h3>${item.name}</h3><div class="shop-price"><span class="pill">${item.where}</span><span class="pill warn">${item.fit}</span><span class="pill bad">${item.gap}</span></div><p class="mini">韩国：${item.kr}｜国内：${item.cn}</p><p class="mini">${item.tip}</p></article>`).join('');}
+function loadTasks(){try{return JSON.parse(localStorage.getItem(TASK_KEY)||'{}')}catch{return {}}}
+function loadUi(){try{return JSON.parse(localStorage.getItem(UI_KEY)||'{"search":"","todayOnly":false}')}catch{return {search:'',todayOnly:false}}}
+let tasksState=loadTasks();
+let uiState=loadUi();
+function saveTasks(){localStorage.setItem(TASK_KEY,JSON.stringify(tasksState));}
+function saveUi(){localStorage.setItem(UI_KEY,JSON.stringify(uiState));}
+function isDone(id){return Boolean(tasksState[id]);}
+function normalize(text){return String(text).toLowerCase();}
+function matchesQuery(parts){const q=normalize(uiState.search.trim());if(!q) return true;return parts.some((part)=>normalize(part).includes(q));}
+function getTodayIndex(){const now=new Date();const pad=(value)=>String(value).padStart(2,'0');const today=`${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}`;const idx=tripDates.indexOf(today);if(idx!==-1) return idx; if(today < tripDates[0]) return 0; return tripDates.length-1;}
+function copyText(text){navigator.clipboard?.writeText(text).then(()=>alert('已复制，可直接粘贴到地图或备忘录。')).catch(()=>prompt('请手动复制下面内容：',text));}
+function sharePage(){const data={title:'韩国旅行清单增强版',text:'手机直接打开就能用的韩国旅行清单',url:location.href};if(navigator.share){navigator.share(data).catch(()=>{});}else{copyText(location.href);}}
+function setSearch(value){uiState.search=value;saveUi();render();}
+function toggleTodayMode(){uiState.todayOnly=!uiState.todayOnly;saveUi();render();}
+function renderTask(id,text){const done=isDone(id);return `<li class="task ${done?'done':''}"><label><input type="checkbox" data-check-id="${id}" ${done?'checked':''}><span class="task-text">${text}</span></label></li>`;}
+function renderPhases(){return phases.map((phase)=>{const visibleItems=phase.items.filter((item)=>matchesQuery([phase.title,phase.subtitle,item]));if(!visibleItems.length) return '';const total=visibleItems.length;const done=visibleItems.filter((_,i)=>isDone(`phase-${phase.title}-${phase.items.indexOf(visibleItems[i])}`)).length;return `<article class="card"><div class="phase-top"><div><span class="chip">${phase.title}</span><h3>${phase.subtitle}</h3></div><span class="status ${done===total?'ok':''}">${done}/${total}</span></div><ul class="checklist">${visibleItems.map((item)=>renderTask(`phase-${phase.title}-${phase.items.indexOf(item)}`,item)).join('')}</ul></article>`;}).join('');}
+function renderGuide(){return guideSections.filter((item)=>matchesQuery([item.title,...item.bullets])).map((item)=>`<details class="guide" ${item.open?'open':''}><summary>${item.title}</summary><div class="content"><ul>${item.bullets.map((line)=>`<li>${line}</li>`).join('')}</ul></div></details>`).join('');}
+function dayProgress(day){const total=day.tasks.length;const done=day.tasks.filter((task)=>isDone(task.id)).length;return {done,total};}
+function getVisibleDays(){let visible=days; if(uiState.todayOnly){visible=[days[getTodayIndex()]];} const q=uiState.search.trim(); if(q){visible=visible.filter((day)=>matchesQuery([day.day,day.goal,day.note,...day.times,...day.tasks.map((t)=>t.text)]));} return visible;}
+function renderDayCard(day){const {done,total}=dayProgress(day);return `<article class="card"><div class="day-top"><div><span class="chip">${day.day}</span><h3>${day.goal}</h3></div><span class="status ${done===total?'ok':''}">执行清单：${done}/${total}</span></div><div class="time-row">${day.times.map((t)=>`<span class="time-chip">${t}</span>`).join('')}</div><p class="mini">${day.note}</p><ul class="checklist">${day.tasks.map((task)=>renderTask(task.id,task.text)).join('')}</ul><div class="copy-row"><button data-mark-day="${day.day}">当天全勾</button><button data-clear-day="${day.day}">清空当天</button></div></article>`;}
+function renderDays(){const visible=getVisibleDays(); if(!visible.length) return '<div class="empty">没有匹配到相关内容，试试搜 “退税” 或 “N6002”。</div>'; return visible.map(renderDayCard).join('');}
+function renderShopping(){const visible=shopping.filter((item)=>matchesQuery([item.name,item.kr,item.cn,item.gap,item.tip])); if(!visible.length) return '<div class="empty">购物区没有匹配结果。</div>'; return visible.map((item)=>`<article class="shop-card"><h3>${item.name}</h3><div class="shop-price"><span class="pill">韩国：${item.kr}</span><span class="pill warn">国内：${item.cn}</span><span class="pill bad">${item.gap}</span></div><p class="mini">${item.tip}</p></article>`).join('');}
+function markDay(dayName,value){const day=days.find((d)=>d.day===dayName); if(!day) return; day.tasks.forEach((task)=>{tasksState[task.id]=value;}); saveTasks(); render();}
+function render(){const totalTasks=[...phases.flatMap((p)=>p.items.map((_,i)=>`phase-${p.title}-${i}`)),...days.flatMap((d)=>d.tasks.map((t)=>t.id))];const doneTasks=totalTasks.filter((id)=>isDone(id)).length;const visibleDays=getVisibleDays();const todayLabel=days[getTodayIndex()].day;document.getElementById('app').innerHTML=`<section class="hero card"><span class="eyebrow">KR MOBILE PRO</span><h1>韩国旅行清单增强版</h1><p>现在是更丰富的手机版本：四阶段、终极指南、每天任务、购物建议都整合在一个页面里，手机直接点开就能用。</p><div class="chip-row"><span class="chip">总任务：${doneTasks}/${totalTasks.length}</span><span class="status warn">公网直开版</span><span class="build-note">更新于 2026-04-19</span></div><div class="copy-row"><button id="share">分享链接</button><button id="copy-hotel">复制酒店地址</button><button id="copy-airport">复制返程提醒</button></div></section><section class="section"><div class="card search-box"><div class="search-wrap"><input id="search-input" class="ghost-input" type="search" placeholder="搜 面膜 / 口红 / 香水 / 衣服 / 住宿 / 交通卡 / N6002" value="${uiState.search.replace(/"/g,'&quot;')}" /><div class="quick-row"><button class="quick-chip" data-quick="住宿">住宿</button><button class="quick-chip" data-quick="交通卡">交通卡</button><button class="quick-chip" data-quick="Climate Card">Climate Card</button><button class="quick-chip" data-quick="500预算">500预算</button><button class="quick-chip" data-quick="2000档">2000档</button><button class="quick-chip" data-quick="明洞">明洞</button><button class="quick-chip" data-quick="弘大">弘大</button><button class="quick-chip" data-quick="免税">免税</button><button class="quick-chip" data-quick="N6002">N6002</button><button class="quick-chip" data-quick="退税">退税</button><button class="quick-chip" data-quick="支付宝">支付宝</button><button class="quick-chip" data-quick="金卡">金卡</button><button class="quick-chip" data-quick="购物">购物</button><button class="quick-chip" data-quick="问路">问路</button><button class="quick-chip" data-quick="酒店">酒店</button><button class="quick-chip" data-quick="Dr.G">Dr.G</button><button class="quick-chip" data-quick="面膜">面膜</button><button class="quick-chip" data-quick="口红">口红</button><button class="quick-chip" data-quick="香水">香水</button><button class="quick-chip" data-quick="衣服">衣服</button><button class="quick-chip" data-quick="GOTO">GOTO</button><button id="clear-search">清空搜索</button></div></div><div class="mode-row"><span class="chip result-chip">当前结果：${visibleDays.length} 天任务视图</span><button id="toggle-today">${uiState.todayOnly ? `今天模式：${todayLabel}` : '打开今天模式'}</button></div></div></section><section class="section" id="phases"><div class="section-head"><span class="eyebrow">Timeline</span><h2>四阶段执行面板</h2><p>按阶段勾掉你已经完成的动作。</p></div><div class="list">${renderPhases() || '<div class="empty">四阶段里没有匹配结果。</div>'}</div></section><section class="section" id="guide"><div class="section-head"><span class="eyebrow">Ultimate Guide</span><h2>全方位终极指南</h2><p>保留最关键的机场、支付、App、海关、退税和住宿信息。</p></div><div class="guide-grid">${renderGuide() || '<div class="empty">指南里没有匹配结果。</div>'}</div><div class="card meta-list"><div class="meta-row"><span class="meta-label">酒店默认地址：</span><span>${hotelAddress}</span></div><div class="meta-row"><span class="meta-label">返程提醒：</span><span>4/28 晚班机返程版：19:00 左右从弘大往仁川 T1 走。</span></div></div></section><section class="section" id="days"><div class="section-head"><span class="eyebrow">Daily Plan</span><h2>每天要干什么</h2><p>每天一张卡，点一下就勾掉，刷新后也会记住。</p></div><div class="days">${renderDays()}</div></section><section class="section" id="shopping"><div class="section-head"><span class="eyebrow">Shopping</span><h2>最值得买什么</h2><p>按轻体积、价差明显、看起来更像自用或送人的方向挑，不走大货囤积路线。</p></div><div class="shop-grid">${renderShopping()}</div><div class="note">17 岁这次最稳的策略：不碰烟酒，不碰大体积保健品，不走“像商业代购”的大货逻辑；有 Visa 就优先 Visa，失败再切 WOWPASS / 支付宝 / 现金三套兜底。</div></section><div class="toolbar"><div class="toolbar-inner"><a class="link" href="#phases">四阶段</a><a class="link" href="#guide">指南</a><a class="link" href="#days">每天任务</a><a class="link" href="#shopping">买什么</a><button id="reset">清空进度</button></div></div>`;document.querySelectorAll('[data-check-id]').forEach((input)=>{input.addEventListener('change',(event)=>{tasksState[event.target.dataset.checkId]=event.target.checked;saveTasks();render();});});document.querySelectorAll('[data-quick]').forEach((btn)=>btn.addEventListener('click',()=>setSearch(btn.dataset.quick)));document.getElementById('search-input').addEventListener('input',(e)=>setSearch(e.target.value));document.getElementById('clear-search').addEventListener('click',()=>setSearch(''));document.getElementById('toggle-today').addEventListener('click',toggleTodayMode);document.getElementById('reset').addEventListener('click',()=>{if(!confirm('确认清空当前设备里的所有勾选进度吗？')) return;tasksState={};saveTasks();render();});document.getElementById('copy-hotel').addEventListener('click',()=>copyText(hotelAddress));document.getElementById('copy-airport').addEventListener('click',()=>copyText('4/28 晚班机返程版：19:00 左右从弘大往仁川 T1 走，先确认退税 / 提货，再托运行李，再安检。'));document.getElementById('share').addEventListener('click',sharePage);document.querySelectorAll('[data-mark-day]').forEach((btn)=>btn.addEventListener('click',()=>markDay(btn.dataset.markDay,true)));document.querySelectorAll('[data-clear-day]').forEach((btn)=>btn.addEventListener('click',()=>markDay(btn.dataset.clearDay,false)));}
+render();
+  </script>
+</body>
+</html>
