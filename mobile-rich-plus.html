@@ -835,7 +835,36 @@ details .content {
   }
 }
 
-  </style>
+  
+.today-focus-shell .card{
+  position:relative;
+  overflow:hidden;
+  border-color:rgba(13,138,116,.22);
+  background:
+    radial-gradient(circle at top right, rgba(217,155,74,.16), transparent 12rem),
+    linear-gradient(135deg, rgba(13,138,116,.16), rgba(255,255,255,.92)),
+    var(--paper-strong);
+}
+.today-focus-shell .card::before{
+  content:"";
+  position:absolute;
+  inset:0 auto 0 0;
+  width:.32rem;
+  border-radius:inherit;
+  background:linear-gradient(180deg,var(--mint),rgba(217,155,74,.86));
+  opacity:.9;
+}
+.today-focus-shell .card > *{
+  position:relative;
+  z-index:1;
+}
+.today-focus-shell .day-top{
+  align-items:flex-start;
+}
+.today-focus-shell .day-top h3{
+  color:var(--ink-900,#102923);
+}
+</style>
 </head>
 <body>
 <div class="app" id="app"></div>
@@ -900,7 +929,7 @@ const shopping=[
 function shoppingDayProgress(day){const total=day.tasks.length;const done=day.tasks.filter((task)=>isDone(task.id)).length;return {done,total};}
 function renderShoppingDayCard(day){const {done,total}=shoppingDayProgress(day);return `<article class="card"><div class="day-top"><div><span class="chip">${day.day}</span><h3>按天采购单</h3></div><span class="status ${done===total?'ok':''}">执行清单：${done}/${total}</span></div><p class="mini">${day.note}</p><ul class="checklist">${day.tasks.map((task)=>renderTask(task.id,task.text)).join('')}</ul></article>`;}
 function renderShoppingDays(){const visible=shoppingDays.filter((day)=>matchesQuery([day.day,day.note,...day.tasks.map((t)=>t.text)])); if(!visible.length) return '<div class="empty">采购单没有匹配结果。</div>'; return visible.map(renderShoppingDayCard).join('');}
-function renderTodayFocus(){const day=days[getTodayIndex()]; const shoppingIdx=getTodayShoppingIndex(); const shoppingDay=shoppingIdx>=0 ? shoppingDays[shoppingIdx] : null; const shoppingBlock=shoppingDay ? renderShoppingDayCard(shoppingDay) : `<article class="card"><div class="day-top"><div><span class="chip">${day.day}</span><h3>今天采购单</h3></div><span class="status warn">未激活</span></div><p class="mini">今天先把路线和节奏走顺，采购单从 4/26 才开始真正执行。</p></article>`; return `<section class="section" id="today-focus"><div class="section-head"><span class="eyebrow">Today Focus</span><h2>今天先看这个</h2><p>自动把今天路线和今天采购单放一起，减少你现场翻页面的时间。</p></div><div class="days">${renderDayCard(day)}${shoppingBlock}</div></section>`;}
+function renderTodayFocus(){const day=days[getTodayIndex()]; const shoppingIdx=getTodayShoppingIndex(); const shoppingDay=shoppingIdx>=0 ? shoppingDays[shoppingIdx] : null; const shoppingBlock=shoppingDay ? renderShoppingDayCard(shoppingDay) : `<article class="card"><div class="day-top"><div><span class="chip">${day.day}</span><h3>今天采购单</h3></div><span class="status warn">未激活</span></div><p class="mini">今天先把路线和节奏走顺，采购单从 4/26 才开始真正执行。</p></article>`; return `<section class="section today-focus-shell" id="today-focus"><div class="section-head"><span class="eyebrow">Today Focus</span><h2>今天先看这个</h2><p>自动把今天路线和今天采购单放一起，出门时不用在整页里翻半天。</p></div><div class="days">${renderDayCard(day)}${shoppingBlock}</div></section>`;}
 function renderShopping(){const visible=shopping.filter((item)=>matchesQuery([item.kind,item.zone,item.budget,item.name,item.where,item.fit,item.kr,item.cn,item.gap,item.tip])); if(!visible.length) return '<div class="empty">购物区没有匹配结果。</div>'; return visible.map((item)=>`<article class="shop-card"><div class="shop-price"><span class="pill">${item.kind}</span><span class="pill warn">${item.zone}</span><span class="pill bad">${item.budget}</span></div><h3>${item.name}</h3><div class="shop-price"><span class="pill">${item.where}</span><span class="pill warn">${item.fit}</span><span class="pill bad">${item.gap}</span></div><p class="mini">韩国：${item.kr}｜国内：${item.cn}</p><p class="mini">${item.tip}</p></article>`).join('');}
 function loadTasks(){try{return JSON.parse(localStorage.getItem(TASK_KEY)||'{}')}catch{return {}}}
 function loadUi(){try{return JSON.parse(localStorage.getItem(UI_KEY)||'{"search":"","todayOnly":false}')}catch{return {search:'',todayOnly:false}}}
