@@ -864,6 +864,61 @@ details .content {
 .today-focus-shell .day-top h3{
   color:var(--ink-900,#102923);
 }
+
+.toolbar-inner{
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+.toolbar-inner .link,
+.toolbar-inner button{
+  min-height: 3.05rem;
+  font-size: .72rem;
+  line-height: 1.1;
+}
+#shopping-top .shop-card{
+  border-color: rgba(13,138,116,.2);
+  background:
+    radial-gradient(circle at top right, rgba(217,155,74,.14), transparent 10rem),
+    linear-gradient(180deg, rgba(255,255,255,.95), rgba(246,255,251,.88));
+}
+#shopping-top .shop-card::before{
+  content:"TOP";
+  width:fit-content;
+  padding:.18rem .5rem;
+  border-radius:999px;
+  background:rgba(13,138,116,.12);
+  color:var(--mint-dark);
+  font-size:.68rem;
+  font-weight:900;
+  letter-spacing:.08em;
+}
+.today-focus-shell{
+  margin-top:1.2rem;
+}
+.today-focus-shell .section-head{
+  padding:.2rem .1rem;
+}
+.today-focus-shell .section-head h2{
+  font-size:1.6rem;
+}
+.today-focus-shell .card{
+  box-shadow:
+    0 24px 60px rgba(13,80,70,.13),
+    inset 0 1px 0 rgba(255,255,255,.9);
+}
+@media(max-width:430px){
+  .toolbar-inner{
+    gap:.28rem;
+    padding:.42rem;
+  }
+  .toolbar-inner .link,
+  .toolbar-inner button{
+    min-height:2.72rem;
+    padding:.38rem .24rem;
+    font-size:.66rem;
+    border-radius:16px;
+  }
+}
+
 </style>
 </head>
 <body>
