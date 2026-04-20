@@ -365,11 +365,16 @@
     }
 
     function copyText(text) {
-      navigator.clipboard?.writeText(text).then(() => {
-        alert("已复制。");
-      }).catch(() => {
-        prompt("请手动复制：", text);
-      });
+      if (navigator.clipboard?.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+          alert("已复制。");
+        }).catch(() => {
+          prompt("请手动复制：", text);
+        });
+        return;
+      }
+
+      prompt("请手动复制：", text);
     }
 
     document.querySelector("#copy-bus")?.addEventListener("click", () => {
