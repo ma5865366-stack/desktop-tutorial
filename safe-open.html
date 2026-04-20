@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0d8a74" />
+  <title>韩国旅行清单安全入口</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 18px 14px 36px;
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans SC", "Segoe UI", sans-serif;
+      color: #142d28;
+      background:
+        radial-gradient(circle at 8% -8%, rgba(13,138,116,.22), transparent 260px),
+        radial-gradient(circle at 100% 0%, rgba(217,155,74,.22), transparent 240px),
+        linear-gradient(180deg, #fffaf2 0%, #f4ede1 55%, #eadfce 100%);
+    }
+    main {
+      width: min(100%, 720px);
+      margin: 0 auto;
+      display: grid;
+      gap: 14px;
+    }
+    section {
+      border: 1px solid rgba(255,255,255,.78);
+      border-radius: 24px;
+      padding: 16px;
+      background: rgba(255,255,255,.82);
+      box-shadow: 0 18px 44px rgba(24,48,43,.1);
+    }
+    .hero {
+      min-height: 260px;
+      display: grid;
+      align-content: end;
+      color: #fff;
+      background:
+        radial-gradient(circle at 16% 12%, rgba(126,236,215,.34), transparent 190px),
+        radial-gradient(circle at 90% 12%, rgba(247,183,105,.26), transparent 170px),
+        linear-gradient(145deg, #072f2a 0%, #0d7e6b 46%, #153139 100%);
+    }
+    h1, h2, p { margin: 0; }
+    h1 {
+      max-width: 8ch;
+      font-size: clamp(40px, 12vw, 68px);
+      line-height: .96;
+      letter-spacing: -.06em;
+    }
+    h2 { font-size: 21px; }
+    p { color: #647771; line-height: 1.72; }
+    .hero p { color: rgba(255,255,255,.82); }
+    .links {
+      display: grid;
+      gap: 10px;
+    }
+    a {
+      display: block;
+      min-height: 52px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: #fff;
+      color: #142d28;
+      text-decoration: none;
+      font-weight: 800;
+      border: 1px solid rgba(34,62,56,.12);
+    }
+    a.primary {
+      background: linear-gradient(135deg, rgba(13,138,116,.18), rgba(255,255,255,.96));
+      color: #075f52;
+    }
+    a.warn {
+      background: linear-gradient(135deg, rgba(239,138,86,.18), rgba(255,255,255,.96));
+      color: #8a4526;
+    }
+    code {
+      display: block;
+      overflow-wrap: anywhere;
+      padding: 10px;
+      border-radius: 14px;
+      background: rgba(13,138,116,.08);
+      color: #075f52;
+      line-height: 1.55;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <h1>安全入口</h1>
+      <p>如果微信、QQ、某些浏览器打不开复杂页面，先打开这个纯链接页。</p>
+    </section>
+
+    <section>
+      <h2>直接打开</h2>
+      <div class="links">
+        <a class="primary" href="https://ma5865366-stack.github.io/desktop-tutorial/mobile-rich-max.html">打开完整版</a>
+        <a class="warn" href="https://ma5865366-stack.github.io/desktop-tutorial/night-arrival-lite.html">打开落地夜极简页</a>
+        <a href="https://ma5865366-stack.github.io/desktop-tutorial/">打开总入口</a>
+      </div>
+    </section>
+
+    <section>
+      <h2>如果上面打不开，用备用</h2>
+      <div class="links">
+        <a class="primary" href="https://rawcdn.githack.com/ma5865366-stack/desktop-tutorial/main/mobile-rich-max.html">备用完整版</a>
+        <a class="warn" href="https://rawcdn.githack.com/ma5865366-stack/desktop-tutorial/main/night-arrival-lite.html">备用极简页</a>
+        <a href="https://rawcdn.githack.com/ma5865366-stack/desktop-tutorial/main/index.html">备用总入口</a>
+      </div>
+    </section>
+
+    <section>
+      <h2>手动复制链接</h2>
+      <p>如果按钮点不动，就长按下面链接复制到 Safari 地址栏：</p>
+      <code>https://ma5865366-stack.github.io/desktop-tutorial/mobile-rich-max.html</code>
+    </section>
+  </main>
+</body>
+</html>
