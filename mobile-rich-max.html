@@ -1477,6 +1477,200 @@ body::before{
     font-size:.64rem;
   }
 }
+
+/* Readability-first section framing */
+.hero{
+  align-content:start !important;
+  padding-top:4.1rem !important;
+}
+.hero::before{
+  top:.9rem !important;
+  left:1rem !important;
+  right:auto !important;
+  content:"SEOUL TRIP" !important;
+  background:rgba(255,255,255,.12) !important;
+}
+.hero h1{
+  font-size:clamp(3rem,17vw,5.4rem) !important;
+  max-width:11ch !important;
+  color:#fff !important;
+  line-height:.9 !important;
+}
+.hero p{
+  max-width:40rem !important;
+  padding:.9rem 1rem !important;
+  border-radius:18px !important;
+  background:rgba(255,255,255,.08) !important;
+  color:rgba(255,255,255,.92) !important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.12);
+}
+.chip-row{
+  display:grid !important;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:.55rem !important;
+}
+.chip-row .chip,
+.chip-row .status,
+.chip-row .build-note{
+  justify-content:center !important;
+  text-align:center;
+  min-height:2.2rem;
+  border-radius:16px !important;
+}
+.copy-row{
+  gap:.72rem !important;
+}
+.copy-row .link,
+.copy-row button{
+  font-weight:820 !important;
+}
+.copy-row .link:first-child{
+  border-color:rgba(240,194,122,.22) !important;
+  background:linear-gradient(135deg,rgba(217,155,74,.32),rgba(255,255,255,.12)) !important;
+  color:#fff9ef !important;
+}
+.section{
+  margin-top:1.55rem !important;
+}
+.section-head{
+  gap:.48rem !important;
+  padding:.18rem .1rem .6rem !important;
+}
+.section-head h2{
+  font-size:clamp(1.7rem,6vw,2.2rem) !important;
+  line-height:1 !important;
+  color:#121b2d !important;
+}
+.section-head p{
+  max-width:42rem !important;
+  font-size:.95rem !important;
+}
+#today-focus,
+#stays,
+#days,
+#shopping-days,
+#shopping-top,
+#shopping,
+#guide{
+  position:relative;
+}
+#today-focus::before,
+#stays::before,
+#days::before,
+#shopping-days::before,
+#shopping-top::before,
+#shopping::before,
+#guide::before{
+  content:"";
+  display:block;
+  width:3.2rem;
+  height:4px;
+  margin:0 0 .8rem;
+  border-radius:999px;
+  background:linear-gradient(90deg,#d99b4a,#f0c27a);
+}
+#today-focus .days,
+#stays .days,
+#days .days,
+#shopping-days .days,
+#shopping-top .shop-grid,
+#shopping .shop-grid,
+#guide .guide-grid{
+  gap:1rem !important;
+}
+#today-focus .card,
+#stays .card,
+#days .card,
+#shopping-days .card{
+  border-radius:30px !important;
+  padding:1.1rem !important;
+}
+#today-focus .card{
+  background:
+    radial-gradient(circle at top right,rgba(217,155,74,.16),transparent 10rem),
+    linear-gradient(180deg,rgba(255,255,255,.98),rgba(255,250,243,.92)) !important;
+}
+#stays .card{
+  background:
+    radial-gradient(circle at top right,rgba(217,155,74,.18),transparent 10rem),
+    linear-gradient(180deg,rgba(255,255,255,.98),rgba(255,249,239,.92)) !important;
+  border-color:rgba(217,155,74,.2) !important;
+}
+#stays .card .status.warn{
+  background:rgba(217,155,74,.16) !important;
+  color:#7b4f18 !important;
+}
+.days > .card,
+.list > .card{
+  padding:1.08rem !important;
+}
+.days > .card h3,
+.list > .card h3,
+#stays .card h3{
+  font-size:1.12rem !important;
+  line-height:1.28 !important;
+  color:#172033 !important;
+}
+.days > .card .mini,
+.list > .card .mini,
+#stays .card .mini{
+  color:#627084 !important;
+  line-height:1.7 !important;
+}
+.guide{
+  border-radius:30px !important;
+  border-color:rgba(17,24,39,.08) !important;
+}
+.guide summary{
+  padding:1.18rem 1rem !important;
+  font-size:1.06rem !important;
+  font-weight:880 !important;
+}
+.guide .content{
+  padding:.3rem 1rem 1.1rem !important;
+}
+.shop-card{
+  border-radius:28px !important;
+  padding:1.12rem !important;
+  gap:.82rem !important;
+}
+.shop-card h3{
+  font-size:1.14rem !important;
+  line-height:1.28 !important;
+}
+.shop-card .mini{
+  font-size:.92rem !important;
+  line-height:1.68 !important;
+  color:#647084 !important;
+}
+#shopping-top .shop-card{
+  border-color:rgba(217,155,74,.24) !important;
+}
+.toolbar{
+  padding:0 .78rem calc(.78rem + env(safe-area-inset-bottom,0px)) !important;
+}
+.toolbar-inner{
+  grid-template-columns:repeat(5,minmax(0,1fr)) !important;
+  padding:.48rem !important;
+  border-radius:30px !important;
+}
+.toolbar-inner .link,
+.toolbar-inner button{
+  min-height:3.08rem !important;
+  font-size:.72rem !important;
+  font-weight:820 !important;
+}
+@media(max-width:640px){
+  .hero{
+    min-height:360px !important;
+  }
+  .chip-row{
+    grid-template-columns:1fr !important;
+  }
+  .quick-row{
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  }
+}
 </style>
 </head>
 <body>
