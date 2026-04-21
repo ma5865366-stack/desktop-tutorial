@@ -430,6 +430,57 @@ button:hover,
   flex-wrap: wrap;
 }
 
+
+.route-list {
+  display: grid;
+  gap: 0.72rem;
+}
+
+.route-block {
+  display: grid;
+  gap: 0.52rem;
+  padding: 0.92rem 0.95rem;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: rgba(15, 36, 51, 0.04);
+}
+
+.route-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.55rem;
+  flex-wrap: wrap;
+}
+
+.route-time {
+  color: var(--surface-ink);
+  font-size: 0.88rem;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+}
+
+.route-block h4 {
+  margin: 0;
+  color: var(--surface-ink);
+  font-size: 1rem;
+  line-height: 1.34;
+  letter-spacing: -0.02em;
+}
+
+.route-path {
+  color: var(--muted);
+}
+
+.route-path strong,
+.route-fallback strong {
+  color: var(--surface-ink);
+}
+
+.route-fallback {
+  color: #7f5222;
+}
+
 .checklist {
   display: grid;
   gap: 0.72rem;
@@ -841,11 +892,60 @@ const guideSections=[
   {title:'💸 退税顺序',open:false,bullets:['即时退税先在店里直接做，记得带实体护照。','高额商品默认按先机场确认、后托运处理。','过安检后再去免税提货点拿线上订单。']}
 ,{title:'💝 有意义的礼物：按对象直接买',open:false,bullets:['送妈妈：Sulwhasoo / HERA / Laneige 小套装 + Tamburins / Nonfiction 护手霜 + Granhand 小香最稳，看起来不像机场临时抓的，而像你专门挑了韩国感和体面感。','送爸爸：Granhand 小香 / 香包、海苔 / 杏仁 / 咖啡包组合、基础帽子 / 袜子 / 小包最稳，重点是日常会用上，不会尴尬。','送女朋友：Tamburins / Nonfiction、Granhand 小香、rom&nd / 3CE / HERA 唇妆、GOTO / 弘大小配饰更像根据她风格挑过。','送弟弟：Musinsa Standard 基础 T 恤 / 卫衣、帽子 / 袜子 / 小包、便利店联名零食 / 海苔 / 杏仁更像“这件东西适合他本人”，不是家里随便分一份。','送家人：海苔 / 蜂蜜黄油杏仁 / 咖啡包 / 护手霜 / 旅行装洗护，轻、好分、韩国感明确。','送老师 / 同学：Daiso / Artbox 小文具、痘痘贴、护手霜、零食小包最稳，小而精、便宜但像认真带回来的。','什么看起来更有意义：优先小套装 / 小容量 / 韩国本地感强的东西；什么显得像临时买：大瓶香水、随机纪念品、盲买底妆、难确认尺码的衣服鞋子。']}];
 const days=[
-  {day:'Day 1｜4/24 周五晚',goal:'T1 出关 → N6002 → Birdsnest Hongdae',times:['23:50–00:20 落地开网','00:20–01:15 边检取行李','01:00 / 01:40 N6002','02:00–02:50 Birdsnest 入住'],tasks:[{id:'d1a',text:'落地后已开 eSIM，手机能查 Naver Map 和 Birdsnest 地址'},{id:'d1b',text:'已过边检、取行李，出到 T1 1F 到达层公共区域'},{id:'d1c',text:'已按 Bus / Late-night Bus / Bus Ticket 指示找到 N6002 站台'},{id:'d1d',text:'已准备 20,000 KRW 现金，N6002 票价按 17,000 KRW 预留'},{id:'d1e',text:'已坐上 01:00 或 01:40 的 N6002，方向确认是 Hongdae / Cheongnyangni'},{id:'d1f',text:'到弘大后已步行到鸟巢旅馆弘大，并完成凌晨入住'},{id:'d1g',text:'手机和充电宝已充电，第二天路线已截图'}],note:'第一晚只求进城和 Birdsnest 入住，不研究复杂支付，不开新路线。'},
-  {day:'Day 2｜4/25 周六',goal:'Birdsnest 退房 → 明洞 Boro Hanok → 景福宫经典线',times:['09:00–10:30 退房寄存','11:00–13:30 景福宫','13:30–16:30 北村益善洞','16:30–20:30 清溪川 / 广藏 / 回明洞'],tasks:[{id:'d2a',text:'早上已从 Birdsnest Hongdae 退房，不再默认晚上回弘大'},{id:'d2b',text:'已先去 Boro Hanok 尝试寄存行李；如不行，已改用明洞 / 乙支路储物柜'},{id:'d2c',text:'已按今天经典钟路线走，不硬搜中文店名'},{id:'d2d',text:'景福宫已放在第一站，没有拖到周二闭馆日'},{id:'d2e',text:'北村只顺路看 30–40 分钟，没有在居民区绕太久'},{id:'d2f',text:'广藏市场只吃最想吃的 1–2 样，已用小额现金控制预算'},{id:'d2g',text:'晚上已收在明洞，不再写回弘大'}],note:'第二晚住明洞，今天路线就必须按明洞收口。'},
-  {day:'Day 3｜4/26 周日',goal:'Boro 退房 → 南山轻量体验 → 明洞药妆 → Lux 入住',times:['09:00–11:30 退房寄存','11:30–16:30 明洞 / 南山 / 药妆','17:00–19:30 去 Lux 办入住','20:00–22:00 弘大轻松收口'],tasks:[{id:'d3a',text:'早上已从 Boro Hanok 退房，并处理好寄存行李'},{id:'d3b',text:'今天没有再按旧版写成上午弘大 / 延南慢逛'},{id:'d3c',text:'明洞 / 南山只做轻量体验，没有拖成大景点日'},{id:'d3d',text:'Olive Young Myeongdong 已作为今天主采购点'},{id:'d3e',text:'已在 21:00 前到 Lux Guesthouse 办入住，没有错过 check-in 窗口'},{id:'d3f',text:'已确认 Lux 是男生专用宿舍、不含早餐、第二天早餐按外食处理'},{id:'d3g',text:'晚上已在弘大 / 合井轻松收口，没有再折回明洞购物'}],note:'Lux 15:00–21:00 可入住，这天最晚傍晚就要回弘大。'},
-  {day:'Day 4｜4/27 周一',goal:'Lux Guesthouse → GOTO Mall → 盘浦汉江 → 回 Lux',times:['09:30–13:00 GOTO 第一轮','13:00–16:30 午饭补缺','17:00–20:00 汉江回 Lux'],tasks:[{id:'d4a',text:'早餐已按外食处理，因为 Lux 不含早餐'},{id:'d4b',text:'今天已从 Lux Guesthouse 出发，没有再写回旧酒店'},{id:'d4c',text:'已给 GOTO Mall 设置 50,000–100,000 KRW 服饰上限'},{id:'d4d',text:'只买基础款和小配件，没有拿大件或难带商品'},{id:'d4e',text:'小店用韩元现金，能刷店优先 Visa，付款方式没有卡住'},{id:'d4f',text:'傍晚去了盘浦汉江看免费夜景，没有加收费项目'},{id:'d4g',text:'晚上已回 Lux Guesthouse，第二天退房节奏已确认'}],note:'Day 4 的起点和收口都按 Lux 写。'},
-  {day:'Day 5｜4/28 周二',goal:'Lux 退房 / 寄存 → 弘大补漏 → 仁川 T1',times:['10:00–12:30 退房寄存','12:30–17:00 弘大最后补漏','18:30–23:40 机场流程'],tasks:[{id:'d5a',text:'已从 Lux 退房并尝试寄存行李；不行就改用 Hongik Univ. Station 周边寄存点'},{id:'d5b',text:'今天默认只在弘大 / 延南补漏，没有再写回 That House 或旧弘大酒店'},{id:'d5c',text:'退税小票、护照、未拆封商品已放在随手可拿的位置'},{id:'d5d',text:'充电宝已放随身包，没有放进托运行李'},{id:'d5e',text:'已按 18:30–19:00 左右从弘大去仁川 T1'},{id:'d5f',text:'到机场先确认退税 / 海关验货，再托运行李，再安检'},{id:'d5g',text:'过安检后已去免税提货点，登机前 40–60 分钟到登机口附近'}],note:'最后一天默认按 Lux 退房 / 寄存 → 弘大补漏 → 机场。'}
+  {day:'Day 1｜4/24 周五晚',goal:'仁川 T1 → N6002 → Birdsnest Hongdae',times:['23:50–00:20 落地开网','00:20–01:15 边检取行李','01:15–01:35 找夜巴','01:40–02:35 N6002 去弘大','02:35–02:55 步行去 Birdsnest','03:00 后 入住睡觉'],routeBlocks:[
+    {start:'23:50',end:'00:20',title:'落地、开网、跟着 Arrivals 指示走',from:'仁川 T1 到达口',to:'T1 边检区',transport:'步行',mapsMode:'search',mapsQueryTo:'Incheon International Airport Terminal 1 Arrivals',notes:'开 eSIM、先确认 Birdsnest 地址截图，不在机场乱逛。',fallback:'如果手机网慢，先连机场 Wi‑Fi，再开 Naver Map / Google Maps。'},
+    {start:'00:20',end:'01:15',title:'边检 + 取行李',from:'T1 边检区',to:'T1 1F 到达层公共区',transport:'步行',mapsMode:'search',mapsQueryTo:'Incheon International Airport Terminal 1',notes:'过边检后直接去 1F 公共区，不在免税店和便利店停留。',fallback:'如果行李晚出，优先盯 01:40 那班 N6002。'},
+    {start:'01:15',end:'01:35',title:'找 Bus Ticket / Late-night Bus / N6002 站台',from:'T1 1F 到达层公共区',to:'N6002 夜巴站台',transport:'步行',mapsMode:'search',mapsQueryTo:'Incheon Airport Terminal 1 Bus Ticket',notes:'只找 Bus / Airport Bus / Late-night Bus / Bus Ticket 这些英文标识。',fallback:'找不到站台时，直接问工作人员 N6002 to Hongdae。'},
+    {start:'01:40',end:'02:35',title:'坐 N6002 进城去弘大',from:'Incheon International Airport Terminal 1',to:'Hongdae',transport:'机场夜巴 N6002',mapsMode:'dir',mapsQueryFrom:'Incheon International Airport Terminal 1',mapsQueryTo:'Hongdae',notes:'方向确认 Hongdae / Cheongnyangni，现金按 17,000 KRW 预留。',fallback:'错过 01:40 就先查后续夜巴，不临时乱换线。'},
+    {start:'02:35',end:'02:55',title:'从弘大下车点步行去 Birdsnest',from:'Hongdae',to:'Birdsnest Hongdae 18 Yeonnam-ro 3-gil',transport:'步行',mapsMode:'dir',mapsQueryFrom:'Hongdae',mapsQueryTo:'Birdsnest Hongdae 18 Yeonnam-ro 3-gil Mapo-gu Seoul 03988',notes:'下车后只做一件事：去酒店。',fallback:'如果夜里方向感乱了，就直接点 Google Maps 步行导航。'},
+    {start:'03:00',end:'03:20',title:'Birdsnest 办入住、充电、睡觉',from:'Birdsnest Hongdae',to:'Birdsnest Hongdae',transport:'入住',mapsMode:'search',mapsQueryTo:'Birdsnest Hongdae 18 Yeonnam-ro 3-gil Mapo-gu Seoul 03988',notes:'第一晚只求进城成功，不研究复杂支付和路线。',fallback:'先把第二天路线和酒店地址截图离线保存。'}
+  ],tasks:[{id:'d1a',text:'落地后已开 eSIM，手机能查 Naver Map 和 Birdsnest 地址'},{id:'d1b',text:'已过边检、取行李，出到 T1 1F 到达层公共区域'},{id:'d1c',text:'已按 Bus / Late-night Bus / Bus Ticket 指示找到 N6002 站台'},{id:'d1d',text:'已准备 20,000 KRW 现金，N6002 票价按 17,000 KRW 预留'},{id:'d1e',text:'已坐上 01:00 或 01:40 的 N6002，方向确认是 Hongdae / Cheongnyangni'},{id:'d1f',text:'到弘大后已步行到鸟巢旅馆弘大，并完成凌晨入住'},{id:'d1g',text:'手机和充电宝已充电，第二天路线已截图'}],note:'第一晚只求进城和 Birdsnest 入住，不研究复杂支付，不开新路线。'},
+  {day:'Day 2｜4/25 周六',goal:'Birdsnest 退房 → Boro 寄存 → 景福宫经典线 → 晚上回明洞',times:['09:00–09:40 Birdsnest 退房','09:40–10:30 去 Boro 寄存','10:30–11:10 去景福宫','11:10–17:20 景福宫 → 北村 → 益善洞 → 广藏','17:20–18:40 清溪川 → 回明洞','19:00–20:30 晚饭 + 入住'],routeBlocks:[
+    {start:'09:00',end:'09:40',title:'Birdsnest 退房',from:'Birdsnest Hongdae',to:'Birdsnest Hongdae',transport:'退房',mapsMode:'search',mapsQueryTo:'Birdsnest Hongdae 18 Yeonnam-ro 3-gil Mapo-gu Seoul 03988',notes:'今天不再默认晚上回弘大。',fallback:'护照、现金、充电宝放最上层。'},
+    {start:'09:40',end:'10:30',title:'先去 Boro Hanok 尝试寄存行李',from:'Birdsnest Hongdae',to:'Boro hanok hostel in myeongdong',transport:'地铁 / 步行',mapsMode:'dir',mapsQueryFrom:'Birdsnest Hongdae 18 Yeonnam-ro 3-gil Mapo-gu Seoul 03988',mapsQueryTo:'Boro hanok hostel in myeongdong 04630 Jung-gu Seoul N Seoul Tower Namsan Cable Car',notes:'先把第二晚住宿卡住，路线才稳。',fallback:'Boro 不能寄存时，默认改用 Myeongdong Station 或 Euljiro 1-ga 储物柜。'},
+    {start:'10:30',end:'11:10',title:'从明洞去景福宫',from:'Myeongdong Station',to:'Gyeongbokgung Palace',transport:'地铁',mapsMode:'dir',mapsQueryFrom:'Myeongdong Station',mapsQueryTo:'Gyeongbokgung Palace',notes:'今天的经典线从景福宫开始，不拖到别的日子。',fallback:'如果 Google 当下显示步行更慢，照地铁换乘走。'},
+    {start:'11:10',end:'12:40',title:'景福宫',from:'Gyeongbokgung Palace',to:'Gyeongbokgung Palace',transport:'步行游览',mapsMode:'search',mapsQueryTo:'Gyeongbokgung Palace',notes:'先把最重的景点完成。',fallback:'体力一般就只看主殿区，不追求全刷。'},
+    {start:'12:40',end:'13:10',title:'去北村韩屋村',from:'Gyeongbokgung Palace',to:'Bukchon Hanok Village',transport:'步行',mapsMode:'dir',mapsQueryFrom:'Gyeongbokgung Palace',mapsQueryTo:'Bukchon Hanok Village',notes:'这段用步行最直观。',fallback:'如果腿很累，就只在入口区短停留。'},
+    {start:'13:10',end:'14:00',title:'北村轻量停留',from:'Bukchon Hanok Village',to:'Bukchon Hanok Village',transport:'步行游览',mapsMode:'search',mapsQueryTo:'Bukchon Hanok Village',notes:'只停 30–40 分钟，不在居民区绕太久。',fallback:'拍完就走，不追加绕路点。'},
+    {start:'14:00',end:'14:30',title:'去益善洞吃午饭 / 咖啡',from:'Bukchon Hanok Village',to:'Ikseon-dong Hanok Village',transport:'地铁 / 步行',mapsMode:'dir',mapsQueryFrom:'Bukchon Hanok Village',mapsQueryTo:'Ikseon-dong Hanok Village',notes:'益善洞更适合放在中段休息。',fallback:'如果午饭店排队，就先找最近能坐下的店，不硬等网红店。'},
+    {start:'14:30',end:'15:40',title:'益善洞午饭 / 咖啡',from:'Ikseon-dong Hanok Village',to:'Ikseon-dong Hanok Village',transport:'步行游览',mapsMode:'search',mapsQueryTo:'Ikseon-dong Hanok Village',notes:'午饭和咖啡一起解决。',fallback:'这段超时就直接砍掉清溪川停留时间。'},
+    {start:'15:40',end:'16:10',title:'去广藏市场',from:'Ikseon-dong Hanok Village',to:'Gwangjang Market',transport:'步行',mapsMode:'dir',mapsQueryFrom:'Ikseon-dong Hanok Village',mapsQueryTo:'Gwangjang Market',notes:'这段可以直接步行。',fallback:'如果下雨就改地铁一站。'},
+    {start:'16:10',end:'17:20',title:'广藏市场',from:'Gwangjang Market',to:'Gwangjang Market',transport:'步行觅食',mapsMode:'search',mapsQueryTo:'Gwangjang Market',notes:'只吃最想吃的 1–2 样，不把预算炸掉。',fallback:'人太多就把停留压到 40 分钟。'},
+    {start:'17:20',end:'18:00',title:'去清溪川轻走',from:'Gwangjang Market',to:'Cheonggyecheon',transport:'步行',mapsMode:'dir',mapsQueryFrom:'Gwangjang Market',mapsQueryTo:'Cheonggyecheon',notes:'当作消食和收口段。',fallback:'下雨时可直接省略，提前回明洞。'},
+    {start:'18:00',end:'18:40',title:'回明洞',from:'Cheonggyecheon',to:'Myeongdong Station',transport:'地铁 / 步行',mapsMode:'dir',mapsQueryFrom:'Cheonggyecheon',mapsQueryTo:'Myeongdong Station',notes:'第二晚必须收在明洞。',fallback:'体力差时可直接打车回明洞住宿周边。'},
+    {start:'19:00',end:'20:30',title:'明洞晚饭 + 入住',from:'Myeongdong Station',to:'Boro hanok hostel in myeongdong',transport:'步行',mapsMode:'dir',mapsQueryFrom:'Myeongdong Station',mapsQueryTo:'Boro hanok hostel in myeongdong 04630 Jung-gu Seoul N Seoul Tower Namsan Cable Car',notes:'今天最后动作是回明洞，不再写回弘大。',fallback:'先入住再吃饭也可以，原则是不离开明洞收口。'}
+  ],tasks:[{id:'d2a',text:'早上已从 Birdsnest Hongdae 退房，不再默认晚上回弘大'},{id:'d2b',text:'已先去 Boro Hanok 尝试寄存行李；如不行，已改用明洞 / 乙支路储物柜'},{id:'d2c',text:'已按今天经典钟路线走，不硬搜中文店名'},{id:'d2d',text:'景福宫已放在第一站，没有拖到周二闭馆日'},{id:'d2e',text:'北村只顺路看 30–40 分钟，没有在居民区绕太久'},{id:'d2f',text:'广藏市场只吃最想吃的 1–2 样，已用小额现金控制预算'},{id:'d2g',text:'晚上已收在明洞，不再写回弘大'}],note:'第二晚住明洞，今天路线就必须按明洞收口。'},
+  {day:'Day 3｜4/26 周日',goal:'Boro 退房 → 明洞 / 南山轻量体验 → Olive Young Myeongdong → Lux 入住',times:['09:00–09:40 Boro 退房','09:40–10:10 寄存行李','10:10–11:40 南山轻量体验','11:40–15:30 午饭 + 明洞药妆','15:30–17:40 去 Lux 入住','18:30–21:00 弘大 / 合井收口'],routeBlocks:[
+    {start:'09:00',end:'09:40',title:'Boro 退房',from:'Boro hanok hostel in myeongdong',to:'Boro hanok hostel in myeongdong',transport:'退房',mapsMode:'search',mapsQueryTo:'Boro hanok hostel in myeongdong 04630 Jung-gu Seoul N Seoul Tower Namsan Cable Car',notes:'先把行李处理好，再开始白天路线。',fallback:'退房后优先问寄存，不行就立刻改车站储物柜。'},
+    {start:'09:40',end:'10:10',title:'寄存 / 处理行李',from:'Boro hanok hostel in myeongdong',to:'Myeongdong Station',transport:'步行',mapsMode:'search',mapsQueryTo:'Myeongdong Station',notes:'今天只保留一个寄存 fallback，不再多开分支。',fallback:'默认 fallback：Myeongdong Station 或 Euljiro 1-ga。'},
+    {start:'10:10',end:'10:35',title:'去南山缆车一带',from:'Myeongdong Station',to:'Namsan Cable Car',transport:'步行 / 地铁',mapsMode:'dir',mapsQueryFrom:'Myeongdong Station',mapsQueryTo:'Namsan Cable Car',notes:'南山只做轻量体验，不拖成大景点日。',fallback:'如果天气差，就直接跳到明洞午饭。'},
+    {start:'10:35',end:'11:40',title:'南山缆车 / N 首尔塔轻量停留',from:'Namsan Cable Car',to:'N Seoul Tower',transport:'步行游览',mapsMode:'search',mapsQueryTo:'N Seoul Tower',notes:'只停留到体力舒服为止。',fallback:'如果排队长，只在缆车 / 山脚周边轻量打卡。'},
+    {start:'11:40',end:'12:30',title:'回明洞午饭',from:'N Seoul Tower',to:'Myeongdong Station',transport:'步行 / 地铁',mapsMode:'dir',mapsQueryFrom:'N Seoul Tower',mapsQueryTo:'Myeongdong Station',notes:'午饭固定回明洞解决。',fallback:'如果南山没去成，这段直接改成明洞慢吃午饭。'},
+    {start:'12:30',end:'15:30',title:'Olive Young Myeongdong 主采购',from:'Myeongdong Station',to:'Olive Young Myeongdong',transport:'步行',mapsMode:'dir',mapsQueryFrom:'Myeongdong Station',mapsQueryTo:'Olive Young Myeongdong',notes:'今天药妆是主任务，Dr.G / Torriden / 痘痘贴优先。',fallback:'时间超了就砍掉晚上的额外逛街，不砍 Lux 入住时间。'},
+    {start:'15:30',end:'16:20',title:'从明洞去弘大 / Lux',from:'Olive Young Myeongdong',to:'Lux Guesthouse 156 Wausan-ro',transport:'地铁',mapsMode:'dir',mapsQueryFrom:'Olive Young Myeongdong',mapsQueryTo:'Lux Guesthouse 156 Wausan-ro Mapo-gu Seoul 04061 Hongik Univ Station',notes:'今天的硬约束是 21:00 前到 Lux。',fallback:'Google Maps 显示更快时才改打车，不自己脑补捷径。'},
+    {start:'17:00',end:'17:40',title:'Lux 办入住',from:'Lux Guesthouse',to:'Lux Guesthouse',transport:'入住',mapsMode:'search',mapsQueryTo:'Lux Guesthouse 156 Wausan-ro Mapo-gu Seoul 04061 Hongik Univ Station',notes:'Lux：15:00–21:00 check-in｜男生专用宿舍（4 people）｜不含早餐。',fallback:'最晚 19:30 前一定往 Lux 走，别拖。'},
+    {start:'18:30',end:'21:00',title:'弘大 / 合井轻松收口',from:'Lux Guesthouse',to:'Hongdae',transport:'步行 / 地铁',mapsMode:'search',mapsQueryTo:'Hongdae',notes:'晚上只轻松收口，不再折回明洞。',fallback:'如果累了，直接在 Lux 附近吃饭就结束。'}
+  ],tasks:[{id:'d3a',text:'早上已从 Boro Hanok 退房，并处理好寄存行李'},{id:'d3b',text:'今天没有再按旧版写成上午弘大 / 延南慢逛'},{id:'d3c',text:'明洞 / 南山只做轻量体验，没有拖成大景点日'},{id:'d3d',text:'Olive Young Myeongdong 已作为今天主采购点'},{id:'d3e',text:'已在 21:00 前到 Lux Guesthouse 办入住，没有错过 check-in 窗口'},{id:'d3f',text:'已确认 Lux 是男生专用宿舍、不含早餐、第二天早餐按外食处理'},{id:'d3g',text:'晚上已在弘大 / 合井轻松收口，没有再折回明洞购物'}],note:'Lux 15:00–21:00 可入住，这天最晚傍晚就要回弘大。'},
+  {day:'Day 4｜4/27 周一',goal:'Lux → GOTO Mall → 盘浦汉江 → 回 Lux',times:['09:30–10:10 去 Express Bus Terminal','10:10–12:40 GOTO 第一轮','12:40–15:10 午饭 + 第二轮','15:10–17:30 去盘浦汉江','18:00–21:00 回 Lux + 晚饭'],routeBlocks:[
+    {start:'09:30',end:'10:10',title:'Lux 去 Express Bus Terminal',from:'Lux Guesthouse',to:'Express Bus Terminal Station',transport:'地铁',mapsMode:'dir',mapsQueryFrom:'Lux Guesthouse 156 Wausan-ro Mapo-gu Seoul 04061 Hongik Univ Station',mapsQueryTo:'Express Bus Terminal Station',notes:'早餐默认外食，因为 Lux 不含早餐。',fallback:'Google Maps 当天如果显示巴士更优，再切巴士。'},
+    {start:'10:10',end:'12:40',title:'GOTO Mall 第一轮',from:'Express Bus Terminal Station',to:'GOTO Mall',transport:'步行逛店',mapsMode:'dir',mapsQueryFrom:'Express Bus Terminal Station',mapsQueryTo:'GOTO Mall',notes:'第一轮只看店和定预算，不急着下单。',fallback:'先逛一圈再回头买，别第一家就烧光预算。'},
+    {start:'12:40',end:'13:40',title:'午饭',from:'GOTO Mall',to:'Express Bus Terminal food court',transport:'步行',mapsMode:'search',mapsQueryTo:'Express Bus Terminal food court',notes:'在车站周边解决午饭最稳。',fallback:'如果 food court 太挤，就在 GOTO Mall 周边随便找能坐下的店。'},
+    {start:'13:40',end:'15:10',title:'GOTO 第二轮 / 咖啡',from:'Express Bus Terminal food court',to:'GOTO Mall',transport:'步行',mapsMode:'dir',mapsQueryFrom:'Express Bus Terminal food court',mapsQueryTo:'GOTO Mall',notes:'第二轮才下单，优先基础款和小配件。',fallback:'今天不再强塞 Musinsa。'},
+    {start:'15:10',end:'15:30',title:'去盘浦汉江',from:'GOTO Mall',to:'Banpo Hangang Park',transport:'步行 / 地铁',mapsMode:'dir',mapsQueryFrom:'GOTO Mall',mapsQueryTo:'Banpo Hangang Park',notes:'盘浦汉江作为傍晚免费夜景段。',fallback:'如果下雨，就直接回弘大吃饭。'},
+    {start:'15:30',end:'17:30',title:'盘浦汉江慢待',from:'Banpo Hangang Park',to:'Banpo Hangang Park',transport:'步行停留',mapsMode:'search',mapsQueryTo:'Banpo Hangang Park',notes:'只做轻松停留，不加收费项目。',fallback:'风太大就提前走。'},
+    {start:'18:00',end:'18:50',title:'回 Lux',from:'Banpo Hangang Park',to:'Lux Guesthouse',transport:'地铁',mapsMode:'dir',mapsQueryFrom:'Banpo Hangang Park',mapsQueryTo:'Lux Guesthouse 156 Wausan-ro Mapo-gu Seoul 04061 Hongik Univ Station',notes:'Day 4 起点和收口都按 Lux。',fallback:'如果很累，晚饭直接在 Lux 附近解决。'},
+    {start:'19:10',end:'21:00',title:'弘大晚饭',from:'Lux Guesthouse',to:'Hongdae',transport:'步行',mapsMode:'search',mapsQueryTo:'Hongdae restaurants',notes:'晚上留给轻松吃饭，不再加景点。',fallback:'体力差就不出门太远。'}
+  ],tasks:[{id:'d4a',text:'早餐已按外食处理，因为 Lux 不含早餐'},{id:'d4b',text:'今天已从 Lux Guesthouse 出发，没有再写回旧酒店'},{id:'d4c',text:'已给 GOTO Mall 设置 50,000–100,000 KRW 服饰上限'},{id:'d4d',text:'只买基础款和小配件，没有拿大件或难带商品'},{id:'d4e',text:'小店用韩元现金，能刷店优先 Visa，付款方式没有卡住'},{id:'d4f',text:'傍晚去了盘浦汉江看免费夜景，没有加收费项目'},{id:'d4g',text:'晚上已回 Lux Guesthouse，第二天退房节奏已确认'}],note:'Day 4 的起点和收口都按 Lux 写。'},
+  {day:'Day 5｜4/28 周二',goal:'Lux 退房 / 寄存 → 弘大最后补漏 → 取行李 → 去仁川 T1',times:['09:30–10:30 退房 / 寄存','10:30–15:30 弘大最后补漏','15:30–16:00 回 Lux 取行李','18:10–19:00 去仁川 T1','19:00–23:00 机场流程'],routeBlocks:[
+    {start:'09:30',end:'10:30',title:'Lux 退房 / 寄存',from:'Lux Guesthouse',to:'Lux Guesthouse',transport:'退房',mapsMode:'search',mapsQueryTo:'Lux Guesthouse 156 Wausan-ro Mapo-gu Seoul 04061 Hongik Univ Station',notes:'先问寄存，再开始白天路线。',fallback:'Lux 不寄存时，默认改 Hongik Univ. Station 附近寄存点。'},
+    {start:'10:30',end:'12:30',title:'弘大最后补漏',from:'Lux Guesthouse',to:'Hongdae',transport:'步行',mapsMode:'search',mapsQueryTo:'Hongdae Shopping Street',notes:'只补缺项，不再开新购物线。',fallback:'今天不默认回明洞。'},
+    {start:'12:30',end:'13:30',title:'午饭',from:'Hongdae Shopping Street',to:'Hongdae restaurants',transport:'步行',mapsMode:'search',mapsQueryTo:'Hongdae restaurants',notes:'午饭就在弘大周边解决。',fallback:'排队太久就换最近能坐下的店。'},
+    {start:'13:30',end:'15:30',title:'只补缺项',from:'Hongdae restaurants',to:'Hongdae',transport:'步行补漏',mapsMode:'search',mapsQueryTo:'Hongdae',notes:'只买缺项，药妆只补消耗品。',fallback:'香水 / 大牌 / 新系列今天都不开坑。'},
+    {start:'15:30',end:'16:00',title:'回 Lux 取行李',from:'Hongdae',to:'Lux Guesthouse',transport:'步行',mapsMode:'dir',mapsQueryFrom:'Hongdae',mapsQueryTo:'Lux Guesthouse 156 Wausan-ro Mapo-gu Seoul 04061 Hongik Univ Station',notes:'回酒店拿箱子，重新整理退税商品和随身包。',fallback:'如果行李寄存在站里，就直接去站里取。'},
+    {start:'18:10',end:'19:00',title:'从弘大去仁川 T1',from:'Hongik Univ. Station',to:'Incheon International Airport Terminal 1',transport:'AREX / 机场铁路',mapsMode:'dir',mapsQueryFrom:'Hongik Univ. Station',mapsQueryTo:'Incheon International Airport Terminal 1',notes:'Plan A 固定走 AREX；只有 Google Maps 当天显示更优时，才切机场巴士。',fallback:'时间被压缩时，优先保留 AREX，不自己脑补捷径。'},
+    {start:'19:00',end:'21:00',title:'退税 / 托运 / 安检',from:'Incheon International Airport Terminal 1',to:'Incheon International Airport Terminal 1',transport:'机场流程',mapsMode:'search',mapsQueryTo:'Incheon International Airport Terminal 1',notes:'先确认退税 / 海关验货，再托运行李，再安检。',fallback:'大额退税商品不要先托运。'},
+    {start:'21:00',end:'23:00',title:'候机 / 免税提货',from:'Incheon International Airport Terminal 1',to:'Incheon International Airport Terminal 1',transport:'候机',mapsMode:'search',mapsQueryTo:'Incheon International Airport Terminal 1 duty free pickup',notes:'过安检后再去提货，登机前 40–60 分钟回登机口附近。',fallback:'提货排队长时，优先保证登机口时间。'}
+  ],tasks:[{id:'d5a',text:'已从 Lux 退房并尝试寄存行李；不行就改用 Hongik Univ. Station 周边寄存点'},{id:'d5b',text:'今天默认只在弘大 / 延南补漏，没有再写回 That House 或旧弘大酒店'},{id:'d5c',text:'退税小票、护照、未拆封商品已放在随手可拿的位置'},{id:'d5d',text:'充电宝已放随身包，没有放进托运行李'},{id:'d5e',text:'已按 18:30–19:00 左右从弘大去仁川 T1'},{id:'d5f',text:'到机场先确认退税 / 海关验货，再托运行李，再安检'},{id:'d5g',text:'过安检后已去免税提货点，登机前 40–60 分钟到登机口附近'}],note:'最后一天默认按 Lux 退房 / 寄存 → 弘大补漏 → 机场。'}
 ];
 const shoppingDays=[
   {day:'4/26 明洞药妆日',note:'这一天只做药妆和彩妆补货，不把香水和衣服大采购混进来。',tasks:[{id:'sd426-1',text:'进门先看 1+1 / SALE / Tax Refund 标识，再开始拿货'},{id:'sd426-2',text:'主清单先拿 Dr.G / Torriden / 痘痘贴 / Mediheal / Round Lab'},{id:'sd426-3',text:'彩妆只补 1–2 件：rom&nd / 3CE / HERA 里挑明确想要的'},{id:'sd426-4',text:'香氛今天只试，不大买大瓶'},{id:'sd426-5',text:'付款顺序按 Visa → WOWPASS → 支付宝 → 现金执行'},{id:'sd426-6',text:'结账后已分开收小票、退税单、未拆封商品'}]},
@@ -915,7 +1015,11 @@ function getTodayIndex(){const now=new Date();const pad=(value)=>String(value).p
 function getTodayShoppingIndex(){const idx=getTodayIndex(); return idx>=2 ? idx-2 : -1;}
 function copyText(text){if(navigator.clipboard?.writeText){navigator.clipboard.writeText(text).then(()=>alert('已复制，可直接粘贴到地图或备忘录。')).catch(()=>prompt('请手动复制下面内容：',text));return;}prompt('请手动复制下面内容：',text);}
 function getCurrentHotelStay(index = getTodayIndex()){ if(index<=0) return hotelStays[0]; if(index===1) return hotelStays[1]; return hotelStays[2]; }
-function createHotelMapsUrl(stay){ const query=stay?.mapsQuery || stay?.address || ''; return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(query); }
+function createGoogleMapsSearchUrl(query){ return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(query || ''); }
+function createGoogleMapsDirectionsUrl(fromQuery,toQuery,transportMode='transit'){ return 'https://www.google.com/maps/dir/?api=1&origin=' + encodeURIComponent(fromQuery || '') + '&destination=' + encodeURIComponent(toQuery || '') + '&travelmode=' + encodeURIComponent(transportMode); }
+function inferGoogleTravelMode(transport=''){ if(transport.includes('步行') && !transport.includes('地铁') && !transport.includes('AREX') && !transport.includes('夜巴')) return 'walking'; return 'transit'; }
+function createHotelMapsUrl(stay){ const query=stay?.mapsQuery || stay?.address || ''; return createGoogleMapsSearchUrl(query); }
+function createRouteMapsUrl(block){ if(block.mapsMode==='dir'){ return createGoogleMapsDirectionsUrl(block.mapsQueryFrom || block.from, block.mapsQueryTo || block.to, inferGoogleTravelMode(block.transport)); } return createGoogleMapsSearchUrl(block.mapsQueryTo || block.to); }
 function renderHotelStayCard(stay,label){ return '<article class="card"><div class="day-top"><div><span class="chip">'+label+'</span><h3>'+stay.name+'</h3></div><span class="status warn">'+stay.area+'</span></div><p class="mini">'+stay.stayType+'</p><p class="mini">'+stay.address+'</p><p class="mini">'+stay.checkInOut+'</p><p class="mini">'+stay.constraints+'</p><p class="mini">'+stay.notes+'</p><div class="copy-row"><a class="link" href="'+createHotelMapsUrl(stay)+'" target="_blank" rel="noopener noreferrer">打开地图</a></div></article>'; }
 function renderHotelStays(){ const labels=['Day 1 住哪里','Day 2 住哪里','Day 3–4 住哪里']; return '<section class="section" id="stays"><div class="section-head"><span class="eyebrow">Hotel Plan</span><h2>这次 3 段住宿怎么住</h2><p>按你已经订好的 3 段住宿排，不再假设全程住弘大。</p></div><div class="days">'+hotelStays.map((stay,index)=>renderHotelStayCard(stay,labels[index])).join('')+'</div></section>'; }
 function sharePage(){const data={title:'韩国旅行清单增强版',text:'手机直接打开就能用的韩国旅行清单',url:location.href};if(navigator.share){navigator.share(data).catch(()=>{});}else{copyText(location.href);}}
@@ -930,8 +1034,12 @@ function renderGuide(){
   return intro + visible.map((item,index)=>`<details class="guide" ${item.open||index<2?'open':''}><summary><span>${item.title}</span><small>${item.bullets[0]||'展开看细节'}</small></summary><div class="content"><ul>${item.bullets.map((line)=>`<li>${line}</li>`).join('')}</ul></div></details>`).join('');
 }
 function dayProgress(day){const total=day.tasks.length;const done=day.tasks.filter((task)=>isDone(task.id)).length;return {done,total};}
-function getVisibleDays(){let visible=days; if(uiState.todayOnly){visible=[days[getTodayIndex()]];} const q=uiState.search.trim(); if(q){visible=visible.filter((day)=>matchesQuery([day.day,day.goal,day.note,...day.times,...day.tasks.map((t)=>t.text)]));} return visible;}
-function renderDayCard(day){const {done,total}=dayProgress(day);return `<article class="card"><div class="day-top"><div><span class="chip">${day.day}</span><h3>${day.goal}</h3></div><span class="status ${done===total?'ok':''}">执行清单：${done}/${total}</span></div><div class="time-row">${day.times.map((t)=>`<span class="time-chip">${t}</span>`).join('')}</div><p class="mini">${day.note}</p><ul class="checklist">${day.tasks.map((task)=>renderTask(task.id,task.text)).join('')}</ul><div class="copy-row"><button data-mark-day="${day.day}">当天全勾</button><button data-clear-day="${day.day}">清空当天</button></div></article>`;}
+function getVisibleDays(){let visible=days; if(uiState.todayOnly){visible=[days[getTodayIndex()]];} const q=uiState.search.trim(); if(q){visible=visible.filter((day)=>matchesQuery([day.day,day.goal,day.note,...day.times,...day.tasks.map((t)=>t.text),...day.routeBlocks.flatMap((block)=>[block.start,block.end,block.title,block.from,block.to,block.transport,block.notes,block.fallback,block.mapsQueryFrom,block.mapsQueryTo]) ]));} return visible;}
+function renderRouteBlock(block){
+  const mapsUrl=createRouteMapsUrl(block);
+  return `<div class="route-block"><div class="route-top"><span class="route-time">${block.start}–${block.end}</span><span class="pill warn">${block.transport}</span></div><h4>${block.title}</h4><p class="mini route-path"><strong>从：</strong>${block.from}</p><p class="mini route-path"><strong>到：</strong>${block.to}</p><p class="mini">${block.notes}</p>${block.fallback?`<p class="mini route-fallback"><strong>兜底：</strong>${block.fallback}</p>`:''}<div class="copy-row"><a class="link" href="${mapsUrl}" target="_blank" rel="noopener noreferrer">Google Maps</a></div></div>`;
+}
+function renderDayCard(day){const {done,total}=dayProgress(day);return `<article class="card"><div class="day-top"><div><span class="chip">${day.day}</span><h3>${day.goal}</h3></div><span class="status ${done===total?'ok':''}">执行清单：${done}/${total}</span></div><div class="time-row">${day.times.map((t)=>`<span class="time-chip">${t}</span>`).join('')}</div><p class="mini">${day.note}</p><div class="route-list">${day.routeBlocks.map(renderRouteBlock).join('')}</div><ul class="checklist">${day.tasks.map((task)=>renderTask(task.id,task.text)).join('')}</ul><div class="copy-row"><button data-mark-day="${day.day}">当天全勾</button><button data-clear-day="${day.day}">清空当天</button></div></article>`;}
 function renderDays(){const visible=getVisibleDays(); if(!visible.length) return '<div class="empty">没有匹配到相关内容，试试搜 “退税” 或 “N6002”。</div>'; return visible.map(renderDayCard).join('');}
 function markDay(dayName,value){const day=days.find((d)=>d.day===dayName); if(!day) return; day.tasks.forEach((task)=>{tasksState[task.id]=value;}); saveTasks(); render();}
 function render(){
