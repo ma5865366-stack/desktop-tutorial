@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#1e293b" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="format-detection" content="telephone=no" />
+  <title>韩国旅行清单手机稳定版</title>
+  <style>
+    :root {
+      --bg: #f6f1e8;
+      --ink: #16212e;
+      --muted: #5f6974;
+      --navy: #1e293b;
+      --accent: #d89a4b;
+      --line: rgba(22, 33, 46, 0.12);
+      --card: rgba(255, 253, 249, 0.96);
+      --shadow: 0 18px 40px rgba(22, 33, 46, 0.08);
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: max(1rem, env(safe-area-inset-top, 0px)) 1rem calc(2rem + env(safe-area-inset-bottom, 0px));
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Noto Sans SC", "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(216,154,75,.18), transparent 24rem),
+        linear-gradient(180deg, #fffaf1 0%, var(--bg) 100%);
+      -webkit-font-smoothing: antialiased;
+    }
+    main { width: min(100%, 760px); margin: 0 auto; display: grid; gap: 1rem; }
+    .hero, .section, .nav, .summary {
+      border: 1px solid rgba(255,255,255,.76);
+      border-radius: var(--radius-xl);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.98), rgba(255,249,240,.94)),
+        var(--card);
+      box-shadow: var(--shadow);
+      padding: 1rem;
+    }
+    .hero {
+      color: #fff;
+      background:
+        radial-gradient(circle at top left, rgba(216,154,75,.28), transparent 13rem),
+        linear-gradient(145deg, #101c2b 0%, #1e293b 48%, #30445f 100%);
+      display: grid;
+      gap: .9rem;
+    }
+    h1, h2, h3, h4, p { margin: 0; }
+    h1 { font-size: clamp(2.15rem, 10vw, 3.7rem); line-height: .95; letter-spacing: -.06em; }
+    h2 { font-size: 1.35rem; line-height: 1.08; letter-spacing: -.03em; }
+    h3 { font-size: 1.04rem; line-height: 1.3; }
+    h4 { font-size: 1rem; line-height: 1.34; }
+    p, li { line-height: 1.68; color: var(--muted); }
+    .hero p { color: rgba(255,255,255,.82); }
+    .eyebrow, .pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      min-height: 1.9rem;
+      padding: .28rem .7rem;
+      border-radius: 999px;
+      background: rgba(255,255,255,.12);
+      color: #fff;
+      font-size: .76rem;
+      font-weight: 800;
+      letter-spacing: .04em;
+    }
+    .pill.soft {
+      background: rgba(30,41,59,.08);
+      color: var(--ink);
+    }
+    .hero-actions, .stay-grid, .summary-grid, .routes, .proc-grid, .actions {
+      display: grid;
+      gap: .75rem;
+    }
+    .hero-actions, .summary-grid, .stay-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .actions { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .btn, .nav a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 2.9rem;
+      padding: .75rem .85rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 800;
+    }
+    .btn.secondary { background: rgba(30,41,59,.05); }
+    .hero .btn { background: rgba(255,255,255,.12); color: #fff; border-color: rgba(255,255,255,.18); }
+    .hero .btn.primary { background: linear-gradient(135deg, #e4b15f, #c98836); border-color: transparent; }
+    .nav { position: sticky; top: .6rem; z-index: 10; display: grid; gap: .75rem; }
+    .nav-links { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: .6rem; }
+    .section { display: grid; gap: .9rem; }
+    .section-head { display: grid; gap: .45rem; }
+    .section-head p { max-width: 42rem; }
+    .summary-card, .stay-card, .route-block, .proc-card {
+      display: grid;
+      gap: .6rem;
+      padding: 1rem;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: rgba(255,255,255,.72);
+    }
+    .route-top { display: flex; justify-content: space-between; gap: .6rem; flex-wrap: wrap; align-items: center; }
+    .time { color: var(--ink); font-weight: 900; }
+    .times { display: flex; flex-wrap: wrap; gap: .5rem; }
+    .fallback strong, .route-block strong, .stay-card h3, .summary-card h3 { color: var(--ink); }
+    ul { margin: 0; padding-left: 1.1rem; }
+    @media (max-width: 700px) {
+      .hero-actions, .summary-grid, .stay-grid, .actions, .nav-links { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <span class="eyebrow">手机稳定版</span>
+      <h1>韩国旅行路线</h1>
+      <p>这版只保留最核心的路线、住宿、吃饭、购物顺序和 Google Maps，目的是手机更稳地打开。</p>
+      <div class="hero-actions">
+        <a class="btn primary" href="./trip.html">打开完整版</a>
+        <a class="btn" href="./night-arrival-lite.html">落地夜极简页</a>
+        <a class="btn" href="./safe-open.html">安全入口</a>
+        <a class="btn" href="./">总入口</a>
+      </div>
+    </section>
+
+    <section class="nav">
+      <div class="summary">
+        <p><strong>先看顺序：</strong>今晚住哪 → 今天去哪 → 今天吃什么 → 今天买什么。完整礼物库和购物库留在完整版。</p>
+      </div>
+      <div class="nav-links">
+        <a href="#summary">总览</a>
+        <a href="#stays">住宿</a>
+        <a href="#procurement">采购</a>
+        <a href="#day-1">Day 1</a>
+      </div>
+      <div class="nav-links">
+        <a href="#day-1">Day 1 4/24 周五晚</a><a href="#day-2">Day 2 4/25 周六</a><a href="#day-3">Day 3 4/26 周日</a><a href="#day-4">Day 4 4/27 周一</a><a href="#day-5">Day 5 4/28 周二</a>
+      </div>
+    </section>
+
+    <section class="section" id="summary">
+      <div class="section-head">
+        <span class="pill soft">总览</span>
+        <h2>最重要的主次</h2>
+        <p>先解决住宿和当天路线，再看吃饭和购物，最后才回去翻大而全的攻略。</p>
+      </div>
+      <div class="summary-grid">
+        <article class="summary-card">
+          <h3>今晚住哪</h3>
+          <p>Birdsnest Hongdae / 鸟巢旅馆弘大 - 仅限外国人 → Boro hanok hostel in myeongdong / 明洞博罗韩屋旅舍 → Lux Guesthouse / Lux 旅馆</p>
+          <p>按日期对应住宿，不再自己脑补回旧酒店。</p>
+        </article>
+        <article class="summary-card">
+          <h3>路线强度</h3>
+          <p>保守稳妥版：不赶、不乱绕、每段都给 Google Maps。</p>
+          <p>饭店按 20–50 RMB / 餐，主推连锁稳店，给一个本地备选。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="stays">
+      <div class="section-head">
+        <span class="pill soft">住宿</span>
+        <h2>这次 3 段住宿</h2>
+        <p>Birdsnest / Boro / Lux 已固定，路线按它们排，不再假设全程住弘大。</p>
+      </div>
+      <div class="stay-grid">
+        
+      <article class="stay-card">
+        <span class="pill">Day 1 住哪里</span>
+        <h3>Birdsnest Hongdae / 鸟巢旅馆弘大 - 仅限外国人</h3>
+        <p>弘大 / 延南｜4/24 入住，4/25 退房</p>
+        <p>第一晚进城落点</p>
+        <p>Birdsnest 只负责深夜从 T1 稳稳进城。</p>
+        <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Birdsnest%20Hongdae%2018%20Yeonnam-ro%203-gil%20Mapo-gu%20Seoul%2003988" target="_blank" rel="noopener noreferrer">Google Maps</a>
+      </article>
+    
+      <article class="stay-card">
+        <span class="pill">Day 2 住哪里</span>
+        <h3>Boro hanok hostel in myeongdong / 明洞博罗韩屋旅舍</h3>
+        <p>明洞 / 南山｜4/25 入住，4/26 退房</p>
+        <p>第二晚明洞过渡住宿</p>
+        <p>门牌未公开，按酒店名 + 区号 + 南山/N 首尔塔周边检索。</p>
+        <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Boro%20hanok%20hostel%20in%20myeongdong%2004630%20Jung-gu%20Seoul%20N%20Seoul%20Tower%20Namsan%20Cable%20Car" target="_blank" rel="noopener noreferrer">Google Maps</a>
+      </article>
+    
+      <article class="stay-card">
+        <span class="pill">Day 3–4 住哪里</span>
+        <h3>Lux Guesthouse / Lux 旅馆</h3>
+        <p>弘大入口 / Wausan-ro｜4/26 入住，4/28 退房</p>
+        <p>男生专用宿舍（4 people）｜后两晚主住</p>
+        <p>15:00–21:00 check-in｜11:00 check-out｜不含早餐｜距弘大入口站约 540m</p>
+        <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Lux%20Guesthouse%20156%20Wausan-ro%20Mapo-gu%20Seoul%2004061%20Hongik%20Univ%20Station" target="_blank" rel="noopener noreferrer">Google Maps</a>
+      </article>
+    
+      </div>
+    </section>
+
+    
+      <section class="section" id="day-1">
+        <div class="section-head">
+          <span class="eyebrow">Day 1｜4/24 周五晚</span>
+          <h2>仁川 T1 → N6002 → Birdsnest Hongdae</h2>
+          <p>第一晚只求进城和 Birdsnest 入住，不研究复杂支付，不开新路线。</p>
+        </div>
+        <div class="times"><span class="pill soft">23:50–00:20 落地开网</span><span class="pill soft">00:20–01:15 边检取行李</span><span class="pill soft">01:15–01:35 找夜巴</span><span class="pill soft">01:40–02:35 N6002 去弘大</span><span class="pill soft">02:35–02:55 步行去 Birdsnest</span><span class="pill soft">03:00 后 入住睡觉</span></div>
+        <div class="routes">
+          <article class="route-block">
+            <div class="route-top">
+              <span class="time">23:50–00:20</span>
+              <span class="pill soft">移动</span>
+            </div>
+            <h4>落地、开网、跟着 Arrivals 指示走</h4>
+            <p><strong>从：</strong>仁川 T1 到达口</p>
+            <p><strong>到：</strong>T1 边检区</p>
+            <p><strong>交通：</strong>步行</p>
+            
+            
+            
+            
+            <p>开 eSIM、先确认 Birdsnest 地址截图，不在机场乱逛。</p>
+            <p class="fallback"><strong>兜底：</strong>如果手机网慢，先连机场 Wi‑Fi，再开 Naver Map / Google Maps。</p>
+            <div class="actions">
+              <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Incheon%20International%20Airport%20Terminal%201%20Arrivals" target="_blank" rel="noopener noreferrer">Google Maps</a>
+              
+              
+            </div>
+          </article>
+        
+          <article class="route-block">
+            <div class="route-top">
+              <span class="time">00:20–01:15</span>
+              <span class="pill soft">移动</span>
+            </div>
+            <h4>边检 + 取行李</h4>
+            <p><strong>从：</strong>T1 边检区</p>
+            <p><strong>到：</strong>T1 1F 到达层公共区</p>
+            <p><strong>交通：</strong>步行</p>
+            
+            
+            
+            
+            <p>过边检后直接去 1F 公共区，不在免税店和便利店停留。</p>
+            <p class="fallback"><strong>兜底：</strong>如果行李晚出，优先盯 01:40 那班 N6002。</p>
+            <div class="actions">
+              <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Incheon%20International%20Airport%20Terminal%201" target="_blank" rel="noopener noreferrer">Google Maps</a>
+              
+              
+            </div>
+          </article>
+        
+          <article class="route-block">
+            <div class="route-top">
+              <span class="time">01:15–01:35</span>
+              <span class="pill soft">移动</span>
+            </div>
+            <h4>找 Bus Ticket / Late-night Bus / N6002 站台</h4>
+            <p><strong>从：</strong>T1 1F 到达层公共区</p>
+            <p><strong>到：</strong>N6002 夜巴站台</p>
+            <p><strong>交通：</strong>步行</p>
+            
+            
+            
+            
+            <p>只找 Bus / Airport Bus / Late-night Bus / Bus Ticket 这些英文标识。</p>
+            <p class="fallback"><strong>兜底：</strong>找不到站台时，直接问工作人员 N6002 to Hongdae。</p>
+            <div class="actions">
+              <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Incheon%20Airport%20Terminal%201%20Bus%20Ticket" target="_blank" rel="noopener noreferrer">Google Maps</a>
+              
+              
+            </div>
+          </article>
+        
+          <article class="route-block">
+            <div class="route-top">
+              <span class="time">01:40–02:35</span>
+              <span class="pill soft">移动</span>
+            </div>
+            <h4>坐 N6002 进城去弘大</h4>
+            <p><strong>从：</strong>Incheon International Airport Terminal 1</p>
+            <p><strong>到：</strong>Hongdae</p>
+            <p><strong>交通：</strong>机场夜巴 N6002</p>
+            
+            
+            
+            
+            <p>方向确认 Hongdae / Cheongnyangni，现金按 17,000 KRW 预留。</p>
+            <p class="fallback"><strong>兜底：</strong>错过 01:40 就先查后续夜巴，不临时乱换线。</p>
+            <div class="actions">
+              <a class="btn" href="https://www.google.com/maps/dir/?api=1&origin=Incheon%20International%20Airport%20Terminal%201&destination=Hongdae&travelmode=transit" target="_blank" rel="noopener noreferrer">Google Maps</a>
+              
+              
+            </div>
+          </article>
+        
+          <article class="route-block">
+            <div class="route-top">
+              <span class="time">02:35–02:55</span>
+              <span class="pill soft">移动</span>
+            </div>
+            <h4>从弘大下车点步行去 Birdsnest</h4>
+            <p><strong>从：</strong>Hongdae</p>
+            <p><strong>到：</strong>Birdsnest Hongdae 18 Yeonnam-ro 3-gil</p>
+            <p><strong>交通：</strong>步行</p>
+            
+            
+            
+            
+            <p>下车后只做一件事：去酒店。</p>
+            <p class="fallback"><strong>兜底：</strong>如果夜里方向感乱了，就直接点 Google Maps 步行导航。</p>
+            <div class="actions">
+              <a class="btn" href="https://www.google.com/maps/dir/?api=1&origin=Hongdae&destination=Birdsnest%20Hongdae%2018%20Yeonnam-ro%203-gil%20Mapo-gu%20Seoul%2003988&travelmode=walking" target="_blank" rel="noopener noreferrer">Google Maps</a>
+              
+              
+            </div>
+          </article>
+        
+          <article class="route-block">
+            <div class="route-top">
+              <span class="time">03:00–03:20</span>
+              <span class="pill soft">入住</span>
+            </div>
+            <h4>Birdsnest 办入住、充电、睡觉</h4>
+            <p><strong>从：</strong>Birdsnest Hongdae</p>
+            <p><strong>到：</strong>Birdsnest Hongdae</p>
+            <p><strong>交通：</strong>入住</p>
+            
+            
+            
+            
+            <p>第一晚只求进城成功，不研究复杂支付和路线。</p>
+            <p class="fallback"><strong>兜底：</strong>先把第二天路线和酒店地址截图离线保存。</p>
+            <div class="actions">
+              <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Birdsnest%20Hongdae%2018%20Yeonnam-ro%203-gil%20Mapo-gu%20Seoul%2003988" target="_blank" rel="noopener noreferrer">Google Maps</a>
+              
+              
+            </div>
+          </article>
+        </div>
+      </section>
+    
+      <section class="section" id="day-2">
+        <div class="section-head">
+          <span class="eyebrow">Day 2｜4/25 周六</span>
+          <h2>Birdsnest 退房 → Boro 寄存 → 景福宫经典线 → 晚上回明洞</h2>
+          <p>第二晚住明洞，今天路线就必须按明洞收口。</p>
+        </div>
+        <div class="times"><span class="pill soft">09:00–09:40 Birdsnest 退房</span><span class="pill soft">09:40–10:30 去 Boro 寄存</span><span class="pill soft">10:30–12:40 景福宫</span><span class="pill soft">12:40–15:40 北村 → 益善洞午饭</span><span class="pill soft">15:40–17:20 广藏市场</span><span class="pill soft">17:20–20:30 清溪川 → 明洞晚饭 + 入住</span></div>
+        <div class="routes">
+          <article class="route-block">
+            <div class="route-top">
+              <span class="time">09:00–09:40</span>
+              <span class="pill soft">移动</span>
+            </div>
+            <h4>Birdsnest 退房</h4>
+            <p><strong>从：</strong>Birdsnest Hongdae</p>
+            <p><strong>到：</strong>Birdsnest Hongdae</p>
+            <p><strong>交通：</strong>退房</p>
+            
+            
+            
+            
+            <p>今天不再默认晚上回弘大。</p>
+            <p class="fallback"><strong>兜底：</strong>护照、现金、充电宝放最上层。</p>
+            <div class="actions">
+              <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Birdsnest%20Hongdae%2018%20Yeonnam-ro%203-gil%20Mapo-gu%20Seoul%2003988" target="_blank" rel="noopener noreferrer">Google Maps</a>
+              
+              
+            </div>
+          </article>
+        
+          <article class="route-block">
+            <div class="route-top">
+              <span class="time">09:40–10:30</span>
+              <span class="pill soft">移动</span>
+            </div>
+            <h4>先去 Boro Hanok 尝试寄存行李</h4>
+            <p><strong>从：</strong>Birdsnest Hongdae</p>
+            <p><strong>到：</strong>Boro hanok hostel in myeongdong</p>
+            <p><strong>交通：</strong>地铁 / 步行</p>
+            
+            
+            
+            
+            <p>先把第二晚住宿卡住，路线才稳。</p>
+            <p class="fallback"><strong>兜底：</strong>Boro 不能寄存时，默认改用 Myeongdong Station 或 Euljiro 1-ga 储物柜。</p>
+            <div class="actions">
+              <a class="btn" href="https://www.google.com/maps/dir/?api=1&origin=Birdsnest%20Hongdae%2018%20Yeonnam-ro%203-gil%20Mapo-gu%20Seoul%2003988&destination=Boro%20hanok%20hostel%20in%20myeongdong%2004630%20Jung-gu%20Seoul%20N%20Seoul%20Tower%20Namsan%20Cable%20Car&travelmode=transit" target="_blank" rel="noopener noreferrer">Google Maps</a>
+              
+              
+            </div>
+          </article>
+        
+          <article class="route-block">
+            <div class="route-top">
+              <span class="time">10:30–11:10</span>
+              <span class="pill soft">移动</span>
+            </div>
+            <h4>从明洞去景福宫</h4>
+            <p><strong>从：</strong>Myeongdong Station</p>
+            <p><strong>到：</strong>Gyeongbokgung Palace</p>
+            <p><strong>交通：</strong>地铁</p>
+            
+            
+            
+            
+            <p>今天的经典线从景福宫开始，不拖到别的日子。</p>
+            <p class="fallback"><strong>兜底：</strong>如果 Google 当下显示步行更慢，照地铁换乘走。</p>
+            <div class="actions">
+              <a class="btn" href="https://www.google.com/maps/dir/?api=1&origin=Myeongdong%20Station&destination=Gyeongbokgung%20Palace&travelmode=transit" target="_blank" rel="noopener noreferrer">Google Maps</a>
+              
+              
+            </div>
+          </article>
+        
+          <article class="route-block">
+            <div class="route-top">
+              <span class="time">11:10–12:40</span>
+              <span class="pill soft">移动</span>
+            </div>
+            <h4>景福宫</h4>
+            <p><strong>从：</strong>Gyeongbokgung Palace</p>
+            <p><strong>到：</strong>Gyeongbokgung Palace</p>
+            <p><strong>交通：</strong>步行游览</p>
+            
+            
+            
+            
+            <p>先把最重的景点完成。</p>
+            <p class="fallback"><strong>兜底：</strong>体力一般就只看主殿区，不追求全刷。</p>
+            <div class="actions">
+              <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Gyeongbokgung%20Palace" target="_blank" rel="noopener noreferrer">Google Maps</a>
+              
+              
+            </div>
+          </article>
+        
+          <article class="route-block">
+            <div class="route-top">
+              <span class="time">12:40–13:10</span>
+              <span class="pill soft">移动</span>
+            </div>
+            <h4>去北村韩屋村</h4>
+            <p><strong>从：</strong>Gyeongbokgung Palace</p>
+            <p><strong>到：</strong>Bukchon Hanok Village</p>
+            <p><strong>交通：</strong>步行</p>
+            
+            
+            
+            
+            <p>这段用步行最直观。</p>
+            <p class="fallback"><strong>兜底：</strong>如果腿很累，就只在入口区短停留。</p>
+            <div class="actions">
+              <a class="btn" href="https://www.google.com/maps/dir/?api=1&origin=Gyeongbokgung%20Palace&destination=Bukchon%20Hanok%20Village&travelmode=walking" target="_blank" rel="noopener noreferrer">Google Maps</a>
+              
+              
+            </div>
+          </article>
+        
+          <article class="route-block">
+            <div class="route-top">
+              <span class="time">13:10–14:00</span>
+              <span class="pill soft">移动</span>
+            </div>
+            <h4>北村轻量停留</h4>
+            <p><strong>从：</strong>Bukchon Hanok Village</p>
+            <p><strong>到：</strong>Bukchon Hanok Village</p>
+            <p><strong>交通：</strong>步行游览</p>
+            
+            
+            
+            
+            <p>只停 30–40 分钟，不在居民区绕太久。</p>
+            <p class="fallback"><strong>兜底：</strong>拍完就走，不追加绕路点。</p>
+            <div class="actions">
+              <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Bukchon%20Hanok%20Village" target="_blank" rel="noopener noreferrer">Google Maps</a>
+              
+              
+            </div>
+          </article>
+        
+          <article class="route-block">
+            <div class="route-top">
+              <span class="time">14:00–15:40</span>
+              <span class="pill soft">吃饭</span>
+            </div>
+            <h4>益善洞午饭 / 咖啡</h4>
+            <p><strong>从：</strong>Bukchon Hanok Village</p>
+            <p><strong>到：</strong>Ikseon-dong Hanok Village</p>
+            <p><strong>交通：</strong>步行 / 地铁</p>
+            <p><strong>预算：</strong>20–50 RMB / 餐</p>
+            <p><strong>主推荐：</strong>Ikseon-dong Hanok Village cafes / casual dining</p>
+            <p><strong>备选：</strong>Hong Kong Banjum 0410 Jongno / Ikseon area</p>
+            <p><strong>为什么排这里：</strong>益善洞放中段最稳，既能吃饭也能坐下来休息。</p>
+            <p>这顿饭按轻松坐下、不排太久、一个人也好吃来选。</p>
+            <p class="fallback"><strong>兜底：</strong>如果午饭店排队，就直接进备选，不硬等网红店。</p>
+            <div class="actions">
+              <a class="btn" href="https://www.google.com/maps/dir/?api=1&origin=Bukchon%20Hanok%20Village&destination=Ikseon-dong%20Hanok%20Village&travelmode=transit" target="_blank" rel="noopener noreferrer">Google Maps</a>
+              <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=Ikseon-dong%20Hanok%20Village%20cafes" target="_blank" rel="noopener noreferrer">主推荐</a>
+              <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=%ED%99%8D%EC%BD%A9%EB%B0%98%EC%A0%900410%20%EC%A2%85%EB%A1%9C%20%EC%9D%B5%EC%84%A0%EB%8F%99" target="_blank" rel="noopener noreferrer">备选</a>
+            </div>
+          </article>
+        
+          <article class="route-block">
+            <div class="route-top">
+              <span class="time">15:40–16:10</span>
+              <span class="pill soft">移动</span>
+            </div>
+            <h4>去广藏市场</h4>
+            <p><strong>从：</strong>Ikseon-dong Hanok Village</p>
+            <p><strong>到：</strong>Gwangjang Market</p>
+            <p><strong>交通：</strong>步行</p>
+            
+            
+            
+            
+            <p>这段可以直接步行。</p>
+            <p class="fallback"><strong>兜底：</strong>如果下雨就改地铁一站。</p>
+            <div class="actions">
+              <a class="btn" href="https://www.google.com/maps/dir/?api=1&origin=Ikseon-dong%20Hanok%20Village&destination=Gwangjang%20Market&travelmode=walking" target="_blank" rel="noopener noreferrer">Google Maps</a>
+              
+              
+            </div>
+          </article>
+        
+          <article class="route-block">
+            <div class="route-top">
+              <span class="time">16:10–17:20</span>
+              <span class="pill soft">吃饭</span>
+            </div>
+            <h4>广藏市场轻吃一轮</h4>
+            <p><strong>从：</strong>Gwangjang Market</p>
+            <p><strong>到：</strong>Gwangjang Market</p>
+            <p><strong>交通：</strong>步行觅食</p>
+            <p><strong>预算：</strong>20–50 RMB / 餐</p>
+            <p><strong>主推荐：</strong>Gwangjang Market</p>
+            <p><strong>备选：</strong>广藏市场外圈轻食 / 饭卷</p>
+            <p><strong>为什么排这里：</strong>这段更适合边走边吃，不适合再安排正式正餐。</p>
+            <p>只吃最想吃的 1–2 样，不把预算炸掉。</p>
+            <p class="fallback"><strong>兜底：</strong>人太多就把停留压到 40 分钟，然后直接去清溪川。</p>
+            <div class="actions">
+              <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Gwangjang%20Market" target="_blank" rel="noopener noreferrer">Google Maps</a>
+              <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=Gwangjang%20Market" target="_blank" rel="noopener noreferrer">主推荐</a>
+              <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=%EA%B4%91%EC%9E%A5%EC%8B%9C%EC%9E%A5%20%EA%B9%80%EB%B0%A5" target="_blank" rel="noopener noreferrer">备选</a>
+            </div>
+          </article>
+        
+          <article class="route-block">
+            <div class="route-top">
+              <span class="time">17:20–18:00</span>
+              <span class="pill soft">移动</span>
+            </div>
+            <h4>去清溪川轻走</h4>
+            <p><strong>从：</strong>Gwangjang Market</p>
+            <p><strong>到：</strong>Cheonggyecheon</p>
+            <p><strong>交通：</strong>步行</p>
+            
+            
+            
+            
+            <p>当作消食和收口段。</p>
+            <p class="fallback"><strong>兜底：</strong>下雨时可直接省略，提前回明洞。</p>
+            <div class="actions">
+              <a class="btn" href="https://www.google.com/maps/dir/?api=1&origin=Gwangjang%20Market&destination=Cheonggyecheon&travelmode=walking" target="_blank" rel="noopener noreferrer">Google Maps</a>
+              
+              
+            </div>
+          </article>
+        
+          <article class="route-block">
+            <div class="route-top">
+              <span class="time">18:00–18:40</span>
+              <span class="pill soft">移动</span>
+            </div>
+            <h4>回明洞</h4>
+            <p><strong>从：</strong>Cheonggyecheon</p>
+            <p><strong>到：</strong>Myeongdong Station</p>
+            <p><strong>交通：</strong>地铁 / 步行</p>
+            
+            
+            
+            
+            <p>第二晚必须收在明洞。</p>
+            <p class="fallback"><strong>兜底：</strong>体力差时可直接打车回明洞住宿周边。</p>
+            <div class="actions">
+              <a class="btn" href="https://www.google.com/maps/dir/?api=1&origin=Cheonggyecheon&destination=Myeongdong%20Station&travelmode=transit" target="_blank" rel="noopener noreferrer">Google Maps</a>
+              
+              
+            </div>
+          </article>
+        
+          <article class="route-block">
+            <div class="route-top">
+              <span class="time">19:00–20:30</span>
+              <span class="pill soft">吃饭</span>
+            </div>
+            <h4>明洞晚饭 + 回 Boro 入住</h4>
+            <p><strong>从：</strong>Myeongdong Station</p>
+            <p><strong>到：</strong>Boro hanok hostel in myeongdong</p>
+            <p><strong>交通：</strong>步行</p>
+            <p><strong>预算：</strong>20–50 RMB / 餐</p>
+            <p><strong>主推荐：</strong>Hong Kong Banjum 0410 Myeongdong / Yeokjeon Udon 0410 Myeongdong</p>
+            <p><strong>备选：</strong>Isaac Toast Myeongdong</p>
+            <p><strong>为什么排这里：</strong>明洞晚上最适合吃一顿稳妥简餐，然后直接回住宿。</p>
+            <p>今天最后动作是回明洞，不再写回弘大。</p>
+            <p class="fallback"><strong>兜底：</strong>先入住再吃饭也可以，但原则是不离开明洞收口。</p>
+            <div class="actions">
+              <a class="btn" href="https://www.google.com/maps/dir/?api=1&origin=Myeongdong%20Station&destination=Boro%20hanok%20hostel%20in%20myeongdong%2004630%20Jung-gu%20Seoul%20N%20Seoul%20Tower%20Namsan%20Cable%20Car&travelmode=walking" target="_blank" rel="noopener noreferrer">Google Maps</a>
+              <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=%ED%99%8D%EC%BD%A9%EB%B0%98%EC%A0%900410%20%EB%AA%85%EB%8F%99" target="_blank" rel="noopener noreferrer">主推荐</a>
+              <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=%EC%9D%B4%EC%82%AD%ED%86%A0%EC%8A%A4%ED%8A%B8%20%EB%AA%85%EB%8F%99" target="_blank" rel="noopener noreferrer">备选</a>
+            </div>
+          </article>
+        </div>
+      </section>
+    
+      <section class="section" id="day-3">
+        <div class="section-head">
+          <span class="eyebrow">Day 3｜4/26 周日</span>
+          <h2>Boro 退房 → 明洞 / 南山轻量体验 → 明洞药妆主采购 → Lux 入住</h2>
+          <p>Lux 15:00–21:00 可入住，这天最晚傍晚就要回弘大。</p>
+        </div>
+        <div class="times"><span class="pill soft">09:00–09:40 Boro 退房</span><span class="pill soft">09:40–10:10 寄存行李</span><span class="pill soft">10:10–11:40 南山轻量体验</span><span class="pill soft">11:40–15:30 明洞午饭 + 药妆 / Daiso / Artbox</span><span class="pill soft">15:30–17:40 去 Lux 入住</span><span class="pill soft">18:30–21:00 弘大晚饭收口</span></div>
+        <div class="routes">
+          <article class="route-block">
+            <div class="route-top">
+              <span class="time">09:00–09:40</span>
+              <span class="pill soft">移动</span>
+            </div>
+            <h4>Boro 退房</h4>
+            <p><strong>从：</strong>Boro hanok hostel in myeongdong</p>
+            <p><strong>到：</strong>Boro hanok hostel in myeongdong</p>
+            <p><strong>交通：</strong>退房</p>
+            
+            
+            
+            
+            <p>先把行李处理好，再开始白天路线。</p>
+            <p class="fallback"><strong>兜底：</strong>退房后优先问寄存，不行就立刻改车站储物柜。</p>
+            <div class="actions">
+              <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Boro%20hanok%20hostel%20in%20myeongdong%2004630%20Jung-gu%20Seoul%20N%20Seoul%20Tower%20Namsan%20Cable%20Car" target="_blank" rel="noopener noreferrer">Google Maps</a>
+              
+              
+            </div>
+          </article>
+        
+          <article class="route-block">
+            <div class="route-top">
+              <span class="time">09:40–10:10</span>
+              <span class="pill soft">移动</span>
+            </div>
+            <h4>寄存 / 处理行李</h4>
+            <p><strong>从：</strong>Boro hanok hostel in myeongdong</p>
+            <p><strong>到：</strong>Myeongdong Station</p>
+            <p><strong>交通：</strong>步行</p>
+            
+            
+            
+            
+            <p>今天只保留一个寄存 fallback，不再多开分支。</p>
+            <p class="fallback"><strong>兜底：</strong>默认 fallback：Myeongdong Station 或 Euljiro 1-ga。</p>
+            <div class="actions">
+              <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Myeongdong%20Station" target="_blank" rel="noopener noreferrer">Google Maps</a>
+              
+              
+            </div>
+          </article>
+        
+          <article class="route-block">
+            <div class="route-top">
+              <span class="time">10:10–10:35</span>
+              <span class="pill soft">移动</span>
+            </div>
+            <h4>去南山缆车一带</h4>
+            <p><strong>从：</strong>Myeongdong Station</p>
+            <p><strong>到：</strong>Namsan Cable Car</p>
+            <p><strong>交通：</strong>步行 / 地铁</p>
+            
+            
+            
+            
+            <p>南山只做轻量体验，不拖成大景点日。</p>
+            <p class="fallback"><strong>兜底：</strong>如果天气差，就直接跳到明洞午饭。</p>
+            <div class="actions">
+              <a class="btn" href="https://www.google.com/maps/dir/?api=1&origin=Myeongdong%20Station&destination=Namsan%20Cable%20Car&travelmode=transit" target="_blank" rel="noopener noreferrer">Google Maps</a>
+              
+              
+            </div>
+          </article>
+        
+          <article class="route-block">
+            <div class="route-top">
+              <span class="time">10:35–11:40</span>
+              <span class="pill soft">移动</span>
+            </div>
+            <h4>南山缆车 / N 首尔塔轻量停留</h4>
+            <p><strong>从：</strong>Namsan Cable Car</p>
+            <p><strong>到：</strong>N Seoul Tower</p>
+            <p><strong>交通：</strong>步行游览</p>
+            
+            
+            
+            
+            <p>只停留到体力舒服为止。</p>
+            <p class="fallback"><strong>兜底：</strong>如果排队长，只在缆车 / 山脚周边轻量打卡。</p>
+            <div class="actions">
+              <a class="btn" href="https://www.google.com/maps/search/?api=1&query=N%20Seoul%20Tower" target="_blank" rel="noopener noreferrer">Google Maps</a>
+              
+              
+            </div>
+          </article>
+        
+          <article class="route-block">
+            <div class="route-top">
+              <span class="time">11:40–12:30</span>
+              <span class="pill soft">吃饭</span>
+            </div>
+            <h4>回明洞午饭</h4>
+            <p><strong>从：</strong>N Seoul Tower</p>
+            <p><strong>到：</strong>Myeongdong Station</p>
+            <p><strong>交通：</strong>步行 / 地铁</p>
+            <p><strong>预算：</strong>20–50 RMB / 餐</p>
+            <p><strong>主推荐：</strong>Isaac Toast Myeongdong</p>
+            <p><strong>备选：</strong>Yeokjeon Udon 0410 Myeongdong</p>
+            <p><strong>为什么排这里：</strong>午饭固定回明洞解决，保证下午药妆采购不乱。</p>
+            <p>选快、稳、一个人也不尴尬的店。</p>
+            <p class="fallback"><strong>兜底：</strong>如果南山没去成，这段直接改成明洞慢吃午饭。</p>
+            <div class="actions">
+              <a class="btn" href="https://www.google.com/maps/dir/?api=1&origin=N%20Seoul%20Tower&destination=Myeongdong%20Station&travelmode=transit" target="_blank" rel="noopener noreferrer">Google Maps</a>
+              <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=%EC%9D%B4%EC%82%AD%ED%86%A0%EC%8A%A4%ED%8A%B8%20%EB%AA%85%EB%8F%99" target="_blank" rel="noopener noreferrer">主推荐</a>
+              <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=%EC%97%AD%EC%A0%84%EC%9A%B0%EB%8F%990410%20%EB%AA%85%EB%8F%99" target="_blank" rel="noopener noreferrer">备选</a>
+            </div>
+          </article>
+        
+          <article class="route-block">
+            <div class="route-top">
+              <span class="time">12:30–14:20</span>
+              <span class="pill soft">购物</span>
+            </div>
+            <h4>Olive Young Myeongdong Town 主采购</h4>
+            <p><strong>从：</strong>Myeongdong Station</p>
+            <p><strong>到：</strong>Olive Young Myeongdong Town</p>
+            <p><strong>交通：</strong>步行</p>
+            <p><strong>预算：</strong>500–2000 RMB 总采购段</p>
+            <p><strong>主推荐：</strong>Olive Young Myeongdong Town</p>
+            <p><strong>备选：</strong>Olive Young Myeongdong Central</p>
+            <p><strong>为什么排这里：</strong>Day 3 只把药妆主清单做完，不混衣服和大牌香水。</p>
+            <p>先拿 Dr.G、Torriden、痘痘贴，再看彩妆。</p>
+            <p class="fallback"><strong>兜底：</strong>时间超了就直接砍掉 Artbox，不砍 Lux 入住时间。</p>
+            <div class="actions">
+              <a class="btn" href="https://www.google.com/maps/dir/?api=1&origin=Myeongdong%20Station&destination=Olive%20Young%20Myeongdong%20Town&travelmode=walking" target="_blank" rel="noopener noreferrer">Google Maps</a>
+              <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=Olive%20Young%20Myeongdong%20Town" target="_blank" rel="noopener noreferrer">主推荐</a>
+              <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=%EC%98%AC%EB%A6%AC%EB%B8%8C%EC%98%81%20%EB%AA%85%EB%8F%99" target="_blank" rel="noopener noreferrer">备选</a>
+            </div>
+          </article>
+        
+          <article class="route-block">
+            <div class="route-top">
+              <span class="time">14:20–15:00</span>
+              <span class="pill soft">购物</span>
+            </div>
+            <h4>Daiso Myeongdong → 如果还有预算再看 Artbox</h4>
+            <p><strong>从：</strong>Olive Young Myeongdong Town</p>
+            <p><strong>到：</strong>Daiso Myeongdong</p>
+            <p><strong>交通：</strong>步行</p>
+            <p><strong>预算：</strong>20–100 RMB 小物补漏</p>
+            <p><strong>主推荐：</strong>Daiso Myeongdong</p>
+            <p><strong>备选：</strong>Artbox Myeongdong / 明洞主街小物</p>
+            <p><strong>为什么排这里：</strong>这段只补轻小件，避免把明洞逛成一整天。</p>
+            <p>先 Daiso，再看 Artbox；预算不够就不进 Artbox。</p>
+            <p class="fallback"><strong>兜底：</strong>这段最容易被砍，砍掉也不影响主线。</p>
+            <div class="actions">
+              <a class="btn" href="https://www.google.com/maps/dir/?api=1&origin=Olive%20Young%20Myeongdong%20Town&destination=Daiso%20Myeongdong&travelmode=walking" target="_blank" rel="noopener noreferrer">Google Maps</a>
+              <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=Daiso%20Myeongdong" target="_blank" rel="noopener noreferrer">主推荐</a>
+              <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=Artbox%20Myeongdong" target="_blank" rel="noopener noreferrer">备选</a>
+            </div>
+          </article>
+        
+          <article class="route-block">
+            <div class="route-top">
+              <span class="time">15:30–16:20</span>
+              <span class="pill soft">移动</span>
+            </div>
+            <h4>从明洞去弘大 / Lux</h4>
+            <p><strong>从：</strong>Daiso Myeongdong</p>
+            <p><strong>到：</strong>Lux Guesthouse 156 Wausan-ro</p>
+            <p><strong>交通：</strong>地铁</p>
+            
+            
+            
+            
+            <p>今天的硬约束是 21:00 前到 Lux。</p>
+            <p class="fallback"><strong>兜底：</strong>Google Maps 显示更快时才改打车，不自己脑补捷径。</p>
+            <div class="actions">
+              <a class="btn" href="https://www.google.com/maps/dir/?api=1&origin=Daiso%20Myeongdong&destination=Lux%20Guesthouse%20156%20Wausan-ro%20Mapo-gu%20Seoul%2004061%20Hongik%20Univ%20Station&travelmode=transit" target="_blank" rel="noopener noreferrer">Google Maps</a>
+              
+              
+            </div>
+          </article>
+        
+          <article class="route-block">
+            <div class="route-top">
+              <span class="time">17:00–17:40</span>
+              <span class="pill soft">入住</span>
+            </div>
+            <h4>Lux 办入住</h4>
+            <p><strong>从：</strong>Lux Guesthouse</p>
+            <p><strong>到：</strong>Lux Guesthouse</p>
+            <p><strong>交通：</strong>入住</p>
+            
+            
+            
+            
+            <p>Lux：15:00–21:00 check-in｜男生专用宿舍（4 people）｜不含早餐。</p>
+            <p class="fallback"><strong>兜底：</strong>最晚 19:30 前一定往 Lux 走，别拖。</p>
+            <div class="actions">
+              <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Lux%20Guesthouse%20156%20Wausan-ro%20Mapo-gu%20Seoul%2004061%20Hongik%20Univ%20Station" target="_blank" rel="noopener noreferrer">Google Maps</a>
+              
+              
+            </div>
+          </article>
+        
+          <article class="route-block">
+            <div class="route-top">
+              <span class="time">18:30–21:00</span>
+              <span class="pill soft">吃饭</span>
+            </div>
+            <h4>弘大晚饭 / 合井轻松收口</h4>
+            <p><strong>从：</strong>Lux Guesthouse</p>
+            <p><strong>到：</strong>Hongdae</p>
+            <p><strong>交通：</strong>步行 / 地铁</p>
+            <p><strong>预算：</strong>20–50 RMB / 餐</p>
+            <p><strong>主推荐：</strong>Hong Kong Banjum 0410 Hongdae</p>
+            <p><strong>备选：</strong>Mom&#39;s Touch Hongdae</p>
+            <p><strong>为什么排这里：</strong>晚上只留给稳妥晚饭，不再折回明洞。</p>
+            <p>主推荐炸酱 / 面食，备选是快餐汉堡。</p>
+            <p class="fallback"><strong>兜底：</strong>如果累了，直接在 Lux 附近找最近能坐下的店。</p>
+            <div class="actions">
+              <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Hongdae" target="_blank" rel="noopener noreferrer">Google Maps</a>
+              <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=%ED%99%8D%EC%BD%A9%EB%B0%98%EC%A0%900410%20%ED%99%8D%EB%8C%80" target="_blank" rel="noopener noreferrer">主推荐</a>
+              <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=%EB%A7%98%EC%8A%A4%ED%84%B0%EC%B9%98%20%ED%99%8D%EB%8C%80" target="_blank" rel="noopener noreferrer">备选</a>
+            </div>
+          </article>
+        </div>
+      </section>
+    
+      <section class="section" id="day-4">
+        <div class="section-head">
+          <span class="eyebrow">Day 4｜4/27 周一</span>
+          <h2>Lux → GOTO Mall → 盘浦汉江 → 回 Lux</h2>
+          <p>Day 4 的起点和收口都按 Lux 写。</p>
+        </div>
+        <div class="times"><span class="pill soft">09:30–10:10 去 Express Bus Terminal</span><span class="pill soft">10:10–12:40 GOTO 第一轮</span><span class="pill soft">12:40–15:10 午饭 + 第二轮</span><span class="pill soft">15:10–17:30 去盘浦汉江</span><span class="pill soft">18:00–21:00 回 Lux + 弘大晚饭</span></div>
+        <div class="routes">
+          <article class="route-block">
+            <div class="route-top">
+              <span class="time">09:30–10:10</span>
+              <span class="pill soft">移动</span>
+            </div>
+            <h4>Lux 去 Express Bus Terminal</h4>
+            <p><strong>从：</strong>Lux Guesthouse</p>
+            <p><strong>到：</strong>Express Bus Terminal Station</p>
+            <p><strong>交通：</strong>地铁</p>
+            
+            
+            
+            
+            <p>早餐默认外食，因为 Lux 不含早餐。</p>
+            <p class="fallback"><strong>兜底：</strong>Google Maps 当天如果显示巴士更优，再切巴士。</p>
+            <div class="actions">
+              <a class="btn" href="https://www.google.com/maps/dir/?api=1&origin=Lux%20Guesthouse%20156%20Wausan-ro%20Mapo-gu%20Seoul%2004061%20Hongik%20Univ%20Station&destination=Express%20Bus%20Terminal%20Station&travelmode=transit" target="_blank" rel="noopener noreferrer">Google Maps</a>
+              
+              
+            </div>
+          </article>
+        
+          <article class="route-block">
+            <div class="route-top">
+              <span class="time">10:10–12:40</span>
+              <span class="pill soft">购物</span>
+            </div>
+            <h4>GOTO Mall 第一轮</h4>
+            <p><strong>从：</strong>Express Bus Terminal Station</p>
+            <p><strong>到：</strong>GOTO Mall</p>
+            <p><strong>交通：</strong>步行逛店</p>
+            <p><strong>预算：</strong>50–100 RMB / 第一轮试探预算</p>
+            <p><strong>主推荐：</strong>GOTO Mall</p>
+            <p><strong>备选：</strong>Newcore / 新世界百货周边基础款区</p>
+            <p><strong>为什么排这里：</strong>先看袜子、小包、小配饰，再看基础款上衣和薄外套，不急着下单。</p>
+            <p>第一轮只看店和定预算，不急着买。</p>
+            <p class="fallback"><strong>兜底：</strong>先逛一圈再回头买，别第一家就烧光预算。</p>
+            <div class="actions">
+              <a class="btn" href="https://www.google.com/maps/dir/?api=1&origin=Express%20Bus%20Terminal%20Station&destination=GOTO%20Mall&travelmode=walking" target="_blank" rel="noopener noreferrer">Google Maps</a>
+              <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=GOTO%20Mall" target="_blank" rel="noopener noreferrer">主推荐</a>
+              <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=Shinsegae%20Gangnam" target="_blank" rel="noopener noreferrer">备选</a>
+            </div>
+          </article>
+        
+          <article class="route-block">
+            <div class="route-top">
+              <span class="time">12:40–13:40</span>
+              <span class="pill soft">吃饭</span>
+            </div>
+            <h4>车站午饭</h4>
+            <p><strong>从：</strong>GOTO Mall</p>
+            <p><strong>到：</strong>Express Bus Terminal food court</p>
+            <p><strong>交通：</strong>步行</p>
+            <p><strong>预算：</strong>20–50 RMB / 餐</p>
+            <p><strong>主推荐：</strong>Express Bus Terminal food court</p>
+            <p><strong>备选：</strong>GOTO Mall / 新世界百货周边简餐</p>
+            <p><strong>为什么排这里：</strong>车站周边最稳，不用额外绕路。</p>
+            <p>午饭放在商圈内部解决，保证下午还能继续第二轮。</p>
+            <p class="fallback"><strong>兜底：</strong>如果 food court 太挤，就在周边简餐店随便找能坐下的。</p>
+            <div class="actions">
+              <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Express%20Bus%20Terminal%20food%20court" target="_blank" rel="noopener noreferrer">Google Maps</a>
+              <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=Express%20Bus%20Terminal%20food%20court" target="_blank" rel="noopener noreferrer">主推荐</a>
+              <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=Shinsegae%20Gangnam%20food" target="_blank" rel="noopener noreferrer">备选</a>
+            </div>
+          </article>
+        
+          <article class="route-block">
+            <div class="route-top">
+              <span class="time">13:40–15:10</span>
+              <span class="pill soft">购物</span>
+            </div>
+            <h4>GOTO 第二轮 / 回头下单</h4>
+            <p><strong>从：</strong>Express Bus Terminal food court</p>
+            <p><strong>到：</strong>GOTO Mall</p>
+            <p><strong>交通：</strong>步行</p>
+            <p><strong>预算：</strong>100–300 RMB / 第二轮主力档</p>
+            <p><strong>主推荐：</strong>GOTO Mall</p>
+            <p><strong>备选：</strong>Express Bus Terminal underground shopping</p>
+            <p><strong>为什么排这里：</strong>第二轮才下单，优先基础款和小配件，不把 Musinsa 强塞进今天。</p>
+            <p>今天就把 GOTO 做完，不再横跳别的商圈。</p>
+            <p class="fallback"><strong>兜底：</strong>如果上午已经买够，这段就缩短去喝咖啡休息。</p>
+            <div class="actions">
+              <a class="btn" href="https://www.google.com/maps/dir/?api=1&origin=Express%20Bus%20Terminal%20food%20court&destination=GOTO%20Mall&travelmode=walking" target="_blank" rel="noopener noreferrer">Google Maps</a>
+              <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=GOTO%20Mall" target="_blank" rel="noopener noreferrer">主推荐</a>
+              <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=Express%20Bus%20Terminal%20underground%20shopping%20center" target="_blank" rel="noopener noreferrer">备选</a>
+            </div>
+          </article>
+        
+          <article class="route-block">
+            <div class="route-top">
+              <span class="time">15:10–15:30</span>
+              <span class="pill soft">移动</span>
+            </div>
+            <h4>去盘浦汉江</h4>
+            <p><strong>从：</strong>GOTO Mall</p>
+            <p><strong>到：</strong>Banpo Hangang Park</p>
+            <p><strong>交通：</strong>步行 / 地铁</p>
+            
+            
+            
+            
+            <p>盘浦汉江作为傍晚免费夜景段。</p>
+            <p class="fallback"><strong>兜底：</strong>如果下雨，就直接回弘大吃饭。</p>
+            <div class="actions">
+              <a class="btn" href="https://www.google.com/maps/dir/?api=1&origin=GOTO%20Mall&destination=Banpo%20Hangang%20Park&travelmode=transit" target="_blank" rel="noopener noreferrer">Google Maps</a>
+              
+              
+            </div>
+          </article>
+        
+          <article class="route-block">
+            <div class="route-top">
+              <span class="time">15:30–17:30</span>
+              <span class="pill soft">移动</span>
+            </div>
+            <h4>盘浦汉江慢待</h4>
+            <p><strong>从：</strong>Banpo Hangang Park</p>
+            <p><strong>到：</strong>Banpo Hangang Park</p>
+            <p><strong>交通：</strong>步行停留</p>
+            
+            
+            
+            
+            <p>只做轻松停留，不加收费项目。</p>
+            <p class="fallback"><strong>兜底：</strong>风太大就提前走。</p>
+            <div class="actions">
+              <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Banpo%20Hangang%20Park" target="_blank" rel="noopener noreferrer">Google Maps</a>
+              
+              
+            </div>
+          </article>
+        
+          <article class="route-block">
+            <div class="route-top">
+              <span class="time">18:00–18:50</span>
+              <span class="pill soft">移动</span>
+            </div>
+            <h4>回 Lux</h4>
+            <p><strong>从：</strong>Banpo Hangang Park</p>
+            <p><strong>到：</strong>Lux Guesthouse</p>
+            <p><strong>交通：</strong>地铁</p>
+            
+            
+            
+            
+            <p>Day 4 起点和收口都按 Lux。</p>
+            <p class="fallback"><strong>兜底：</strong>如果很累，晚饭直接在 Lux 附近解决。</p>
+            <div class="actions">
+              <a class="btn" href="https://www.google.com/maps/dir/?api=1&origin=Banpo%20Hangang%20Park&destination=Lux%20Guesthouse%20156%20Wausan-ro%20Mapo-gu%20Seoul%2004061%20Hongik%20Univ%20Station&travelmode=transit" target="_blank" rel="noopener noreferrer">Google Maps</a>
+              
+              
+            </div>
+          </article>
+        
+          <article class="route-block">
+            <div class="route-top">
+              <span class="time">19:10–21:00</span>
+              <span class="pill soft">吃饭</span>
+            </div>
+            <h4>弘大晚饭</h4>
+            <p><strong>从：</strong>Lux Guesthouse</p>
+            <p><strong>到：</strong>Hongdae</p>
+            <p><strong>交通：</strong>步行</p>
+            <p><strong>预算：</strong>20–50 RMB / 餐</p>
+            <p><strong>主推荐：</strong>Mom&#39;s Touch Hongdae</p>
+            <p><strong>备选：</strong>Isaac Toast Hongdae / 弘大饭卷简餐</p>
+            <p><strong>为什么排这里：</strong>晚上只留给稳妥晚饭，不再加景点。</p>
+            <p>主推荐快餐汉堡，备选是吐司或饭卷简餐。</p>
+            <p class="fallback"><strong>兜底：</strong>体力差就不出门太远，在 Lux 附近就近吃。</p>
+            <div class="actions">
+              <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Hongdae%20restaurants" target="_blank" rel="noopener noreferrer">Google Maps</a>
+              <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=%EB%A7%98%EC%8A%A4%ED%84%B0%EC%B9%98%20%ED%99%8D%EB%8C%80" target="_blank" rel="noopener noreferrer">主推荐</a>
+              <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=%EC%9D%B4%EC%82%AD%ED%86%A0%EC%8A%A4%ED%8A%B8%20%ED%99%8D%EB%8C%80" target="_blank" rel="noopener noreferrer">备选</a>
+            </div>
+          </article>
+        </div>
+      </section>
+    
+      <section class="section" id="day-5">
+        <div class="section-head">
+          <span class="eyebrow">Day 5｜4/28 周二</span>
+          <h2>Lux 退房 / 寄存 → 弘大最后补漏 → 取行李 → 去仁川 T1</h2>
+          <p>最后一天默认按 Lux 退房 / 寄存 → 弘大补漏 → 机场。</p>
+        </div>
+        <div class="times"><span class="pill soft">09:30–10:30 退房 / 寄存</span><span class="pill soft">10:30–15:30 弘大最后补漏</span><span class="pill soft">15:30–16:00 回 Lux 取行李</span><span class="pill soft">18:10–19:00 去仁川 T1</span><span class="pill soft">19:00–23:00 机场流程</span></div>
+        <div class="routes">
+          <article class="route-block">
+            <div class="route-top">
+              <span class="time">09:30–10:30</span>
+              <span class="pill soft">移动</span>
+            </div>
+            <h4>Lux 退房 / 寄存</h4>
+            <p><strong>从：</strong>Lux Guesthouse</p>
+            <p><strong>到：</strong>Lux Guesthouse</p>
+            <p><strong>交通：</strong>退房</p>
+            
+            
+            
+            
+            <p>先问寄存，再开始白天路线。</p>
+            <p class="fallback"><strong>兜底：</strong>Lux 不寄存时，默认改 Hongik Univ. Station 附近寄存点。</p>
+            <div class="actions">
+              <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Lux%20Guesthouse%20156%20Wausan-ro%20Mapo-gu%20Seoul%2004061%20Hongik%20Univ%20Station" target="_blank" rel="noopener noreferrer">Google Maps</a>
+              
+              
+            </div>
+          </article>
+        
+          <article class="route-block">
+            <div class="route-top">
+              <span class="time">10:30–12:00</span>
+              <span class="pill soft">购物</span>
+            </div>
+            <h4>Musinsa Standard Hongdae 主力补漏</h4>
+            <p><strong>从：</strong>Lux Guesthouse</p>
+            <p><strong>到：</strong>Musinsa Standard Hongdae</p>
+            <p><strong>交通：</strong>步行 / 地铁</p>
+            <p><strong>预算：</strong>100–300 RMB / 最后一轮主力补漏</p>
+            <p><strong>主推荐：</strong>Musinsa Standard Hongdae</p>
+            <p><strong>备选：</strong>Hongdae Shopping Street</p>
+            <p><strong>为什么排这里：</strong>最后一天只补真会穿回国的基础款，不再开新坑。</p>
+            <p>如果前几天衣服已经够了，这段就缩短。</p>
+            <p class="fallback"><strong>兜底：</strong>不为“最后一天”而硬凑预算。</p>
+            <div class="actions">
+              <a class="btn" href="https://www.google.com/maps/dir/?api=1&origin=Lux%20Guesthouse%20156%20Wausan-ro%20Mapo-gu%20Seoul%2004061%20Hongik%20Univ%20Station&destination=Musinsa%20Standard%20Hongdae&travelmode=transit" target="_blank" rel="noopener noreferrer">Google Maps</a>
+              <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=Musinsa%20Standard%20Hongdae" target="_blank" rel="noopener noreferrer">主推荐</a>
+              <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=Hongdae%20Shopping%20Street" target="_blank" rel="noopener noreferrer">备选</a>
+            </div>
+          </article>
+        
+          <article class="route-block">
+            <div class="route-top">
+              <span class="time">12:00–13:00</span>
+              <span class="pill soft">吃饭</span>
+            </div>
+            <h4>弘大午饭</h4>
+            <p><strong>从：</strong>Musinsa Standard Hongdae</p>
+            <p><strong>到：</strong>Hongdae</p>
+            <p><strong>交通：</strong>步行</p>
+            <p><strong>预算：</strong>20–50 RMB / 餐</p>
+            <p><strong>主推荐：</strong>Isaac Toast Hongdae</p>
+            <p><strong>备选：</strong>Hong Kong Banjum 0410 Hongdae / 弘大简餐</p>
+            <p><strong>为什么排这里：</strong>午饭继续走快、稳、一个人不尴尬路线。</p>
+            <p>这顿饭不再去远，不折返别的商圈。</p>
+            <p class="fallback"><strong>兜底：</strong>排队长就切到备选。</p>
+            <div class="actions">
+              <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Hongdae%20restaurants" target="_blank" rel="noopener noreferrer">Google Maps</a>
+              <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=%EC%9D%B4%EC%82%AD%ED%86%A0%EC%8A%A4%ED%8A%B8%20%ED%99%8D%EB%8C%80" target="_blank" rel="noopener noreferrer">主推荐</a>
+              <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=%ED%99%8D%EC%BD%A9%EB%B0%98%EC%A0%900410%20%ED%99%8D%EB%8C%80" target="_blank" rel="noopener noreferrer">备选</a>
+            </div>
+          </article>
+        
+          <article class="route-block">
+            <div class="route-top">
+              <span class="time">13:00–14:20</span>
+              <span class="pill soft">购物</span>
+            </div>
+            <h4>弘大小物 / 帽子 / 袜子补缺</h4>
+            <p><strong>从：</strong>Hongdae</p>
+            <p><strong>到：</strong>Hongdae Shopping Street</p>
+            <p><strong>交通：</strong>步行</p>
+            <p><strong>预算：</strong>20–100 RMB / 轻小件</p>
+            <p><strong>主推荐：</strong>Hongdae Shopping Street</p>
+            <p><strong>备选：</strong>Daiso Hongdae</p>
+            <p><strong>为什么排这里：</strong>最后一轮只补轻小件，避免再买难带的大件。</p>
+            <p>主线是帽子、袜子、小物，不再开大牌和香水。</p>
+            <p class="fallback"><strong>兜底：</strong>如果你已经买够，就直接跳到取行李。</p>
+            <div class="actions">
+              <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Hongdae%20Shopping%20Street" target="_blank" rel="noopener noreferrer">Google Maps</a>
+              <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=Hongdae%20Shopping%20Street" target="_blank" rel="noopener noreferrer">主推荐</a>
+              <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=Daiso%20Hongdae" target="_blank" rel="noopener noreferrer">备选</a>
+            </div>
+          </article>
+        
+          <article class="route-block">
+            <div class="route-top">
+              <span class="time">14:20–15:00</span>
+              <span class="pill soft">购物</span>
+            </div>
+            <h4>便利店 / Daiso 最后补缺项</h4>
+            <p><strong>从：</strong>Hongdae Shopping Street</p>
+            <p><strong>到：</strong>Daiso Hongdae</p>
+            <p><strong>交通：</strong>步行</p>
+            <p><strong>预算：</strong>20–60 RMB / 补缺</p>
+            <p><strong>主推荐：</strong>Daiso Hongdae</p>
+            <p><strong>备选：</strong>CU / GS25 Hongdae</p>
+            <p><strong>为什么排这里：</strong>只补轻小缺项，不再新开购物线。</p>
+            <p>药妆只补消耗品，今天不再碰大牌。</p>
+            <p class="fallback"><strong>兜底：</strong>如果时间被压缩，这段直接砍掉。</p>
+            <div class="actions">
+              <a class="btn" href="https://www.google.com/maps/dir/?api=1&origin=Hongdae%20Shopping%20Street&destination=Daiso%20Hongdae&travelmode=walking" target="_blank" rel="noopener noreferrer">Google Maps</a>
+              <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=Daiso%20Hongdae" target="_blank" rel="noopener noreferrer">主推荐</a>
+              <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=CU%20Hongdae" target="_blank" rel="noopener noreferrer">备选</a>
+            </div>
+          </article>
+        
+          <article class="route-block">
+            <div class="route-top">
+              <span class="time">15:30–16:00</span>
+              <span class="pill soft">移动</span>
+            </div>
+            <h4>回 Lux 取行李</h4>
+            <p><strong>从：</strong>Hongdae</p>
+            <p><strong>到：</strong>Lux Guesthouse</p>
+            <p><strong>交通：</strong>步行</p>
+            
+            
+            
+            
+            <p>回酒店拿箱子，重新整理退税商品和随身包。</p>
+            <p class="fallback"><strong>兜底：</strong>如果行李寄存在站里，就直接去站里取。</p>
+            <div class="actions">
+              <a class="btn" href="https://www.google.com/maps/dir/?api=1&origin=Hongdae&destination=Lux%20Guesthouse%20156%20Wausan-ro%20Mapo-gu%20Seoul%2004061%20Hongik%20Univ%20Station&travelmode=walking" target="_blank" rel="noopener noreferrer">Google Maps</a>
+              
+              
+            </div>
+          </article>
+        
+          <article class="route-block">
+            <div class="route-top">
+              <span class="time">18:10–19:00</span>
+              <span class="pill soft">移动</span>
+            </div>
+            <h4>Hongik Univ. Station → AREX → 仁川 T1</h4>
+            <p><strong>从：</strong>Hongik Univ. Station</p>
+            <p><strong>到：</strong>Incheon International Airport Terminal 1</p>
+            <p><strong>交通：</strong>AREX / 机场铁路</p>
+            
+            
+            
+            
+            <p>Plan A 固定走 AREX；只有 Google Maps 当天显示更优时，才切机场巴士。</p>
+            <p class="fallback"><strong>兜底：</strong>时间被压缩时，优先保留 AREX，不自己脑补捷径。</p>
+            <div class="actions">
+              <a class="btn" href="https://www.google.com/maps/dir/?api=1&origin=Hongik%20Univ.%20Station&destination=Incheon%20International%20Airport%20Terminal%201&travelmode=transit" target="_blank" rel="noopener noreferrer">Google Maps</a>
+              
+              
+            </div>
+          </article>
+        
+          <article class="route-block">
+            <div class="route-top">
+              <span class="time">19:00–21:00</span>
+              <span class="pill soft">机场</span>
+            </div>
+            <h4>退税 / 托运 / 安检</h4>
+            <p><strong>从：</strong>Incheon International Airport Terminal 1</p>
+            <p><strong>到：</strong>Incheon International Airport Terminal 1</p>
+            <p><strong>交通：</strong>机场流程</p>
+            
+            
+            
+            
+            <p>先确认退税 / 海关验货，再托运行李，再安检。</p>
+            <p class="fallback"><strong>兜底：</strong>大额退税商品不要先托运。</p>
+            <div class="actions">
+              <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Incheon%20International%20Airport%20Terminal%201" target="_blank" rel="noopener noreferrer">Google Maps</a>
+              
+              
+            </div>
+          </article>
+        
+          <article class="route-block">
+            <div class="route-top">
+              <span class="time">21:00–23:00</span>
+              <span class="pill soft">机场</span>
+            </div>
+            <h4>候机 / 免税提货</h4>
+            <p><strong>从：</strong>Incheon International Airport Terminal 1</p>
+            <p><strong>到：</strong>Incheon International Airport Terminal 1</p>
+            <p><strong>交通：</strong>候机</p>
+            
+            
+            
+            
+            <p>过安检后再去提货，登机前 40–60 分钟回登机口附近。</p>
+            <p class="fallback"><strong>兜底：</strong>提货排队长时，优先保证登机口时间。</p>
+            <div class="actions">
+              <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Incheon%20International%20Airport%20Terminal%201%20duty%20free%20pickup" target="_blank" rel="noopener noreferrer">Google Maps</a>
+              
+              
+            </div>
+          </article>
+        </div>
+      </section>
+    
+
+    <section class="section" id="procurement">
+      <div class="section-head">
+        <span class="pill soft">采购单</span>
+        <h2>按天采购</h2>
+        <p>药妆、GOTO、回程补漏分开执行，不和路线主线混成一锅。</p>
+      </div>
+      <div class="proc-grid">
+        
+      <article class="proc-card">
+        <h3>4/26 明洞药妆日</h3>
+        <p>这一天只做药妆和彩妆补货，不把香水和衣服大采购混进来。</p>
+        <ul><li>进门先看 1+1 / SALE / Tax Refund 标识，再开始拿货</li><li>主清单先拿 Dr.G / Torriden / 痘痘贴 / Mediheal / Round Lab</li><li>彩妆只补 1–2 件：rom&amp;nd / 3CE / HERA 里挑明确想要的</li><li>香氛今天只试，不大买大瓶</li><li>付款顺序按 Visa → WOWPASS → 支付宝 → 现金执行</li><li>结账后已分开收小票、退税单、未拆封商品</li></ul>
+      </article>
+    
+      <article class="proc-card">
+        <h3>4/27 GOTO / Musinsa 衣服日</h3>
+        <p>这一天只解决衣服和基础款，不把免税和药妆重采购再加回来。</p>
+        <ul><li>进店前先设服饰预算上限，没有边逛边改预算</li><li>GOTO 先买基础款上衣 / 薄外套 / 袜子 / 小包 / 小配饰</li><li>没有买难带大件，也没有拿“像大牌”的冲动款</li><li>先逛一圈记店铺，再回头下单，没有第一家就烧光预算</li><li>Musinsa 只补 1–2 件真会穿回国的卫衣 / T 恤 / 衬衫 / 牛仔</li><li>小店现金，能刷就优先 Visa；如果 GOTO 已买够，Musinsa 已收手</li></ul>
+      </article>
+    
+      <article class="proc-card">
+        <h3>4/28 回程补漏日</h3>
+        <p>今天的任务是收口和回机场，不再给自己加新的购物负担。</p>
+        <ul><li>今天只买缺项，没有新开购物线</li><li>药妆只补消耗品，没有再开大牌和高客单彩妆</li><li>香水 / 大牌 / 新系列今天没有新开坑</li><li>回酒店后已区分退税商品 / 托运行李 / 随身物品 / 机场免税提货</li><li>大额退税商品没有先托运，护照和小票都放在最好拿的位置</li><li>预算剩余也只用于补缺，没有因为最后一天再乱买</li></ul>
+      </article>
+    
+      </div>
+    </section>
+  </main>
+</body>
+</html>
