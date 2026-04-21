@@ -520,6 +520,68 @@ button:hover,
   padding-inline: 0.7rem;
 }
 
+.priority-head {
+  background:
+    linear-gradient(145deg, rgba(26, 41, 61, 0.98), rgba(38, 55, 81, 0.95));
+}
+
+.priority-summary {
+  display: grid;
+  gap: 0.88rem;
+}
+
+.priority-alert {
+  display: grid;
+  gap: 0.34rem;
+  padding: 0.92rem 1rem;
+  border: 1px solid rgba(216, 154, 75, 0.2);
+  border-radius: 20px;
+  background:
+    linear-gradient(180deg, rgba(255, 249, 240, 0.98), rgba(255, 244, 226, 0.95));
+  box-shadow: var(--shadow-soft);
+}
+
+.priority-alert strong {
+  color: var(--surface-ink);
+}
+
+.priority-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem;
+}
+
+.priority-card {
+  display: grid;
+  gap: 0.7rem;
+  padding: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.88);
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(255, 249, 240, 0.96)),
+    var(--surface);
+  box-shadow: var(--shadow-card);
+}
+
+.priority-card h3 {
+  color: var(--surface-ink);
+}
+
+.priority-copy {
+  color: var(--muted);
+}
+
+.priority-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.6rem;
+}
+
+.priority-actions .link {
+  min-height: 2.8rem;
+  padding-inline: 0.7rem;
+}
+
 .checklist {
   display: grid;
   gap: 0.72rem;
@@ -756,7 +818,8 @@ details.guide .content {
   .days,
   .guide-grid,
   .shop-grid,
-  .static-grid.two {
+  .static-grid.two,
+  .priority-grid {
     grid-template-columns: 1fr;
   }
 }
@@ -1043,6 +1106,19 @@ const shopping=[
 function shoppingDayProgress(day){const total=day.tasks.length;const done=day.tasks.filter((task)=>isDone(task.id)).length;return {done,total};}
 function renderShoppingDayCard(day){const {done,total}=shoppingDayProgress(day);return `<article class="card"><div class="day-top"><div><span class="chip">${day.day}</span><h3>按天采购单</h3></div><span class="status ${done===total?'ok':''}">执行清单：${done}/${total}</span></div><p class="mini">${day.note}</p><ul class="checklist">${day.tasks.map((task)=>renderTask(task.id,task.text)).join('')}</ul></article>`;}
 function renderShoppingDays(){const visible=shoppingDays.filter((day)=>matchesQuery([day.day,day.note,...day.tasks.map((t)=>t.text)])); if(!visible.length) return '<div class="empty">采购单没有匹配结果。</div>'; return visible.map(renderShoppingDayCard).join('');}
+function renderPriorityCard(label,title,copy,actions=''){return `<article class="priority-card"><span class="chip">${label}</span><h3>${title}</h3><p class="mini priority-copy">${copy}</p>${actions?`<div class="priority-actions">${actions}</div>`:''}</article>`;}
+function renderPriorityBoard(){
+  const day=days[getTodayIndex()];
+  const stay=getCurrentHotelStay();
+  const firstMove=day.routeBlocks[0];
+  const hardStop=day.routeBlocks.find((block)=>block.kind==='checkin' || block.kind==='airport' || block.transport.includes('N6002'));
+  const foodBlock=day.routeBlocks.find((block)=>block.kind==='food');
+  const shopBlock=day.routeBlocks.find((block)=>block.kind==='shop');
+  const stayCard=renderPriorityCard('今晚住宿', stay.name, `${stay.area}｜${stay.constraints}`, `<a class="link" href="${createHotelMapsUrl(stay)}" target="_blank" rel="noopener noreferrer">今晚酒店</a><button data-copy-stay="${stay.key}">复制地址</button>`);
+  const firstMoveCard=renderPriorityCard('现在先做', `${firstMove.start}–${firstMove.end} ${firstMove.title}`, `${firstMove.from} → ${firstMove.to}`, `<a class="link" href="${createRouteMapsUrl(firstMove)}" target="_blank" rel="noopener noreferrer">先看地图</a>`);
+  const foodCard=foodBlock ? renderPriorityCard('今天吃什么', `${foodBlock.start}–${foodBlock.end} ${foodBlock.primaryPlace || foodBlock.title}`, `${foodBlock.budget || '20–50 RMB / 餐'}｜${foodBlock.backupPlace ? `备选：${foodBlock.backupPlace}` : '这一段只求稳妥吃上'}`, `<a class="link" href="${foodBlock.primaryMapsQuery ? createGoogleMapsSearchUrl(foodBlock.primaryMapsQuery) : createRouteMapsUrl(foodBlock)}" target="_blank" rel="noopener noreferrer">主推荐</a>${foodBlock.backupMapsQuery ? `<a class="link" href="${createGoogleMapsSearchUrl(foodBlock.backupMapsQuery)}" target="_blank" rel="noopener noreferrer">备选</a>` : ''}`) : renderPriorityCard('今天吃什么', '今天不单独安排吃饭路线', '今晚只求进城和入住，不额外开吃饭支线。');
+  const shopCard=shopBlock ? renderPriorityCard('今天买什么', `${shopBlock.start}–${shopBlock.end} ${shopBlock.primaryPlace || shopBlock.title}`, `${shopBlock.whyThisStop || shopBlock.notes}`, `<a class="link" href="${shopBlock.primaryMapsQuery ? createGoogleMapsSearchUrl(shopBlock.primaryMapsQuery) : createRouteMapsUrl(shopBlock)}" target="_blank" rel="noopener noreferrer">主推荐</a>${shopBlock.backupMapsQuery ? `<a class="link" href="${createGoogleMapsSearchUrl(shopBlock.backupMapsQuery)}" target="_blank" rel="noopener noreferrer">备选</a>` : ''}`) : renderPriorityCard('今天买什么', '今天不单独安排购物主线', '今天先把路线走顺，采购单和购物留给后面几天。');
+  return `<section class="section" id="priority"><div class="section-head priority-head"><span class="eyebrow">Priority</span><h2>现在最该看什么</h2><p>先看今晚住哪、现在先做哪一步、今天吃什么、今天买什么；下面再看完整路线。</p></div><div class="priority-summary">${hardStop && hardStop!==firstMove ? `<div class="priority-alert"><span class="chip">最晚别错过</span><p><strong>${hardStop.start}–${hardStop.end}</strong>｜${hardStop.title}</p><p class="mini">${hardStop.notes}</p></div>` : ''}<div class="priority-grid">${stayCard}${firstMoveCard}${foodCard}${shopCard}</div></div></section>`;}
 function renderTodayFocus(){const day=days[getTodayIndex()]; const shoppingIdx=getTodayShoppingIndex(); const shoppingDay=shoppingIdx>=0 ? shoppingDays[shoppingIdx] : null; const shoppingBlock=shoppingDay ? renderShoppingDayCard(shoppingDay) : `<article class="card"><div class="day-top"><div><span class="chip">${day.day}</span><h3>今天采购单</h3></div><span class="status warn">未激活</span></div><p class="mini">今天先把路线和节奏走顺，采购单从 4/26 才开始真正执行。</p></article>`; return `<section class="section today-focus-shell" id="today-focus"><div class="section-head"><span class="eyebrow">Today Focus</span><h2>今天先看这个</h2><p>自动把今天路线和今天采购单放一起，出门时不用在整页里翻半天。</p></div><div class="days">${renderDayCard(day)}${shoppingBlock}</div></section>`;}
 function renderTopShopping(){const top=shopping.filter((item)=>['最高','高'].includes(item.priority)).slice(0,8);return top.map((item)=>`<article class="shop-card"><div class="shop-price"><span class="pill">${item.priority}</span><span class="pill warn">${item.kind}</span><span class="pill bad">${item.budget}</span></div><h3>${item.name}</h3><p class="mini">适合：${item.bestFor}</p>${item.giftFor?`<p class="mini">适合送：${item.giftFor}</p>`:''}${item.whyMeaningful?`<p class="mini">为什么更有意义：${item.whyMeaningful}</p>`:''}<p class="mini">怎么买：${item.buyWhen}</p><p class="mini">避坑：${item.avoid}</p></article>`).join('');}
 function renderShopping(){const visible=shopping.filter((item)=>matchesQuery([item.kind,item.zone,item.budget,item.name,item.where,item.fit,item.priority,item.bestFor,item.buyWhen,item.avoid,item.kr,item.cn,item.gap,item.tip,item.whyMeaningful,item.giftFor,item.giftBudget,item.notFor])); if(!visible.length) return '<div class="empty">购物区没有匹配结果。</div>'; return visible.map((item)=>`<article class="shop-card"><div class="shop-price"><span class="pill">${item.kind}</span><span class="pill warn">${item.priority}</span><span class="pill bad">${item.budget}</span></div><h3>${item.name}</h3><div class="shop-price"><span class="pill">${item.where}</span><span class="pill warn">适合：${item.bestFor}</span></div>${item.giftFor?`<div class="shop-price"><span class="pill warn">适合送：${item.giftFor}</span>${item.giftBudget?`<span class="pill">预算：${item.giftBudget}</span>`:''}</div>`:''}<p class="mini">韩国：${item.kr}｜国内：${item.cn}｜${item.gap}</p>${item.whyMeaningful?`<p class="mini">为什么更有意义：${item.whyMeaningful}</p>`:''}<p class="mini">什么时候买：${item.buyWhen}</p><p class="mini">避坑：${item.avoid}</p>${item.notFor?`<p class="mini">不建议送：${item.notFor}</p>`:''}<p class="mini">${item.tip}</p></article>`).join('');}
@@ -1107,10 +1183,117 @@ function render(){
   const visibleDays=getVisibleDays();
   const todayLabel=days[getTodayIndex()].day;
   const tonightStay=getCurrentHotelStay();
-  const quickChips=['住宿','交通卡','Climate Card','500预算','2000档','明洞','药妆','Musinsa','弘大','回程','补漏','免税','N6002','退税','支付宝','金卡','购物','问路','酒店','Dr.G','防晒','精华','棉片','痘痘贴','面膜','口红','香水','衣服','朋友','妈妈','爸爸','女朋友','弟弟','家人','老师同学','礼物','有意义','伴手礼','GOTO','午饭','晚饭','Isaac','Hong Kong Banjum','Mom\'s Touch','Daiso','Artbox','广藏市场'];
-  document.getElementById('app').innerHTML=`<section class="hero card"><div class="hero-head"><div><span class="eyebrow">首尔 4/24–4/28</span><h1>韩国旅行清单增强版</h1><p>标题、住宿、每天任务、采购单和购物都在下面；往下滑就是完整版，不是只有一页。</p></div><span class="hero-badge">Birdsnest → Boro → Lux</span></div><div class="hero-meta"><span class="meta-pill">总任务：${doneTasks}/${totalTasks.length}</span><span class="meta-pill">4/24 深夜到达 T1</span><span class="meta-pill">4/28 23:40 从仁川起飞</span></div><div class="hero-actions"><a class="link" href="./night-arrival-lite.html">🌙 落地夜</a><button id="share">分享</button></div><div class="hero-actions secondary"><button id="copy-hotel">复制今晚酒店地址</button><button id="copy-airport">复制返程提醒</button></div></section><section class="section"><div class="card offline-alert"><h3>出发前最重要：把离线版 HTML 存进手机“文件”App</h3><ul><li>先用 Safari 打开完整版，再添加到主屏幕。</li><li>完整版打不开时，先走安全入口。</li><li>国外网络抖动时，直接打开离线版，不回聊天记录翻链接。</li></ul><div class="copy-row"><a class="link" href="./safe-open.html">打不开先走安全入口</a><a class="link" href="./">返回总入口</a></div></div></section><section class="section"><div class="card search-box"><div class="search-wrap"><input id="search-input" class="ghost-input" type="search" placeholder="搜 礼物 / 妈妈 / 女朋友 / 弟弟 / 防晒 / 口红 / 香水 / 衣服" value="${uiState.search.replace(/"/g,'&quot;')}" /><div class="quick-row">${quickChips.map((chip)=>`<button class="quick-chip" data-quick="${chip}">${chip}</button>`).join('')}<button id="clear-search">清空搜索</button></div></div><div class="mode-row"><span class="chip result-chip">任务区结果：${visibleDays.length} 天</span><button id="toggle-today">${uiState.todayOnly ? `关闭今天任务模式（${todayLabel}）` : '只看今天任务'}</button></div></div></section>${renderTodayFocus()}<section class="section" id="phases"><div class="section-head"><span class="eyebrow">Timeline</span><h2>四阶段执行面板</h2><p>按阶段勾掉你已经完成的动作。</p></div><div class="list">${renderPhases() || '<div class="empty">四阶段里没有匹配结果。</div>'}</div></section><section class="section" id="guide"><div class="section-head"><span class="eyebrow">Ultimate Guide</span><h2>全方位终极指南</h2><p>往下还有：住宿 / 每天任务 / 采购单 / 购物。先看这块，再继续往下滑。</p></div><div class="guide-grid">${renderGuide() || '<div class="empty">指南里没有匹配结果。</div>'}</div><div class="card meta-list"><div class="meta-row"><span class="meta-label">今晚住宿：</span><span>${tonightStay.name}</span></div><div class="meta-row"><span class="meta-label">地图检索：</span><span>${tonightStay.mapsQuery || tonightStay.address}</span></div><div class="meta-row"><span class="meta-label">返程提醒：</span><span>4/28 晚班机返程版：19:00 左右从弘大往仁川 T1 走。</span></div></div></section>${renderHotelStays()}<section class="section" id="days"><div class="section-head"><span class="eyebrow">Daily Plan</span><h2>每天要干什么</h2><p>每天一张卡，点一下就勾掉，刷新后也会记住。</p></div><div class="days">${renderDays()}</div></section><section class="section" id="shopping-days"><div class="section-head"><span class="eyebrow">Day Shopping</span><h2>按天采购单</h2><p>到店后直接照着买，别把药妆、衣服、回程补漏混成一锅。</p></div><div class="days">${renderShoppingDays()}</div></section><section class="section" id="shopping-top"><div class="section-head"><span class="eyebrow">Top Picks</span><h2>先买这几样</h2><p>时间不够就先看这里，都是优先级最高或高的东西。</p></div><div class="shop-grid">${renderTopShopping()}</div></section><section class="section" id="shopping"><div class="section-head"><span class="eyebrow">Shopping</span><h2>最值得买什么</h2><p>按轻体积、价差明显、看起来更像自用或送人的方向挑，不走大货囤积路线。</p></div><div class="shop-grid">${renderShopping()}</div><div class="note">17 岁这次最稳的策略：不碰烟酒，不碰大体积保健品，不走“像商业代购”的大货逻辑；有 Visa 就优先 Visa，失败再切 WOWPASS / 支付宝 / 现金三套兜底。</div></section><section class="section"><div class="card offline-alert"><h3>最后再提醒一次</h3><ul><li>正式入口：总入口 → 完整版 → 落地夜极简页。</li><li>微信里不稳时，复制链接到 Safari。</li><li>离线版始终是出国保命兜底。</li></ul><div class="copy-row"><a class="link" href="./safe-open.html">打不开先走安全入口</a><a class="link" href="./night-arrival-lite.html">🌙 现在是落地夜？点这里</a></div></div></section><div class="toolbar"><div class="toolbar-inner"><a class="link" href="#today-focus">今天</a><a class="link" href="#stays">住宿</a><a class="link" href="#days">任务</a><a class="link" href="#shopping-days">采购</a><a class="link" href="#shopping-top">必买</a><button id="reset">清空</button></div></div>`;
+  const quickChips=['今天','住宿','明洞','弘大','药妆','GOTO','Musinsa','退税','礼物','午饭','晚饭','Daiso','Isaac','广藏市场'];
+  const searchSection=`<section class="section" id="search-panel"><div class="card search-box"><div class="search-wrap"><input id="search-input" class="ghost-input" type="search" placeholder="搜 明洞 / 午饭 / GOTO / 退税 / 礼物 / Daiso" value="${uiState.search.replace(/"/g,'&quot;')}" /><div class="quick-row">${quickChips.map((chip)=>`<button class="quick-chip" data-quick="${chip}">${chip}</button>`).join('')}</div></div><div class="mode-row"><span class="chip result-chip">当前筛到：${visibleDays.length} 天</span><button id="toggle-today">${uiState.todayOnly ? `关闭今天模式（${todayLabel}）` : '只看今天'}</button><button id="clear-search">清空搜索</button><button id="reset">清空进度</button></div></div></section>`;
+  document.getElementById('app').innerHTML=`
+    <section class="hero card">
+      <div class="hero-head">
+        <div>
+          <span class="eyebrow">首尔 4/24–4/28</span>
+          <h1>韩国旅行清单增强版</h1>
+          <p>先看今天住哪、先做什么、今天吃什么和今天买什么；完整路线和细节攻略都在后面。</p>
+        </div>
+        <span class="hero-badge">Birdsnest → Boro → Lux</span>
+      </div>
+      <div class="hero-meta">
+        <span class="meta-pill">总任务：${doneTasks}/${totalTasks.length}</span>
+        <span class="meta-pill">4/24 深夜到达 T1</span>
+        <span class="meta-pill">4/28 23:40 从仁川起飞</span>
+      </div>
+      <div class="hero-actions">
+        <a class="link" href="./night-arrival-lite.html">🌙 落地夜</a>
+        <button id="share">分享</button>
+      </div>
+      <div class="hero-actions secondary">
+        <button id="copy-hotel">复制今晚酒店地址</button>
+        <button id="copy-airport">复制返程提醒</button>
+      </div>
+    </section>
+    ${renderPriorityBoard()}
+    ${renderTodayFocus()}
+    ${renderHotelStays()}
+    <section class="section" id="days">
+      <div class="section-head">
+        <span class="eyebrow">Daily Plan</span>
+        <h2>完整日程</h2>
+        <p>从这里开始看每天的完整路线、时间块、Google Maps、吃饭和购物顺序。</p>
+      </div>
+      <div class="days">${renderDays()}</div>
+    </section>
+    <section class="section" id="shopping-days">
+      <div class="section-head">
+        <span class="eyebrow">Day Shopping</span>
+        <h2>按天采购单</h2>
+        <p>药妆、衣服、回程补漏分天执行，不和主路线混在一起。</p>
+      </div>
+      <div class="days">${renderShoppingDays()}</div>
+    </section>
+    <section class="section" id="shopping-top">
+      <div class="section-head">
+        <span class="eyebrow">Top Picks</span>
+        <h2>先买这几样</h2>
+        <p>时间不够就先看这里，都是优先级最高或高的东西。</p>
+      </div>
+      <div class="shop-grid">${renderTopShopping()}</div>
+    </section>
+    ${searchSection}
+    <section class="section" id="guide">
+      <div class="section-head">
+        <span class="eyebrow">Ultimate Guide</span>
+        <h2>细节攻略</h2>
+        <p>这里放支付、交通卡、买什么、送礼和软件问句；不抢前面的主线位置。</p>
+      </div>
+      <div class="guide-grid">${renderGuide() || '<div class="empty">指南里没有匹配结果。</div>'}</div>
+      <div class="card meta-list">
+        <div class="meta-row"><span class="meta-label">今晚住宿：</span><span>${tonightStay.name}</span></div>
+        <div class="meta-row"><span class="meta-label">地图检索：</span><span>${tonightStay.mapsQuery || tonightStay.address}</span></div>
+        <div class="meta-row"><span class="meta-label">返程提醒：</span><span>4/28 晚班机返程版：19:00 左右从弘大往仁川 T1 走。</span></div>
+      </div>
+    </section>
+    <section class="section" id="shopping">
+      <div class="section-head">
+        <span class="eyebrow">Shopping</span>
+        <h2>完整购物库</h2>
+        <p>当你已经知道今天主线后，再来这里慢慢挑具体单品和礼物。</p>
+      </div>
+      <div class="shop-grid">${renderShopping()}</div>
+      <div class="note">17 岁这次最稳的策略：不碰烟酒，不碰大体积保健品，不走“像商业代购”的大货逻辑；有 Visa 就优先 Visa，失败再切 WOWPASS / 支付宝 / 现金三套兜底。</div>
+    </section>
+    <section class="section" id="phases">
+      <div class="section-head">
+        <span class="eyebrow">Timeline</span>
+        <h2>准备清单</h2>
+        <p>这块放出发前、机场、回程的总检查项，优先级低于主路线。</p>
+      </div>
+      <div class="list">${renderPhases() || '<div class="empty">四阶段里没有匹配结果。</div>'}</div>
+    </section>
+    <section class="section">
+      <div class="card offline-alert">
+        <h3>离线兜底</h3>
+        <ul>
+          <li>正式入口：总入口 → 完整版 → 落地夜极简页。</li>
+          <li>微信里不稳时，复制链接到 Safari。</li>
+          <li>离线版始终是出国保命兜底。</li>
+        </ul>
+        <div class="copy-row">
+          <a class="link" href="./safe-open.html">打不开先走安全入口</a>
+          <a class="link" href="./night-arrival-lite.html">🌙 现在是落地夜？点这里</a>
+        </div>
+      </div>
+    </section>
+    <div class="toolbar">
+      <div class="toolbar-inner">
+        <a class="link" href="#priority">现在</a>
+        <a class="link" href="#stays">住宿</a>
+        <a class="link" href="#days">日程</a>
+        <a class="link" href="#shopping-days">采购</a>
+        <a class="link" href="#shopping">购物</a>
+        <a class="link" href="#guide">攻略</a>
+      </div>
+    </div>`;
   document.querySelectorAll('[data-check-id]').forEach((input)=>{input.addEventListener('change',(event)=>{tasksState[event.target.dataset.checkId]=event.target.checked;saveTasks();render();});});
   document.querySelectorAll('[data-quick]').forEach((btn)=>btn.addEventListener('click',()=>setSearch(btn.dataset.quick)));
+  document.querySelectorAll('[data-copy-stay]').forEach((btn)=>btn.addEventListener('click',()=>{const stay=hotelStays.find((item)=>item.key===btn.dataset.copyStay); if(stay) copyText(stay.mapsQuery || stay.address);}));
   document.getElementById('search-input').addEventListener('input',(e)=>setSearch(e.target.value));
   document.getElementById('clear-search').addEventListener('click',()=>setSearch(''));
   document.getElementById('toggle-today').addEventListener('click',toggleTodayMode);
