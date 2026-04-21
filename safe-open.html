@@ -15,7 +15,7 @@
       --navy: #1e293b;
       --caramel: #d99b4a;
       --cream: #f6efe3;
-      --paper: rgba(255, 252, 246, 0.9);
+      --paper: rgba(255, 252, 246, 0.92);
       --line: rgba(30, 41, 59, 0.1);
       --shadow: 0 24px 64px rgba(15, 23, 42, 0.14);
     }
@@ -29,8 +29,8 @@
       color: var(--ink);
       font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Noto Sans SC", "Segoe UI", sans-serif;
       background:
-        radial-gradient(circle at 8% -8%, rgba(217, 155, 74, .18), transparent 18rem),
-        radial-gradient(circle at 100% 4%, rgba(30, 41, 59, .14), transparent 20rem),
+        radial-gradient(circle at 8% -8%, rgba(217, 155, 74, 0.18), transparent 18rem),
+        radial-gradient(circle at 100% 4%, rgba(30, 41, 59, 0.14), transparent 20rem),
         linear-gradient(180deg, #fffaf2 0%, var(--cream) 52%, #ebe0cf 100%);
       -webkit-font-smoothing: antialiased;
     }
@@ -57,7 +57,7 @@
       min-height: 260px;
       display: grid;
       align-content: end;
-      gap: .8rem;
+      gap: .85rem;
       color: #fff;
       background:
         radial-gradient(circle at 18% 12%, rgba(217, 155, 74, .32), transparent 12rem),
@@ -115,13 +115,13 @@
   <main>
     <section class="hero">
       <h1>安全入口</h1>
-      <p>如果微信、QQ 或某些浏览器打不开复杂页面，先用这页。它是最轻的纯链接入口，点进去再跳完整版或极简页。</p>
+      <p>如果微信、QQ 或某些浏览器打不开完整版，先用这页。它只保留最轻的纯链接入口，专门给手机兜底。</p>
     </section>
 
     <section>
       <h2>先做这三件事</h2>
       <ul style="margin:0; padding-left:1.1rem; color:#5a6475; line-height:1.72;">
-        <li>优先换到 <strong>Safari</strong> 再打开，不要先赌内置浏览器。</li>
+        <li>优先切到 <strong>Safari</strong> 再打开，不要先赌内置浏览器。</li>
         <li>正式页能打开后，立刻 <strong>添加到主屏幕</strong>。</li>
         <li>出发前把 <strong>离线版 HTML</strong> 存进手机“文件”App。</li>
       </ul>
@@ -137,17 +137,17 @@
     </section>
 
     <section>
-      <h2>如果上面打不开，用备用</h2>
+      <h2>同域备用</h2>
       <div class="links">
         <a class="primary" href="https://ma5865366-stack.github.io/desktop-tutorial/mobile-rich-20260421.html">备用完整版</a>
-        <a class="warn" href="https://rawcdn.githack.com/ma5865366-stack/desktop-tutorial/main/night-arrival-lite.html">备用极简页</a>
-        <a href="https://rawcdn.githack.com/ma5865366-stack/desktop-tutorial/main/index.html">备用总入口</a>
+        <a class="warn" href="https://ma5865366-stack.github.io/desktop-tutorial/night-arrival-lite.html">备用极简页</a>
+        <a href="https://ma5865366-stack.github.io/desktop-tutorial/full.html">如果你只记一条，就记 full.html</a>
       </div>
     </section>
 
     <section>
       <h2>手动复制</h2>
-      <p>如果按钮不工作，就长按下面这条链接，复制到 Safari 地址栏：</p>
+      <p>如果按钮也不工作，就长按下面这条链接，复制到 Safari 地址栏：</p>
       <code>https://ma5865366-stack.github.io/desktop-tutorial/full.html</code>
     </section>
   </main>
