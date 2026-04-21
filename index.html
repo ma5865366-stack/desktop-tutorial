@@ -17,7 +17,7 @@
       --caramel: #d99b4a;
       --caramel-soft: rgba(217, 155, 74, 0.16);
       --cream: #f6efe3;
-      --paper: rgba(255, 252, 246, 0.9);
+      --paper: rgba(255, 252, 246, 0.92);
       --line: rgba(30, 41, 59, 0.1);
       --shadow: 0 24px 64px rgba(15, 23, 42, 0.14);
       --radius-xl: 30px;
@@ -76,7 +76,7 @@
     .hero {
       position: relative;
       overflow: hidden;
-      min-height: 340px;
+      min-height: 320px;
       display: grid;
       gap: 1rem;
       align-content: end;
@@ -104,52 +104,12 @@
       letter-spacing: .12em;
     }
 
-    .hero::after {
-      content: "";
-      position: absolute;
-      right: -4rem;
-      bottom: -4rem;
-      width: 13rem;
-      height: 13rem;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.06);
-    }
-
-    .hero > * {
-      position: relative;
-      z-index: 1;
-    }
-
     h1, h2, h3, p { margin: 0; }
-
-    h1 {
-      max-width: 8ch;
-      font-size: clamp(2.35rem, 13vw, 4.5rem);
-      line-height: .95;
-      letter-spacing: -.07em;
-    }
-
-    h2 {
-      font-size: 1.42rem;
-      line-height: 1.12;
-      letter-spacing: -.03em;
-    }
-
-    h3 {
-      font-size: 1.05rem;
-      line-height: 1.3;
-    }
-
-    p {
-      color: var(--muted);
-      line-height: 1.72;
-    }
-
-    .hero p {
-      max-width: 32rem;
-      color: rgba(255,255,255,.8);
-    }
+    h1 { max-width: 8ch; font-size: clamp(2.35rem, 13vw, 4.5rem); line-height: .95; letter-spacing: -.07em; }
+    h2 { font-size: 1.42rem; line-height: 1.12; letter-spacing: -.03em; }
+    h3 { font-size: 1.05rem; line-height: 1.3; }
+    p { color: var(--muted); line-height: 1.72; }
+    .hero p { max-width: 32rem; color: rgba(255,255,255,.8); }
 
     .eyebrow,
     .pill {
@@ -168,8 +128,7 @@
     }
 
     .hero-actions,
-    .grid,
-    .meta {
+    .grid {
       display: grid;
       gap: .82rem;
     }
@@ -218,58 +177,15 @@
       background: linear-gradient(180deg, rgba(255,255,255,.98), rgba(255,255,255,.88));
       color: var(--ink);
       text-decoration: none;
-      font: inherit;
-      font-weight: 820;
-      box-shadow: 0 12px 28px rgba(15, 23, 42, .06);
-      transition: transform .2s ease, border-color .2s ease, background .2s ease;
+      font-weight: 800;
     }
 
-    .btn:active,
-    .link-btn:active {
-      transform: scale(.986);
-    }
+    .btn-primary { background: linear-gradient(135deg, rgba(217, 155, 74, .18), rgba(255,255,255,.96)); color: #6f4518; }
+    .btn-warn { background: linear-gradient(135deg, rgba(239,138,86,.16), rgba(255,255,255,.96)); color: #8a4526; }
 
-    .btn-primary {
-      background: linear-gradient(135deg, rgba(217, 155, 74, .18), rgba(255,255,255,.96));
-      color: #6f4518;
-    }
-
-    .btn-warn {
-      background: linear-gradient(135deg, rgba(239, 138, 86, .16), rgba(255,255,255,.96));
-      color: #8a4526;
-    }
-
-    .btn-plain {
-      background: linear-gradient(135deg, rgba(30,41,59,.08), rgba(255,255,255,.96));
-      color: #233042;
-    }
-
-    .meta-item {
-      display: flex;
-      gap: .55rem;
-      flex-wrap: wrap;
-      align-items: baseline;
-    }
-
-    .meta-label {
-      font-weight: 850;
-      color: var(--ink);
-    }
-
-    .note {
-      padding: .95rem 1rem;
-      border-radius: 20px;
-      border: 1px solid rgba(217, 155, 74, .2);
-      background: linear-gradient(135deg, rgba(217, 155, 74, .12), rgba(255,255,255,.82));
-      color: #7d531d;
-      line-height: 1.72;
-    }
+    ul { margin: 0; padding-left: 1.1rem; color: var(--muted); line-height: 1.72; }
 
     @media (max-width: 640px) {
-      .hero {
-        min-height: 320px;
-      }
-
       .hero-actions,
       .grid {
         grid-template-columns: 1fr;
@@ -286,7 +202,7 @@
       <div class="hero-actions">
         <a class="link-btn btn-primary" href="./full.html" rel="noopener noreferrer">进入完整版</a>
         <a class="link-btn btn-warn" href="./night-arrival-lite.html" rel="noopener noreferrer">进入落地夜极简页</a>
-        <a class="link-btn btn-plain" href="./safe-open.html" rel="noopener noreferrer">进入安全入口</a>
+        <a class="link-btn" href="./safe-open.html" rel="noopener noreferrer">进入安全入口</a>
       </div>
     </section>
 
@@ -297,65 +213,42 @@
           <h2>手机直开最重要的操作</h2>
         </div>
       </div>
-      <ul style="margin:0; padding-left:1.1rem; color:var(--muted); line-height:1.72;">
+      <ul>
         <li>先用 <strong>Safari</strong> 打开，不要优先用微信内置浏览器。</li>
-        <li>打开后立刻 <strong>添加到主屏幕</strong>，别每次回聊天记录翻链接。</li>
-        <li>出发前把 <strong>离线版 HTML</strong> 存进手机“文件”App。</li>
+        <li>打开后立刻 <strong>添加到主屏幕</strong>。</li>
+        <li>出发前把离线版 HTML 存进手机“文件”App。</li>
       </ul>
     </section>
 
     <section class="card">
       <div class="entry-top">
         <div>
-          <span class="pill" style="background: var(--caramel-soft); color: #7d531d;">完整版</span>
-          <h2>路线、购物、礼物、机场、退税都在这里</h2>
+          <span class="pill" style="background: rgba(30,41,59,.08); color: #233142;">快速入口</span>
+          <h2>优先顺序</h2>
         </div>
       </div>
-      <p>适合白天慢慢看，内容最全。里面已经整合了每天任务、按天采购单、送妈妈 / 爸爸 / 女朋友 / 弟弟的礼物建议，还有交通、支付、退税和住宿说明。</p>
-      <a class="link-btn btn-primary" href="./full.html" rel="noopener noreferrer">打开完整版</a>
-    </section>
-
-    <section class="grid">
-      <article class="entry">
-        <div class="entry-top">
-          <div>
-            <span class="pill" style="background: rgba(239, 138, 86, .14); color: #95461f;">落地夜</span>
-            <h3>深夜到达只看最关键流程</h3>
-          </div>
-        </div>
-        <p>只保留 T1 出关、N6002、付款方式、固定问句和酒店入住。凌晨落地时不翻长文，直接照着走。</p>
-        <a class="link-btn btn-warn" href="./night-arrival-lite.html" rel="noopener noreferrer">打开落地夜页</a>
-      </article>
-
-      <article class="entry">
-        <div class="entry-top">
-          <div>
-            <span class="pill" style="background: rgba(30, 41, 59, .08); color: #233042;">安全入口</span>
-            <h3>如果复杂页打不开先走这里</h3>
-          </div>
-        </div>
-        <p>这是纯链接页，最适合微信、QQ 或某些浏览器兼容性不稳定的时候做二次跳转。</p>
-        <a class="link-btn btn-plain" href="./safe-open.html" rel="noopener noreferrer">打开安全入口</a>
-      </article>
-    </section>
-
-    <section class="card meta">
-      <div class="meta-item">
-        <span class="meta-label">建议打开方式：</span>
-        <span>Safari 直接打开后，点“添加到主屏幕”。</span>
+      <div class="grid">
+        <article class="entry">
+          <h3>1. 正式完整版</h3>
+          <p>路线、住宿、任务、采购单、购物都在这里。</p>
+          <a class="link-btn btn-primary" href="./full.html" rel="noopener noreferrer">打开完整版</a>
+        </article>
+        <article class="entry">
+          <h3>2. 落地夜极简页</h3>
+          <p>只保留 T1 出关、N6002、酒店入住和应急问句。</p>
+          <a class="link-btn btn-warn" href="./night-arrival-lite.html" rel="noopener noreferrer">打开极简页</a>
+        </article>
+        <article class="entry">
+          <h3>3. 安全入口</h3>
+          <p>如果你只想要最轻的兜底页，就进这里。</p>
+          <a class="link-btn" href="./safe-open.html" rel="noopener noreferrer">打开安全入口</a>
+        </article>
+        <article class="entry">
+          <h3>4. 备用完整版</h3>
+          <p>如果 `full.html` 卡住，就试这个缓存绕过版。</p>
+          <a class="link-btn" href="./mobile-rich-20260421.html" rel="noopener noreferrer">打开备用完整版</a>
+        </article>
       </div>
-      <div class="meta-item">
-        <span class="meta-label">最关键动作：</span>
-        <span>出国前把离线版 HTML 存进手机“文件”App，网址和离线版同时备着。</span>
-      </div>
-      <div class="meta-item">
-        <span class="meta-label">当前入口：</span>
-        <span>正式入口 / 落地夜极简页 / 安全入口 三个都已经可直接打开。</span>
-      </div>
-    </section>
-
-    <section class="note">
-      如果国外网络抽风，不要回聊天记录翻链接，直接打开你已经存进“文件”App 的离线版。
     </section>
   </main>
 </body>
