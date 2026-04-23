@@ -582,6 +582,54 @@ button:hover,
   padding-inline: 0.7rem;
 }
 
+.platform-grid,
+.food-grid,
+.ticket-grid,
+.budget-grid,
+.tips-grid {
+  display: grid;
+  gap: 0.9rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.price-list,
+.budget-list,
+.tip-list {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.budget-row,
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.budget-bar {
+  width: 100%;
+  height: 0.7rem;
+  border-radius: 999px;
+  background: rgba(30, 41, 59, 0.08);
+  overflow: hidden;
+}
+
+.budget-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #d89a4b, #f3c56f);
+}
+
+.ticket-badge {
+  background: rgba(31, 122, 92, 0.14);
+  color: #155e46;
+}
+
+.ticket-badge.warn {
+  background: rgba(185, 101, 45, 0.14);
+  color: #8c4f22;
+}
+
 .checklist {
   display: grid;
   gap: 0.72rem;
@@ -819,7 +867,12 @@ details.guide .content {
   .guide-grid,
   .shop-grid,
   .static-grid.two,
-  .priority-grid {
+  .priority-grid,
+  .platform-grid,
+  .food-grid,
+  .ticket-grid,
+  .budget-grid,
+  .tips-grid {
     grid-template-columns: 1fr;
   }
 }
@@ -2225,6 +2278,65 @@ const targetShoppingSections=[
     "note": "代购鞋先确认鞋码、配色、箱子体积和能不能退税，不碰太极限的限量。"
   }
 ];
+const procurementChannels=[
+  {title:'Olive Young 药妆线',where:'明洞 / 弘大 / 圣水',best:'防晒、精华、痘痘贴、棉片、唇妆',cheap:'盯 1+1、SALE、即时退税',avoid:'普通片装面膜大箱囤货',newbie:'新手友好',profit:'差价稳定，但不是暴利线',summary:'最适合第一次去首尔的人做主采购，买得清楚、退税顺手。'},
+  {title:'Daiso / Artbox 小物线',where:'明洞 / 弘大',best:'小收纳、文具、旅行小物、轻礼物',cheap:'单价低、补缺最方便',avoid:'不要买易碎摆件',newbie:'新手友好',profit:'利润低，更适合送人和补单',summary:'这条线不是为了赚，而是为了轻小好带、看着有完成度。'},
+  {title:'免税 / 百货大牌线',where:'明洞 / 乙支路入口',best:'雅诗兰黛、小棕瓶、香水、大牌礼盒',cheap:'看免税活动、券后价、礼盒套装',avoid:'街边小店高端护肤',newbie:'有预算再看',profit:'价差看品牌，不是每样都便宜',summary:'高端护肤和彩妆先比价，不是进免税店就什么都值得买。'},
+  {title:'MLB / 爸爸服饰线',where:'弘大优先 / 明洞备选',best:'帽子、基础 T、队标卫衣',cheap:'先帽子，再看 T 恤，最后才看外套',avoid:'厚外套、难带大件',newbie:'知道尺码更稳',profit:'不是暴利代购，更适合指定需求',summary:'爸爸指定要 MLB，就把这条线单独拉出来，不跟普通衣服混。'},
+  {title:'Musinsa / 鞋代购线',where:'弘大优先',best:'基础款衣服、热门鞋、常规品牌鞋',cheap:'先确认鞋码和箱子体积',avoid:'太极限的限量鞋',newbie:'中等难度',profit:'鞋利润看款，不看乱背',summary:'代购鞋最怕尺码和退税翻车，先看店和码再谈值不值。'},
+  {title:'便利店 / 超市线',where:'机场前 / 弘大 / 明洞',best:'海苔、杏仁、咖啡包、零食、饮料',cheap:'回程前最后补齐最省心',avoid:'大箱零食和玻璃瓶',newbie:'最友好',profit:'几乎不靠利润，主打伴手礼',summary:'这条线最适合最后一天收口，不要过早背一堆吃的。'}
+];
+const foodZones=[
+  {area:'弘大',vibe:'一个人也好吃 / 晚上顺路 / 不贵',spots:[
+    {name:'Isaac Toast 弘大店',type:'吐司 / 早饭',priceKRW:'4,000–7,000 KRW',priceRMB:'约 20–35 RMB',solo:'适合',tourist:'适合',feature:'快、稳、一个人不尴尬',why:'早饭和赶路日最好用',naverQuery:'이삭토스트 홍대'},
+    {name:'香港饭店0410 弘大店',type:'炸酱面 / 面食',priceKRW:'7,000–11,000 KRW',priceRMB:'约 35–55 RMB',solo:'适合',tourist:'适合',feature:'炸酱面、炒码面、锅气明显',why:'晚饭最稳，吃完就能回住宿',naverQuery:'홍콩반점0410 홍대'},
+    {name:'Mom\'s Touch 弘大店',type:'汉堡 / 炸鸡',priceKRW:'6,000–11,000 KRW',priceRMB:'约 30–55 RMB',solo:'适合',tourist:'适合',feature:'汉堡、炸鸡、薯条',why:'如果只想快点吃完继续走，连锁最省脑',naverQuery:'맘스터치 홍대'}
+  ]},
+  {area:'明洞',vibe:'游客最顺路 / 药妆和吃饭能一起做',spots:[
+    {name:'Isaac Toast 明洞店',type:'吐司 / 轻午饭',priceKRW:'4,000–7,000 KRW',priceRMB:'约 20–35 RMB',solo:'适合',tourist:'很适合',feature:'吐司、咖啡、出餐快',why:'Day 3 中午最省时间',naverQuery:'이삭토스트 명동'},
+    {name:'逆转乌冬0410 明洞店',type:'乌冬 / 盖饭',priceKRW:'5,000–9,000 KRW',priceRMB:'约 25–45 RMB',solo:'适合',tourist:'适合',feature:'乌冬、饭类、汤面',why:'不想吃太辣时更稳',naverQuery:'역전우동0410 명동'},
+    {name:'香港饭店0410 明洞店',type:'炸酱面 / 中式简餐',priceKRW:'7,000–11,000 KRW',priceRMB:'约 35–55 RMB',solo:'适合',tourist:'适合',feature:'炸酱面、炒码面、锅贴',why:'晚上回明洞收口最方便',naverQuery:'홍콩반점0410 명동'}
+  ]},
+  {area:'圣水',vibe:'适合逛店 + 咖啡，但不一定最省钱',spots:[
+    {name:'圣水咖啡 / 轻食区',type:'咖啡 / 三明治 / 甜点',priceKRW:'7,000–15,000 KRW',priceRMB:'约 35–75 RMB',solo:'适合',tourist:'适合',feature:'咖啡店密度高、适合歇脚',why:'逛圣水时更适合坐下休息，不适合硬找便宜大餐',naverQuery:'성수 카페'},
+    {name:'圣水饭卷 / 简餐',type:'饭卷 / 拌饭 / 汤饭',priceKRW:'6,000–10,000 KRW',priceRMB:'约 30–50 RMB',solo:'适合',tourist:'适合',feature:'简单、稳、吃完继续逛',why:'如果只是顺路去圣水，简餐最省时',naverQuery:'성수 김밥'}
+  ]},
+  {area:'东大门',vibe:'夜里好逛，但不是最省钱的吃饭区',spots:[
+    {name:'东大门饭卷 / 汤饭简餐',type:'饭卷 / 汤饭',priceKRW:'6,000–10,000 KRW',priceRMB:'约 30–50 RMB',solo:'适合',tourist:'适合',feature:'快、稳、能坐下',why:'逛街前后都能顶一顿',naverQuery:'동대문 김밥'},
+    {name:'东大门炸鸡 / 夜宵',type:'炸鸡 / 夜宵',priceKRW:'18,000–28,000 KRW',priceRMB:'约 90–140 RMB',solo:'一般',tourist:'适合多人',feature:'夜里热闹，但一个人不一定最划算',why:'如果不是多人，不建议把这块当主饭点',naverQuery:'동대문 치킨'}
+  ]},
+  {area:'江南 / 高速巴士客运站',vibe:'逛 GOTO 时顺路吃最合理',spots:[
+    {name:'Express Bus Terminal Food Court',type:'简餐 / 快餐 / 面饭',priceKRW:'7,000–12,000 KRW',priceRMB:'约 35–60 RMB',solo:'适合',tourist:'很适合',feature:'离 GOTO 近、快、少走路',why:'Day 4 中午最稳，不用额外绕路',naverQuery:'고속터미널 푸드코트'},
+    {name:'新世界百货周边简餐',type:'百货餐饮 / 盖饭 / 面食',priceKRW:'9,000–16,000 KRW',priceRMB:'约 45–80 RMB',solo:'适合',tourist:'适合',feature:'环境更舒服，但比食堂贵一点',why:'想坐得舒服一点时再考虑',naverQuery:'신세계백화점 강남 식당'}
+  ]}
+];
+const ticketCards=[
+  {name:'景福宫',price:'约 3,000 KRW / 约 15 RMB',worth:'高',free:false,stay:'60–90 分钟',tags:['第一次去','拍照','白天'],note:'经典必去，门票低，性价比高',naverQuery:'경복궁'},
+  {name:'北村韩屋村',price:'免费',worth:'中高',free:true,stay:'30–40 分钟',tags:['顺路','拍照','轻量'],note:'顺路看最合理，不建议久留打扰居民',naverQuery:'북촌한옥마을'},
+  {name:'清溪川',price:'免费',worth:'高',free:true,stay:'20–40 分钟',tags:['免费','晚上也行','收口'],note:'最适合和广藏市场串起来',naverQuery:'청계천'},
+  {name:'N 首尔塔观景台',price:'约 21,000–26,000 KRW / 约 105–130 RMB',worth:'中',free:false,stay:'40–70 分钟',tags:['拍照','夜景','情侣'],note:'观景台不算便宜，预算紧就只去山脚或缆车周边',naverQuery:'N서울타워'},
+  {name:'南山缆车',price:'往返约 15,000 KRW / 约 75 RMB',worth:'中',free:false,stay:'20–40 分钟',tags:['轻体验','上山','拍照'],note:'如果只想轻量体验南山，这个比硬爬舒服',naverQuery:'남산케이블카'},
+  {name:'盘浦汉江公园',price:'免费',worth:'高',free:true,stay:'60–120 分钟',tags:['免费','晚上','散步'],note:'Day 4 傍晚最适合，免费但体验好',naverQuery:'반포한강공원'},
+  {name:'COEX Aquarium',price:'约 32,000–35,000 KRW / 约 150–170 RMB',worth:'中',free:false,stay:'90–120 分钟',tags:['室内','下雨备选','收费'],note:'如果天气差才更值得考虑，不是穷游优先项',naverQuery:'코엑스 아쿠아리움'}
+];
+const budgetCards=[
+  {tier:'低配',rmb:'约 2800–4200 RMB / 5天',krw:'约 604,000–907,000 KRW',parts:[['住宿','900–1400'],['餐饮','450–700'],['交通','150–250'],['门票','50–150'],['购物 / 代购','900–1300'],['备用金','300–400']],note:'吃饭以 20–50 RMB、免费景点优先、购物控制在刚需线。'},
+  {tier:'正常',rmb:'约 4200–6500 RMB / 5天',krw:'约 907,000–1,404,000 KRW',parts:[['住宿','1400–2200'],['餐饮','700–1100'],['交通','200–320'],['门票','150–350'],['购物 / 代购','1300–2200'],['备用金','450–600']],note:'最适合你现在这版路线：药妆、MLB、雅诗兰黛、鞋代购都能留余地。'},
+  {tier:'稍舒服',rmb:'约 6500–9800 RMB / 5天',krw:'约 1,404,000–2,117,000 KRW',parts:[['住宿','2200–3200'],['餐饮','1100–1700'],['交通','250–400'],['门票','350–700'],['购物 / 代购','2200–3300'],['备用金','600–900']],note:'吃饭和门票都更松，但不代表每样都更划算。'}
+];
+const paymentTips=[
+  {title:'交通',items:['N6002 夜巴先用韩元现金最稳。','市区地铁 / 公交优先 Climate Card 或 T-money / WOWPASS 交通功能。','打车只在太晚、太累、Google / Naver 都显示换乘太折腾时考虑。']},
+  {title:'支付',items:['大店 / 百货 / Olive Young 先试 Visa。','Visa 不顺时再切 WOWPASS / 支付宝。','传统市场、小店、储物柜、夜巴默认准备现金。']},
+  {title:'汇率',items:['这版预算按 1 RMB ≈ 216 KRW 估算，仅供参考。','汇率会波动，页面里所有 KRW / RMB 都只当参考区间。','不要为了“看起来便宜”把大额购物全压到最后一天。']}
+];
+const savingTips=[
+  'Day 3 明洞药妆只买主清单，不把大牌护肤、香水和小物全混进去。',
+  '爸爸 MLB 先帽子再 T 恤，最容易控制预算和尺码风险。',
+  '妈妈雅诗兰黛优先免税 / 百货专柜，不在街边小店碰高端护肤。',
+  '鞋代购先看尺码和箱子体积，再看利润，不然最容易翻车。',
+  'GOTO Mall 先逛一圈再买，比第一家就下单更省钱。',
+  '最后一天只补缺项，不开新购物线，是最有效的省钱方式。'
+];
 const shopping=[
   {
     "kind": "爸爸 / MLB 服饰",
@@ -3000,11 +3112,17 @@ function renderPriorityBoard(){
   const shopBlock=day.routeBlocks.find((block)=>block.kind==='shop');
   const stayCard=renderPriorityCard('今晚住宿', stay.name, `${stay.area}｜${stay.constraints}`, `<a class="link" href="${createHotelMapsUrl(stay)}" target="_blank" rel="noopener noreferrer">今晚酒店</a><button data-copy-stay="${stay.key}">复制地址</button>`);
   const firstMoveCard=renderPriorityCard('现在先做', `${firstMove.start}–${firstMove.end} ${firstMove.title}`, `${firstMove.from} → ${firstMove.to}`, `<a class="link" href="${createRouteMapsUrl(firstMove)}" target="_blank" rel="noopener noreferrer">先看地图</a>`);
-  const foodCard=foodBlock ? renderPriorityCard('今天吃什么', `${foodBlock.start}–${foodBlock.end} ${foodBlock.primaryPlace || foodBlock.title}`, `${foodBlock.budget || '20–50 RMB / 餐'}｜${foodBlock.backupPlace ? `备选：${foodBlock.backupPlace}` : '这一段只求稳妥吃上'}`, `<a class="link" href="${foodBlock.primaryMapsQuery ? createGoogleMapsSearchUrl(foodBlock.primaryMapsQuery) : createRouteMapsUrl(foodBlock)}" target="_blank" rel="noopener noreferrer">主推荐</a>${foodBlock.backupMapsQuery ? `<a class="link" href="${createGoogleMapsSearchUrl(foodBlock.backupMapsQuery)}" target="_blank" rel="noopener noreferrer">备选</a>` : ''}`) : renderPriorityCard('今天吃什么', '今天不单独安排吃饭路线', '今晚只求进城和入住，不额外开吃饭支线。');
-  const shopCard=shopBlock ? renderPriorityCard('今天买什么', `${shopBlock.start}–${shopBlock.end} ${shopBlock.primaryPlace || shopBlock.title}`, `${shopBlock.whyThisStop || shopBlock.notes}`, `<a class="link" href="${shopBlock.primaryMapsQuery ? createGoogleMapsSearchUrl(shopBlock.primaryMapsQuery) : createRouteMapsUrl(shopBlock)}" target="_blank" rel="noopener noreferrer">主推荐</a>${shopBlock.backupMapsQuery ? `<a class="link" href="${createGoogleMapsSearchUrl(shopBlock.backupMapsQuery)}" target="_blank" rel="noopener noreferrer">备选</a>` : ''}`) : renderPriorityCard('今天买什么', '今天不单独安排购物主线', '今天先把路线走顺，采购单和购物留给后面几天。');
+  const foodCard=foodBlock ? renderPriorityCard('今天吃什么', `${foodBlock.start}–${foodBlock.end} ${foodBlock.primaryPlace || foodBlock.title}`, `${foodBlock.budget || '20–50 RMB / 餐'}｜${foodBlock.backupPlace ? `备选：${foodBlock.backupPlace}` : '这一段只求稳妥吃上'}`, `<a class="link" href="${foodBlock.primaryMapsQuery ? createNaverSearchUrl(foodBlock.primaryMapsQuery) : createRouteMapsUrl(foodBlock)}" target="_blank" rel="noopener noreferrer">主推荐</a>${foodBlock.backupMapsQuery ? `<a class="link" href="${createNaverSearchUrl(foodBlock.backupMapsQuery)}" target="_blank" rel="noopener noreferrer">备选</a>` : ''}`) : renderPriorityCard('今天吃什么', '今天不单独安排吃饭路线', '今晚只求进城和入住，不额外开吃饭支线。');
+  const shopCard=shopBlock ? renderPriorityCard('今天买什么', `${shopBlock.start}–${shopBlock.end} ${shopBlock.primaryPlace || shopBlock.title}`, `${shopBlock.whyThisStop || shopBlock.notes}`, `<a class="link" href="${shopBlock.primaryMapsQuery ? createNaverSearchUrl(shopBlock.primaryMapsQuery) : createRouteMapsUrl(shopBlock)}" target="_blank" rel="noopener noreferrer">主推荐</a>${shopBlock.backupMapsQuery ? `<a class="link" href="${createNaverSearchUrl(shopBlock.backupMapsQuery)}" target="_blank" rel="noopener noreferrer">备选</a>` : ''}`) : renderPriorityCard('今天买什么', '今天不单独安排购物主线', '今天先把路线走顺，采购单和购物留给后面几天。');
   return `<section class="section" id="priority"><div class="section-head priority-head"><span class="eyebrow">Priority</span><h2>现在最该看什么</h2><p>先看今晚住哪、现在先做哪一步、今天吃什么、今天买什么；下面再看完整路线。</p></div><div class="priority-summary">${hardStop && hardStop!==firstMove ? `<div class="priority-alert"><span class="chip">最晚别错过</span><p><strong>${hardStop.start}–${hardStop.end}</strong>｜${hardStop.title}</p><p class="mini">${hardStop.notes}</p></div>` : ''}<div class="priority-grid">${stayCard}${firstMoveCard}${foodCard}${shopCard}</div></div></section>`;}
 function renderTodayFocus(){const day=days[getTodayIndex()]; const shoppingIdx=getTodayShoppingIndex(); const shoppingDay=shoppingIdx>=0 ? shoppingDays[shoppingIdx] : null; const shoppingBlock=shoppingDay ? renderShoppingDayCard(shoppingDay) : `<article class="card"><div class="day-top"><div><span class="chip">${day.day}</span><h3>今天采购单</h3></div><span class="status warn">未激活</span></div><p class="mini">今天先把路线和节奏走顺，采购单从 4/26 才开始真正执行。</p></article>`; return `<section class="section today-focus-shell" id="today-focus"><div class="section-head"><span class="eyebrow">Today Focus</span><h2>今天先看这个</h2><p>自动把今天路线和今天采购单放一起，出门时不用在整页里翻半天。</p></div><div class="days">${renderDayCard(day)}${shoppingBlock}</div></section>`;}
 function renderTargetShopping(){const visible=targetShoppingSections.filter((item)=>matchesQuery([item.title,item.area,item.primaryStore,item.backupStore,item.primaryLocation,item.backupLocation,item.feature,item.signature,...item.priceList,[item.note]])); if(!visible.length) return '<div class="empty">指定购物区没有匹配结果。</div>'; return visible.map((item)=>`<article class="shop-card"><div class="shop-price"><span class="pill warn">${item.title}</span><span class="pill bad">${item.area}</span></div><h3>${item.primaryStore}</h3><p class="mini">定位：${item.primaryLocation}</p><p class="mini">卖什么：${item.feature}</p><p class="mini">特色：${item.signature}</p><p class="mini">价格参考：</p><ul>${item.priceList.map((line)=>`<li>${line}</li>`).join('')}</ul><p class="mini">备注：${item.note}</p><div class="route-actions"><a class="link" href="${createNaverSearchUrl(item.primaryQuery)}" target="_blank" rel="noopener noreferrer">主推荐定位</a><a class="link" href="${createNaverSearchUrl(item.backupQuery)}" target="_blank" rel="noopener noreferrer">备选定位</a></div></article>`).join('');}
+function renderProcurementChannels(){return procurementChannels.map((item)=>`<article class="shop-card"><div class="shop-price"><span class="pill warn">${item.title}</span><span class="pill bad">${item.where}</span></div><p class="mini">适合买：${item.best}</p><p class="mini">更便宜的买法：${item.cheap}</p><p class="mini">避坑：${item.avoid}</p><div class="shop-price"><span class="pill">${item.newbie}</span><span class="pill warn">${item.profit}</span></div><p class="mini">${item.summary}</p></article>`).join('');}
+function renderFoodZones(){return foodZones.map((zone)=>`<article class="card"><div class="day-top"><div><span class="chip">${zone.area}</span><h3>${zone.vibe}</h3></div><span class="status warn">${zone.spots.length} 家</span></div><div class="food-grid">${zone.spots.map((spot)=>`<article class="shop-card"><div class="shop-price"><span class="pill warn">${spot.type}</span><span class="pill bad">${spot.priceRMB}</span></div><h3>${spot.name}</h3><p class="mini">参考价：${spot.priceKRW}｜${spot.priceRMB}</p><p class="mini">特色：${spot.feature}</p><p class="mini">为什么适合：${spot.why}</p><div class="shop-price"><span class="pill">${spot.solo === '适合' ? '一个人友好' : '多人更适合'}</span><span class="pill warn">${spot.tourist === '适合' || spot.tourist === '很适合' ? '游客友好' : '本地向'}</span></div><div class="route-actions"><a class="link" href="${createNaverSearchUrl(spot.naverQuery)}" target="_blank" rel="noopener noreferrer">Naver定位</a></div></article>`).join('')}</div></article>`).join('');}
+function renderTickets(){return ticketCards.map((item)=>`<article class="shop-card"><div class="shop-price"><span class="pill warn">${item.name}</span><span class="pill ${item.free ? 'ticket-badge' : 'ticket-badge warn'}">${item.free ? '免费 / 低价' : '收费参考'}</span></div><p class="mini">价格：${item.price}</p><p class="mini">建议停留：${item.stay}</p><p class="mini">值不值：${item.worth}</p><div class="tag-row">${item.tags.map((tag)=>`<span class="pill">${tag}</span>`).join('')}</div><p class="mini">${item.note}</p><div class="route-actions"><a class="link" href="${createNaverSearchUrl(item.naverQuery)}" target="_blank" rel="noopener noreferrer">Naver定位</a></div></article>`).join('');}
+function renderBudgetCards(){return budgetCards.map((item,idx)=>`<article class="shop-card"><div class="shop-price"><span class="pill warn">${item.tier}</span><span class="pill bad">${item.rmb}</span></div><p class="mini">韩元参考：${item.krw}</p><div class="budget-bar"><div class="budget-fill" style="width:${[48,72,100][idx]}%"></div></div><div class="budget-list">${item.parts.map((part)=>`<div class="budget-row"><strong>${part[0]}</strong><span class="mini">${part[1]} RMB</span></div>`).join('')}</div><p class="mini">说明：${item.note}</p></article>`).join('');}
+function renderPaymentGuide(){return paymentTips.map((item)=>`<article class="shop-card"><div class="shop-price"><span class="pill warn">${item.title}</span></div><ul class="tip-list">${item.items.map((line)=>`<li>${line}</li>`).join('')}</ul></article>`).join('');}
+function renderSavingTips(){return savingTips.map((line)=>`<article class="shop-card"><p class="mini">${line}</p></article>`).join('');}
 function renderTopShopping(){const top=shopping.filter((item)=>['最高','高'].includes(item.priority)).slice(0,8);return top.map((item)=>`<article class="shop-card"><div class="shop-price"><span class="pill">${item.priority}</span><span class="pill warn">${item.kind}</span><span class="pill bad">${item.budget}</span></div><h3>${item.name}</h3><p class="mini">适合：${item.bestFor}</p>${item.giftFor?`<p class="mini">适合送：${item.giftFor}</p>`:''}${item.whyMeaningful?`<p class="mini">为什么更有意义：${item.whyMeaningful}</p>`:''}<p class="mini">怎么买：${item.buyWhen}</p><p class="mini">避坑：${item.avoid}</p></article>`).join('');}
 function renderShopping(){const visible=shopping.filter((item)=>matchesQuery([item.kind,item.zone,item.budget,item.name,item.where,item.fit,item.priority,item.bestFor,item.buyWhen,item.avoid,item.kr,item.cn,item.gap,item.tip,item.whyMeaningful,item.giftFor,item.giftBudget,item.notFor])); if(!visible.length) return '<div class="empty">购物区没有匹配结果。</div>'; return visible.map((item)=>`<article class="shop-card"><div class="shop-price"><span class="pill">${item.kind}</span><span class="pill warn">${item.priority}</span><span class="pill bad">${item.budget}</span></div><h3>${item.name}</h3><div class="shop-price"><span class="pill">${item.where}</span><span class="pill warn">适合：${item.bestFor}</span></div>${item.giftFor?`<div class="shop-price"><span class="pill warn">适合送：${item.giftFor}</span>${item.giftBudget?`<span class="pill">预算：${item.giftBudget}</span>`:''}</div>`:''}<p class="mini">韩国：${item.kr}｜国内：${item.cn}｜${item.gap}</p>${item.whyMeaningful?`<p class="mini">为什么更有意义：${item.whyMeaningful}</p>`:''}<p class="mini">什么时候买：${item.buyWhen}</p><p class="mini">避坑：${item.avoid}</p>${item.notFor?`<p class="mini">不建议送：${item.notFor}</p>`:''}<p class="mini">${item.tip}</p></article>`).join('');}
 function loadTasks(){try{return JSON.parse(localStorage.getItem(TASK_KEY)||'{}')}catch{return {}}}
@@ -3119,6 +3237,54 @@ function render(){
         <p>这块专门给你解决指定需求：爸爸想要 MLB，妈妈想要雅诗兰黛，代购想要鞋。所有按钮都改成 Naver 定位。</p>
       </div>
       <div class="shop-grid">${renderTargetShopping()}</div>
+    </section>
+    <section class="section" id="procurement-platform">
+      <div class="section-head">
+        <span class="eyebrow">Procurement</span>
+        <h2>韩国代购怎么买最省钱</h2>
+        <p>把代购渠道、便宜买法、利润感和避坑拆开看，不再挤在一段说明里。</p>
+      </div>
+      <div class="platform-grid">${renderProcurementChannels()}</div>
+    </section>
+    <section class="section" id="food-zones">
+      <div class="section-head">
+        <span class="eyebrow">Food</span>
+        <h2>美食与饭店价格</h2>
+        <p>按区域整理平价吃饭点：卖什么、特色、人均大概多少、一个人好不好吃，都直接写清楚。</p>
+      </div>
+      <div class="food-grid">${renderFoodZones()}</div>
+    </section>
+    <section class="section" id="tickets">
+      <div class="section-head">
+        <span class="eyebrow">Tickets</span>
+        <h2>景点 / 门票价格</h2>
+        <p>只放第一次去首尔最常见的点，免费和收费一眼分清，价格都按参考区间写。</p>
+      </div>
+      <div class="ticket-grid">${renderTickets()}</div>
+    </section>
+    <section class="section" id="budget">
+      <div class="section-head">
+        <span class="eyebrow">Budget</span>
+        <h2>5天预算参考</h2>
+        <p>按低配 / 正常 / 稍舒服三档给你看，韩元和人民币都写，价格可能波动，仅供参考。</p>
+      </div>
+      <div class="budget-grid">${renderBudgetCards()}</div>
+    </section>
+    <section class="section" id="money">
+      <div class="section-head">
+        <span class="eyebrow">Money</span>
+        <h2>交通与支付</h2>
+        <p>把交通、支付、汇率提醒单独拎出来，避免埋在攻略里找不到。</p>
+      </div>
+      <div class="platform-grid">${renderPaymentGuide()}</div>
+    </section>
+    <section class="section" id="saving">
+      <div class="section-head">
+        <span class="eyebrow">Save</span>
+        <h2>省钱技巧</h2>
+        <p>都是会直接影响预算和代购翻车率的实用提醒，不写空话。</p>
+      </div>
+      <div class="tips-grid">${renderSavingTips()}</div>
     </section>
     <section class="section" id="shopping-top">
       <div class="section-head">
