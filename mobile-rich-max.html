@@ -530,6 +530,53 @@ button:hover,
   gap: 0.88rem;
 }
 
+.day-switcher {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.day-switcher-row,
+.priority-meta-row,
+.priority-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.day-switch {
+  min-height: 2.9rem;
+  padding: 0.65rem 0.9rem;
+  border: 1px solid rgba(30, 41, 59, 0.1);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--surface-ink);
+  font-size: 0.84rem;
+  font-weight: 800;
+  box-shadow: var(--shadow-soft);
+}
+
+.day-switch.active {
+  border-color: rgba(216, 154, 75, 0.45);
+  background: linear-gradient(135deg, #f1c16d, #d89a4b);
+  color: #fff;
+}
+
+.priority-overview {
+  display: grid;
+  gap: 0.78rem;
+  padding: 0.96rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.82);
+  border-radius: 20px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(255, 249, 240, 0.95)),
+    var(--surface);
+  box-shadow: var(--shadow-soft);
+}
+
+.priority-overview strong {
+  color: var(--surface-ink);
+}
+
 .priority-alert {
   display: grid;
   gap: 0.34rem;
@@ -1360,6 +1407,43 @@ const days=[
   {
     "day": "Day 1｜4/24 周五晚",
     "goal": "仁川 T1 → N6002 → Birdsnest Hongdae",
+    "dayBudget": "约 90–130 RMB / 19,000–28,000 KRW",
+    "dayTags": ["落地夜", "只求稳", "不购物", "不加吃饭支线"],
+    "focusMove": {
+      "title": "仁川 T1 → N6002 → Birdsnest",
+      "summary": "第一晚只做进城和入住，不额外开景点和便利店支线。",
+      "primaryPlace": "Birdsnest Hongdae",
+      "primaryMapsQuery": "Birdsnest Hongdae 18 Yeonnam-ro 3-gil Mapo-gu Seoul 03988",
+      "backupPlace": "Incheon Airport Terminal 1 Bus Ticket",
+      "backupMapsQuery": "Incheon Airport Terminal 1 Bus Ticket",
+      "budget": "现金预留约 17,000 KRW 夜巴车费",
+      "why": "先到酒店比什么都重要，凌晨不要自己加戏。"
+    },
+    "focusEat": {
+      "title": "今晚不安排专门吃饭",
+      "summary": "如果机场太晚，只保留进城和入住；不额外找宵夜。",
+      "primaryPlace": "不单独安排",
+      "primaryMapsQuery": "Birdsnest Hongdae 18 Yeonnam-ro 3-gil Mapo-gu Seoul 03988",
+      "backupPlace": "到店后附近便利店",
+      "backupMapsQuery": "Hongdae convenience store",
+      "budget": "0–30 RMB / 0–6,500 KRW",
+      "why": "第一晚的目标是稳到酒店，不是为了吃一顿宵夜打乱节奏。"
+    },
+    "focusShop": {
+      "title": "今晚不安排购物",
+      "summary": "今天不买任何药妆和衣服，只保留截图、充电、睡觉。",
+      "primaryPlace": "Birdsnest Hongdae",
+      "primaryMapsQuery": "Birdsnest Hongdae 18 Yeonnam-ro 3-gil Mapo-gu Seoul 03988",
+      "backupPlace": "第二天再开始",
+      "backupMapsQuery": "Hongdae",
+      "budget": "0 RMB",
+      "why": "落地夜最容易乱花钱，直接归零最稳。"
+    },
+    "hardStop": {
+      "time": "01:40–02:35",
+      "title": "N6002 进城",
+      "note": "先抓住夜巴，不要临时乱换线。"
+    },
     "times": [
       "23:50–00:20 落地开网",
       "00:20–01:15 边检取行李",
@@ -1485,6 +1569,43 @@ const days=[
   {
     "day": "Day 2｜4/25 周六",
     "goal": "Birdsnest 退房 → Boro 寄存 → 景福宫经典线 → 晚上回明洞",
+    "dayBudget": "约 180–320 RMB / 39,000–69,000 KRW",
+    "dayTags": ["第一次去友好", "景点经典线", "明洞收口", "轻代购"],
+    "focusMove": {
+      "title": "景福宫 → 北村 → 益善洞 → 广藏 → 明洞",
+      "summary": "今天走经典钟路线，晚上必须收在明洞，不再回弘大。",
+      "primaryPlace": "Gyeongbokgung Palace",
+      "primaryMapsQuery": "Gyeongbokgung Palace",
+      "backupPlace": "Myeongdong Station",
+      "backupMapsQuery": "Myeongdong Station",
+      "budget": "交通 + 轻吃约 50–120 RMB",
+      "why": "第二晚住明洞，这条线最顺，不折返。"
+    },
+    "focusEat": {
+      "title": "益善洞午饭 + 明洞晚饭",
+      "summary": "午饭放益善洞休息，晚饭回明洞吃稳妥简餐。",
+      "primaryPlace": "香港饭店0410 明洞店 / 逆转乌冬0410 明洞店",
+      "primaryMapsQuery": "홍콩반점0410 명동",
+      "backupPlace": "Isaac Toast 明洞店",
+      "backupMapsQuery": "이삭토스트 명동",
+      "budget": "20–50 RMB / 餐",
+      "why": "今天的重点是把节奏走顺，不为网红店排长队。"
+    },
+    "focusShop": {
+      "title": "今天不做大购物，只补轻小件",
+      "summary": "最多明洞便利补给或 Daiso，小逛可以，别把 Day 2 逛成采购日。",
+      "primaryPlace": "Myeongdong Station",
+      "primaryMapsQuery": "Myeongdong Station",
+      "backupPlace": "Daiso 明洞站店",
+      "backupMapsQuery": "다이소 명동역점",
+      "budget": "0–100 RMB",
+      "why": "真正的药妆主采购放 Day 3，今天只做顺路补给。"
+    },
+    "hardStop": {
+      "time": "19:00–20:30",
+      "title": "明洞晚饭 + 回 Boro 入住",
+      "note": "今天的收口必须是明洞，不再写回弘大。"
+    },
     "times": [
       "09:00–09:40 Birdsnest 退房",
       "09:40–10:30 去 Boro 寄存",
@@ -1710,6 +1831,43 @@ const days=[
   {
     "day": "Day 3｜4/26 周日",
     "goal": "Boro 退房 → 明洞 / 南山轻量体验 → 明洞药妆主采购 → Lux 入住",
+    "dayBudget": "约 800–3,500 RMB / 173,000–756,000 KRW",
+    "dayTags": ["药妆主采购", "妈妈线", "明洞优先", "晚间回弘大"],
+    "focusMove": {
+      "title": "明洞轻体验 → 药妆主采购 → Lux",
+      "summary": "今天真正的大头在明洞采购，傍晚必须回弘大办 Lux 入住。",
+      "primaryPlace": "Olive Young 明洞 Town",
+      "primaryMapsQuery": "올리브영 명동타운",
+      "backupPlace": "Lux Guesthouse",
+      "backupMapsQuery": "Lux Guesthouse 156 Wausan-ro Mapo-gu Seoul 04061 Hongik Univ Station",
+      "budget": "交通 + 轻体验约 60–150 RMB",
+      "why": "第二晚住明洞的意义，就是把药妆和妈妈线集中做完。"
+    },
+    "focusEat": {
+      "title": "明洞快吃快走",
+      "summary": "今天午饭只求快、稳、不辣，保证采购时间。",
+      "primaryPlace": "Isaac Toast 明洞店",
+      "primaryMapsQuery": "이삭토스트 명동",
+      "backupPlace": "逆转乌冬0410 明洞店",
+      "backupMapsQuery": "역전우동0410 명동",
+      "budget": "20–50 RMB / 餐",
+      "why": "中午吃太重会拖慢药妆节奏，快餐最适合。"
+    },
+    "focusShop": {
+      "title": "药妆 + 雅诗兰黛 + Daiso",
+      "summary": "先 Olive Young 主清单，再妈妈雅诗兰黛，最后才是小物。",
+      "primaryPlace": "Olive Young 明洞 Town（药妆主采购）",
+      "primaryMapsQuery": "올리브영 명동타운",
+      "backupPlace": "乐天免税店明洞本店 / 雅诗兰黛",
+      "backupMapsQuery": "롯데면세점 명동본점 에스티로더",
+      "budget": "主采购段约 500–3000 RMB",
+      "why": "今天是全程最重的采购日，不再混衣服、香水和远线。"
+    },
+    "hardStop": {
+      "time": "17:00–17:40",
+      "title": "Lux 办入住",
+      "note": "Lux 15:00–21:00 可入住，这天最晚傍晚就要回弘大。"
+    },
     "times": [
       "09:00–09:40 Boro 退房",
       "09:40–10:10 寄存行李",
@@ -1929,6 +2087,43 @@ const days=[
   {
     "day": "Day 4｜4/27 周一",
     "goal": "Lux → GOTO Mall → 盘浦汉江 → 回 Lux",
+    "dayBudget": "约 180–520 RMB / 39,000–112,000 KRW",
+    "dayTags": ["低预算衣服日", "GOTO 主场", "免费夜景", "外食早餐"],
+    "focusMove": {
+      "title": "Lux → GOTO → 盘浦汉江 → Lux",
+      "summary": "今天路线不绕，商圈和免费夜景都压在一条线上。",
+      "primaryPlace": "GOTO Mall",
+      "primaryMapsQuery": "GOTO Mall",
+      "backupPlace": "Banpo Hangang Park",
+      "backupMapsQuery": "Banpo Hangang Park",
+      "budget": "交通 + 夜景约 40–100 RMB",
+      "why": "保守版路线只做 GOTO 和汉江，不再硬塞 Musinsa。"
+    },
+    "focusEat": {
+      "title": "车站午饭 + 弘大晚饭",
+      "summary": "午饭在车站内部解决，晚上回弘大再吃一顿稳妥晚饭。",
+      "primaryPlace": "Express Bus Terminal food court",
+      "primaryMapsQuery": "Express Bus Terminal food court",
+      "backupPlace": "Mom's Touch Hongdae",
+      "backupMapsQuery": "맘스터치 홍대",
+      "budget": "20–50 RMB / 餐",
+      "why": "今天的饭点服务于逛街，不再为吃饭专门绕路。"
+    },
+    "focusShop": {
+      "title": "GOTO Mall 两轮买法",
+      "summary": "第一轮只看预算和店，第二轮回头下单，优先袜子 / 小包 / 小配饰。",
+      "primaryPlace": "GOTO Mall",
+      "primaryMapsQuery": "GOTO Mall",
+      "backupPlace": "Shinsegae Gangnam",
+      "backupMapsQuery": "Shinsegae Gangnam",
+      "budget": "第一轮 50–100 RMB｜第二轮 100–300 RMB",
+      "why": "GOTO 最怕第一家就冲动下单，今天就按两轮买法执行。"
+    },
+    "hardStop": {
+      "time": "15:30–17:30",
+      "title": "盘浦汉江慢待",
+      "note": "这是 Day 4 唯一夜景段，免费且轻松，不再加收费项目。"
+    },
     "times": [
       "09:30–10:10 去 Express Bus Terminal",
       "10:10–12:40 GOTO 第一轮",
@@ -2106,6 +2301,43 @@ const days=[
   {
     "day": "Day 5｜4/28 周二",
     "goal": "Lux 退房 / 寄存 → MLB 爸爸线 → 鞋代购线 → 弘大补漏 → 仁川 T1",
+    "dayBudget": "约 900–3,200 RMB / 194,000–691,000 KRW",
+    "dayTags": ["爸爸 MLB", "鞋代购", "最后补漏", "机场日"],
+    "focusMove": {
+      "title": "弘大补漏 → AREX → 仁川 T1",
+      "summary": "白天只做弘大线补漏，晚上固定走 Hongik Univ. Station → AREX。",
+      "primaryPlace": "Hongik Univ. Station",
+      "primaryMapsQuery": "Hongik Univ. Station",
+      "backupPlace": "Incheon International Airport Terminal 1",
+      "backupMapsQuery": "Incheon International Airport Terminal 1",
+      "budget": "交通 + 机场流程约 120–220 RMB",
+      "why": "最后一天最怕乱开新路线，保守版就锁死弘大和机场。"
+    },
+    "focusEat": {
+      "title": "弘大快吃快走",
+      "summary": "午饭继续快、稳、一个人友好，不把时间浪费在排队上。",
+      "primaryPlace": "Isaac Toast 弘大店",
+      "primaryMapsQuery": "이삭토스트 홍대",
+      "backupPlace": "香港饭店0410 弘大店",
+      "backupMapsQuery": "홍콩반점0410 홍대",
+      "budget": "20–50 RMB / 餐",
+      "why": "今天的饭点只是给购物和机场服务，不是重点。"
+    },
+    "focusShop": {
+      "title": "爸爸 MLB + 鞋代购 + Musinsa 补漏",
+      "summary": "先做爸爸线，再做鞋代购，最后才是基础款和小物补漏。",
+      "primaryPlace": "MLB 弘大店（帽子 / T 恤 / 卫衣）",
+      "primaryMapsQuery": "MLB 홍대점",
+      "backupPlace": "Musinsa Kicks 弘大（鞋代购线）",
+      "backupMapsQuery": "무신사 킥스 홍대",
+      "budget": "爸爸线 300–900 RMB｜鞋代购线 500–1800 RMB",
+      "why": "Day 5 的购物优先级必须非常清楚，不然最后一天最容易乱掉。"
+    },
+    "hardStop": {
+      "time": "18:10–19:00",
+      "title": "AREX 去仁川 T1",
+      "note": "返程主方案固定 AREX，不自己脑补更快捷径。"
+    },
     "times": [
       "09:30–10:20 MLB 爸爸线",
       "10:20–11:30 鞋代购线",
@@ -3346,18 +3578,22 @@ function shoppingDayProgress(day){const total=day.tasks.length;const done=day.ta
 function renderShoppingDayCard(day){const {done,total}=shoppingDayProgress(day);return `<article class="card"><div class="day-top"><div><span class="chip">${day.day}</span><h3>按天采购单</h3></div><span class="status ${done===total?'ok':''}">执行清单：${done}/${total}</span></div><p class="mini">${day.note}</p><ul class="checklist">${day.tasks.map((task)=>renderTask(task.id,task.text)).join('')}</ul></article>`;}
 function renderShoppingDays(){const visible=shoppingDays.filter((day)=>matchesQuery([day.day,day.note,...day.tasks.map((t)=>t.text)])); if(!visible.length) return '<div class="empty">采购单没有匹配结果。</div>'; return visible.map(renderShoppingDayCard).join('');}
 function renderPriorityCard(label,title,copy,actions=''){return `<article class="priority-card"><span class="chip">${label}</span><h3>${title}</h3><p class="mini priority-copy">${copy}</p>${actions?`<div class="priority-actions">${actions}</div>`:''}</article>`;}
+function getFocusDayIndex(){const idx=Number.isInteger(uiState.focusDayIndex)?uiState.focusDayIndex:getTodayIndex(); return idx>=0&&idx<days.length?idx:getTodayIndex();}
+function setFocusDay(index){uiState.focusDayIndex=index; saveUi(); render();}
 function renderPriorityBoard(){
-  const day=days[getTodayIndex()];
-  const stay=getCurrentHotelStay();
-  const firstMove=day.routeBlocks[0];
-  const hardStop=day.routeBlocks.find((block)=>block.kind==='checkin' || block.kind==='airport' || block.transport.includes('N6002'));
-  const foodBlock=day.routeBlocks.find((block)=>block.kind==='food');
-  const shopBlock=day.routeBlocks.find((block)=>block.kind==='shop');
-  const stayCard=renderPriorityCard('今晚住宿', stay.name, `${stay.area}｜${stay.constraints}`, `<a class="link" href="${createHotelMapsUrl(stay)}" target="_blank" rel="noopener noreferrer">今晚酒店</a><button data-copy-stay="${stay.key}">复制地址</button>`);
-  const firstMoveCard=renderPriorityCard('现在先做', `${firstMove.start}–${firstMove.end} ${firstMove.title}`, `${firstMove.from} → ${firstMove.to}`, `<a class="link" href="${createRouteMapsUrl(firstMove)}" target="_blank" rel="noopener noreferrer">先看地图</a>`);
-  const foodCard=foodBlock ? renderPriorityCard('今天吃什么', `${foodBlock.start}–${foodBlock.end} ${foodBlock.primaryPlace || foodBlock.title}`, `${foodBlock.budget || '20–50 RMB / 餐'}｜${foodBlock.backupPlace ? `备选：${foodBlock.backupPlace}` : '这一段只求稳妥吃上'}`, `<a class="link" href="${foodBlock.primaryMapsQuery ? createGoogleMapsSearchUrl(foodBlock.primaryMapsQuery) : createRouteMapsUrl(foodBlock)}" target="_blank" rel="noopener noreferrer">主推荐</a>${foodBlock.backupMapsQuery ? `<a class="link" href="${createGoogleMapsSearchUrl(foodBlock.backupMapsQuery)}" target="_blank" rel="noopener noreferrer">备选</a>` : ''}`) : renderPriorityCard('今天吃什么', '今天不单独安排吃饭路线', '今晚只求进城和入住，不额外开吃饭支线。');
-  const shopCard=shopBlock ? renderPriorityCard('今天买什么', `${shopBlock.start}–${shopBlock.end} ${shopBlock.primaryPlace || shopBlock.title}`, `${shopBlock.whyThisStop || shopBlock.notes}`, `<a class="link" href="${shopBlock.primaryMapsQuery ? createGoogleMapsSearchUrl(shopBlock.primaryMapsQuery) : createRouteMapsUrl(shopBlock)}" target="_blank" rel="noopener noreferrer">主推荐</a>${shopBlock.backupMapsQuery ? `<a class="link" href="${createGoogleMapsSearchUrl(shopBlock.backupMapsQuery)}" target="_blank" rel="noopener noreferrer">备选</a>` : ''}`) : renderPriorityCard('今天买什么', '今天不单独安排购物主线', '今天先把路线走顺，采购单和购物留给后面几天。');
-  return `<section class="section" id="priority"><div class="section-head priority-head"><span class="eyebrow">Priority</span><h2>现在最该看什么</h2><p>先看今晚住哪、现在先做哪一步、今天吃什么、今天买什么；下面再看完整路线。</p></div><div class="priority-summary">${hardStop && hardStop!==firstMove ? `<div class="priority-alert"><span class="chip">最晚别错过</span><p><strong>${hardStop.start}–${hardStop.end}</strong>｜${hardStop.title}</p><p class="mini">${hardStop.notes}</p></div>` : ''}<div class="priority-grid">${stayCard}${firstMoveCard}${foodCard}${shopCard}</div></div></section>`;}
+  const focusIndex=getFocusDayIndex();
+  const day=days[focusIndex];
+  const stay=getCurrentHotelStay(focusIndex);
+  const move=day.focusMove;
+  const eat=day.focusEat;
+  const shop=day.focusShop;
+  const hardStop=day.hardStop;
+  const tabs=`<div class="day-switcher"><div class="day-switcher-row">${days.map((item,index)=>`<button class="day-switch ${index===focusIndex?'active':''}" data-focus-day="${index}">${item.day.replace('｜',' ')}</button>`).join('')}</div><div class="priority-overview"><div class="priority-meta-row"><span class="chip">${day.day}</span><span class="pill bad">${day.dayBudget}</span><span class="pill warn">${stay.name}</span></div><p class="mini"><strong>今晚住宿：</strong>${stay.area}｜${stay.constraints}</p><div class="priority-tags">${(day.dayTags||[]).map((tag)=>`<span class="pill">${tag}</span>`).join('')}</div><p class="mini">${day.note}</p></div></div>`;
+  const moveCard=renderPriorityCard('今天最该去哪里', move.title, `${move.budget}｜${move.why}`, `<a class="link" href="${createGoogleMapsSearchUrl(move.primaryMapsQuery)}" target="_blank" rel="noopener noreferrer">主推荐</a>${move.backupMapsQuery?`<a class="link" href="${createGoogleMapsSearchUrl(move.backupMapsQuery)}" target="_blank" rel="noopener noreferrer">备选</a>`:''}`);
+  const eatCard=renderPriorityCard('今天先吃什么', eat.title, `${eat.budget}｜${eat.why}`, `<a class="link" href="${createGoogleMapsSearchUrl(eat.primaryMapsQuery)}" target="_blank" rel="noopener noreferrer">主推荐</a>${eat.backupMapsQuery?`<a class="link" href="${createGoogleMapsSearchUrl(eat.backupMapsQuery)}" target="_blank" rel="noopener noreferrer">备选</a>`:''}`);
+  const shopCard=renderPriorityCard('今天重点买什么', shop.title, `${shop.budget}｜${shop.why}`, `<a class="link" href="${createGoogleMapsSearchUrl(shop.primaryMapsQuery)}" target="_blank" rel="noopener noreferrer">主推荐</a>${shop.backupMapsQuery?`<a class="link" href="${createGoogleMapsSearchUrl(shop.backupMapsQuery)}" target="_blank" rel="noopener noreferrer">备选</a>`:''}`);
+  const stopCard=renderPriorityCard('今天最晚别错过', `${hardStop.time} ${hardStop.title}`, hardStop.note, `<a class="link" href="${createHotelMapsUrl(stay)}" target="_blank" rel="noopener noreferrer">今晚酒店</a><button data-copy-stay="${stay.key}">复制地址</button>`);
+  return `<section class="section" id="priority"><div class="section-head priority-head"><span class="eyebrow">Priority</span><h2>现在最该看什么</h2><p>可以直接切 Day 1–Day 5；先看今天吃什么、买什么、最该去哪里，再决定要不要继续看整段路线。</p></div><div class="priority-summary">${tabs}<div class="priority-grid">${eatCard}${shopCard}${moveCard}${stopCard}</div></div></section>`;}
 function renderTodayFocus(){const day=days[getTodayIndex()]; const shoppingIdx=getTodayShoppingIndex(); const shoppingDay=shoppingIdx>=0 ? shoppingDays[shoppingIdx] : null; const shoppingBlock=shoppingDay ? renderShoppingDayCard(shoppingDay) : `<article class="card"><div class="day-top"><div><span class="chip">${day.day}</span><h3>今天采购单</h3></div><span class="status warn">未激活</span></div><p class="mini">今天先把路线和节奏走顺，采购单从 4/26 才开始真正执行。</p></article>`; return `<section class="section today-focus-shell" id="today-focus"><div class="section-head"><span class="eyebrow">Today Focus</span><h2>今天先看这个</h2><p>自动把今天路线和今天采购单放一起，出门时不用在整页里翻半天。</p></div><div class="days">${renderDayCard(day)}${shoppingBlock}</div></section>`;}
 function renderPriceRows(rows){if(!rows?.length) return ''; return `<div class="price-list">${rows.map((row)=>`<div class="price-line"><div class="price-main"><strong>${row.label}</strong><span>${row.fit || ''}</span></div><div class="price-values"><span class="price-badge">${row.krw}</span><span class="price-badge soft">${row.rmb}</span>${row.domestic?`<span class="price-badge muted">${row.domestic}</span>`:''}${row.resale?`<span class="price-badge muted">${row.resale}</span>`:''}</div></div>`).join('')}</div>`;}
 function renderMenuRows(menus){if(!menus?.length) return ''; return `<div class="menu-list">${menus.map((menu)=>`<div class="price-line"><div class="price-main"><strong>${menu.name}</strong><span class="menu-note">${menu.note || ''}</span></div><div class="price-values"><span class="price-badge">${menu.krw}</span><span class="price-badge soft">${menu.rmb}</span></div></div>`).join('')}</div>`;}
@@ -3370,9 +3606,9 @@ function renderBudgetCards(){return budgetCards.map((item,idx)=>`<article class=
 function renderPaymentGuide(){return paymentTips.map((item)=>`<article class="shop-card"><div class="shop-price"><span class="pill warn">${item.title}</span></div><ul class="tip-list">${item.items.map((line)=>`<li>${line}</li>`).join('')}</ul></article>`).join('');}
 function renderSavingTips(){return savingTips.map((line)=>`<article class="shop-card"><p class="mini">${line}</p></article>`).join('');}
 function renderTopShopping(){const top=shopping.filter((item)=>['最高','高'].includes(item.priority)).slice(0,8);return top.map((item)=>`<article class="shop-card"><div class="shop-price"><span class="pill">${item.priority}</span><span class="pill warn">${item.kind}</span><span class="pill bad">${item.budget}</span></div><h3>${item.name}</h3><p class="mini">适合：${item.bestFor}</p>${item.giftFor?`<p class="mini">适合送：${item.giftFor}</p>`:''}${item.whyMeaningful?`<p class="mini">为什么更有意义：${item.whyMeaningful}</p>`:''}<p class="mini">怎么买：${item.buyWhen}</p><p class="mini">避坑：${item.avoid}</p></article>`).join('');}
-function renderShopping(){const visible=shopping.filter((item)=>matchesQuery([item.kind,item.zone,item.budget,item.name,item.where,item.fit,item.priority,item.bestFor,item.buyWhen,item.avoid,item.kr,item.cn,item.gap,item.tip,item.whyMeaningful,item.giftFor,item.giftBudget,item.notFor,item.priceKRW,item.priceRMB,item.domesticRMB,item.spreadNote,item.channel,item.storeHint,item.carryLevel,item.newbieLevel,item.resaleFit])); if(!visible.length) return '<div class="empty">购物区没有匹配结果。</div>'; return visible.map((item)=>{const priceKRW=item.priceKRW || item.kr || '到店看活动';const priceRMB=item.priceRMB || item.budget || '按预算控制';const domesticRMB=item.domesticRMB || item.cn || '国内价格看平台波动';const spreadNote=item.spreadNote || item.gap || '';const storeHint=item.storeHint || item.where;const channel=item.channel || item.where;const carryLevel=item.carryLevel || '看体积';const newbieLevel=item.newbieLevel || '按熟悉度决定';const resaleFit=item.resaleFit || '更适合自用或送人';return `<article class="shop-card"><div class="shop-price"><span class="pill">${item.kind}</span><span class="pill warn">${item.priority}</span><span class="pill bad">${item.budget}</span></div><h3>${item.name}</h3><div class="shop-price"><span class="pill">${storeHint}</span><span class="pill warn">适合：${item.bestFor}</span></div>${item.giftFor?`<div class="shop-price"><span class="pill warn">适合送：${item.giftFor}</span>${item.giftBudget?`<span class="pill">预算：${item.giftBudget}</span>`:''}</div>`:''}<div class="tag-row"><span class="pill">${channel}</span><span class="pill warn">${carryLevel}</span><span class="pill bad">${newbieLevel}</span><span class="pill">${resaleFit}</span></div><div class="price-list"><div class="price-line"><div class="price-main"><strong>韩国参考</strong><span>${priceKRW}</span></div><div class="price-values"><span class="price-badge soft">${priceRMB}</span></div></div><div class="price-line"><div class="price-main"><strong>国内参考</strong><span>${domesticRMB}</span></div><div class="price-values">${spreadNote?`<span class="price-badge muted">${spreadNote}</span>`:''}</div></div></div>${item.whyMeaningful?`<p class="mini">为什么更有意义：${item.whyMeaningful}</p>`:''}<p class="mini">什么时候买：${item.buyWhen}</p><p class="mini">避坑：${item.avoid}</p>${item.notFor?`<p class="mini">不建议送：${item.notFor}</p>`:''}<p class="mini">${item.tip}</p></article>`;}).join('');}
+function renderShopping(){const visible=shopping.filter((item)=>matchesQuery([item.kind,item.zone,item.budget,item.name,item.where,item.fit,item.priority,item.bestFor,item.buyWhen,item.avoid,item.kr,item.cn,item.gap,item.tip,item.whyMeaningful,item.giftFor,item.giftBudget,item.notFor,item.priceKRW,item.priceRMB,item.domesticRMB,item.spreadNote,item.channel,item.storeHint,item.carryLevel,item.newbieLevel,item.resaleFit])); if(!visible.length) return '<div class="empty">购物区没有匹配结果。</div>'; return visible.map((item)=>{const legacyKR=/KRW/i.test(item.kr||'');const legacyRmbInKr=/RMB/i.test(item.kr||'');const priceKRW=item.priceKRW || (legacyKR ? item.kr : '到店看活动');const priceRMB=item.priceRMB || (legacyRmbInKr ? item.kr : item.budget || '按预算控制');const domesticRMB=item.domesticRMB || item.cn || '国内价格看平台波动';const spreadNote=item.spreadNote || item.gap || '';const storeHint=item.storeHint || item.where;const channel=item.channel || item.where;const carryLevel=item.carryLevel || '看体积';const newbieLevel=item.newbieLevel || '按熟悉度决定';const resaleFit=item.resaleFit || '更适合自用或送人';return `<article class="shop-card"><div class="shop-price"><span class="pill">${item.kind}</span><span class="pill warn">${item.priority}</span><span class="pill bad">${item.budget}</span></div><h3>${item.name}</h3><div class="shop-price"><span class="pill">${storeHint}</span><span class="pill warn">适合：${item.bestFor}</span></div>${item.giftFor?`<div class="shop-price"><span class="pill warn">适合送：${item.giftFor}</span>${item.giftBudget?`<span class="pill">预算：${item.giftBudget}</span>`:''}</div>`:''}<div class="tag-row"><span class="pill">${channel}</span><span class="pill warn">${carryLevel}</span><span class="pill bad">${newbieLevel}</span><span class="pill">${resaleFit}</span></div><div class="price-list"><div class="price-line"><div class="price-main"><strong>韩国参考</strong><span>${priceKRW}</span></div><div class="price-values"><span class="price-badge soft">${priceRMB}</span></div></div><div class="price-line"><div class="price-main"><strong>国内参考</strong><span>${domesticRMB}</span></div><div class="price-values">${spreadNote?`<span class="price-badge muted">${spreadNote}</span>`:''}</div></div></div>${item.whyMeaningful?`<p class="mini">为什么更有意义：${item.whyMeaningful}</p>`:''}<p class="mini">什么时候买：${item.buyWhen}</p><p class="mini">避坑：${item.avoid}</p>${item.notFor?`<p class="mini">不建议送：${item.notFor}</p>`:''}<p class="mini">${item.tip}</p></article>`;}).join('');}
 function loadTasks(){try{return JSON.parse(localStorage.getItem(TASK_KEY)||'{}')}catch{return {}}}
-function loadUi(){try{return JSON.parse(localStorage.getItem(UI_KEY)||'{"search":"","todayOnly":false}')}catch{return {search:'',todayOnly:false}}}
+function loadUi(){try{return JSON.parse(localStorage.getItem(UI_KEY)||'{"search":"","todayOnly":false,"focusDayIndex":null}')}catch{return {search:'',todayOnly:false,focusDayIndex:null}}}
 let tasksState=loadTasks();
 let uiState=loadUi();
 function saveTasks(){localStorage.setItem(TASK_KEY,JSON.stringify(tasksState));}
@@ -3413,7 +3649,7 @@ function renderGuide(){
   return intro + visible.map((item,index)=>`<details class="guide" ${item.open||index<2?'open':''}><summary><span>${item.title}</span><small>${item.bullets[0]||'展开看细节'}</small></summary><div class="content"><ul>${item.bullets.map((line)=>`<li>${line}</li>`).join('')}</ul></div></details>`).join('');
 }
 function dayProgress(day){const total=day.tasks.length;const done=day.tasks.filter((task)=>isDone(task.id)).length;return {done,total};}
-function getVisibleDays(){let visible=days; if(uiState.todayOnly){visible=[days[getTodayIndex()]];} const q=uiState.search.trim(); if(q){visible=visible.filter((day)=>matchesQuery([day.day,day.goal,day.note,...day.times,...day.tasks.map((t)=>t.text),...day.routeBlocks.flatMap((block)=>[block.kind,block.start,block.end,block.title,block.from,block.to,block.transport,block.notes,block.fallback,block.mapsQueryFrom,block.mapsQueryTo,block.primaryPlace,block.primaryMapsQuery,block.backupPlace,block.backupMapsQuery,block.budget,block.whyThisStop]) ]));} return visible;}
+function getVisibleDays(){let visible=days; if(uiState.todayOnly){visible=[days[getTodayIndex()]];} const q=uiState.search.trim(); if(q){visible=visible.filter((day)=>matchesQuery([day.day,day.goal,day.note,day.dayBudget,...(day.dayTags||[]),...(day.focusEat?Object.values(day.focusEat):[]),...(day.focusShop?Object.values(day.focusShop):[]),...(day.focusMove?Object.values(day.focusMove):[]),...(day.hardStop?Object.values(day.hardStop):[]),...day.times,...day.tasks.map((t)=>t.text),...day.routeBlocks.flatMap((block)=>[block.kind,block.start,block.end,block.title,block.from,block.to,block.transport,block.notes,block.fallback,block.mapsQueryFrom,block.mapsQueryTo,block.primaryPlace,block.primaryMapsQuery,block.backupPlace,block.backupMapsQuery,block.budget,block.whyThisStop]) ]));} return visible;}
 function renderRouteBlock(block){
   const mapsUrl=createRouteMapsUrl(block);
   const kindLabel={move:'移动',food:'吃饭',shop:'购物',checkin:'入住',airport:'机场'}[block.kind] || '行程';
@@ -3609,6 +3845,7 @@ function render(){
       </div>
     </div>`;
   document.querySelectorAll('[data-check-id]').forEach((input)=>{input.addEventListener('change',(event)=>{tasksState[event.target.dataset.checkId]=event.target.checked;saveTasks();render();});});
+  document.querySelectorAll('[data-focus-day]').forEach((btn)=>btn.addEventListener('click',()=>setFocusDay(Number(btn.dataset.focusDay))));
   document.querySelectorAll('[data-quick]').forEach((btn)=>btn.addEventListener('click',()=>setSearch(btn.dataset.quick)));
   document.querySelectorAll('[data-copy-stay]').forEach((btn)=>btn.addEventListener('click',()=>{const stay=hotelStays.find((item)=>item.key===btn.dataset.copyStay); if(stay) copyText(stay.mapsQuery || stay.address);}));
   document.getElementById('search-input').addEventListener('input',(e)=>setSearch(e.target.value));
