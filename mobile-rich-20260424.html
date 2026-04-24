@@ -1,0 +1,4018 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#1e293b" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="format-detection" content="telephone=no" />
+  <title>韩国旅行清单增强版</title>
+  <style>
+:root {
+  --bg: #f6f1e8;
+  --bg-strong: #efe6d7;
+  --surface: #fffdf9;
+  --surface-soft: #fff8ef;
+  --surface-ink: #0f2433;
+  --ink: #18232f;
+  --muted: #5e6a74;
+  --line: rgba(15, 36, 51, 0.1);
+  --line-strong: rgba(15, 36, 51, 0.18);
+  --navy: #1e293b;
+  --navy-soft: #2d3d57;
+  --accent: #d89a4b;
+  --accent-soft: rgba(216, 154, 75, 0.16);
+  --green: #1f7a5c;
+  --green-soft: rgba(31, 122, 92, 0.14);
+  --warn: #b9652d;
+  --warn-soft: rgba(185, 101, 45, 0.16);
+  --danger: #b84d3a;
+  --danger-soft: rgba(184, 77, 58, 0.16);
+  --shadow-soft: 0 18px 40px rgba(23, 34, 45, 0.08);
+  --shadow-card: 0 24px 54px rgba(23, 34, 45, 0.12);
+  --radius-xl: 28px;
+  --radius-lg: 22px;
+  --radius-md: 16px;
+  --nav-height: 5.8rem;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  padding-bottom: calc(var(--nav-height) + env(safe-area-inset-bottom, 0px));
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Noto Sans SC", "Segoe UI", sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(216, 154, 75, 0.18), transparent 26rem),
+    radial-gradient(circle at top right, rgba(30, 41, 59, 0.1), transparent 28rem),
+    linear-gradient(180deg, #fffaf1 0%, var(--bg) 45%, var(--bg-strong) 100%);
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.36) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.28) 1px, transparent 1px);
+  background-size: 30px 30px;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.28), transparent 82%);
+}
+
+.app {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 860px);
+  margin: 0 auto;
+  padding: 1rem 0.95rem 2.6rem;
+}
+
+h1, h2, h3, h4, p {
+  margin: 0;
+}
+
+h1 {
+  font-size: clamp(2.4rem, 11vw, 4.2rem);
+  line-height: 0.96;
+  letter-spacing: -0.06em;
+}
+
+h2 {
+  font-size: clamp(1.4rem, 5vw, 1.85rem);
+  line-height: 1.06;
+  letter-spacing: -0.04em;
+}
+
+h3 {
+  font-size: 1.08rem;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+}
+
+p,
+li {
+  line-height: 1.68;
+}
+
+p {
+  color: var(--muted);
+}
+
+ul {
+  margin: 0;
+  padding-left: 1.15rem;
+  color: var(--muted);
+}
+
+.card,
+details {
+  border: 1px solid rgba(255, 255, 255, 0.82);
+  border-radius: var(--radius-xl);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(255, 249, 240, 0.96)),
+    var(--surface);
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(14px);
+}
+
+.card {
+  display: grid;
+  gap: 0.92rem;
+  padding: 1.05rem;
+}
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 1.1rem;
+  padding: 1.2rem;
+  gap: 1rem;
+  border-color: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  background:
+    radial-gradient(circle at top left, rgba(104, 184, 214, 0.24), transparent 18rem),
+    radial-gradient(circle at 88% 18%, rgba(216, 154, 75, 0.26), transparent 14rem),
+    linear-gradient(145deg, #101c2b 0%, #1e293b 48%, #2f425d 100%);
+  box-shadow: 0 28px 72px rgba(14, 23, 34, 0.28);
+}
+
+.hero::before,
+.hero::after {
+  content: "";
+  position: absolute;
+  border-radius: 999px;
+  pointer-events: none;
+}
+
+.hero::before {
+  width: 17rem;
+  height: 17rem;
+  right: -6rem;
+  top: -7rem;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.hero::after {
+  width: 12rem;
+  height: 12rem;
+  left: -4rem;
+  bottom: -5rem;
+  background: rgba(216, 154, 75, 0.14);
+}
+
+.hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-head {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.hero-badge {
+  width: fit-content;
+  min-height: 2rem;
+  padding: 0.35rem 0.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+}
+
+.hero p {
+  max-width: 36rem;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.98rem;
+}
+
+.hero-meta,
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.hero-actions,
+.copy-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.72rem;
+}
+
+.hero-actions.secondary {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.eyebrow,
+.chip,
+.status,
+.build-note,
+.time-chip,
+.pill,
+.quick-chip,
+.meta-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  min-height: 2rem;
+  padding: 0.32rem 0.78rem;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: #7e4f17;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.eyebrow {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.86);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.hero .chip,
+.hero .status,
+.hero .build-note,
+.hero .meta-pill {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+.status.ok,
+.pill.ok {
+  background: var(--green-soft);
+  color: var(--green);
+}
+
+.status.warn,
+.pill.warn {
+  background: var(--warn-soft);
+  color: #8c4f22;
+}
+
+.pill.bad {
+  background: rgba(66, 110, 216, 0.12);
+  color: #3158ba;
+}
+
+.link,
+button {
+  min-height: 3rem;
+  padding: 0.78rem 0.95rem;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: #fff;
+  color: var(--surface-ink);
+  font: inherit;
+  font-weight: 800;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease, background 0.16s ease;
+}
+
+.hero .link,
+.hero button {
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+.hero .link:first-child,
+.hero button:first-child,
+.toolbar-inner .link:first-child {
+  background: linear-gradient(135deg, #e4b15f, #c98836);
+  border-color: transparent;
+  color: #fff;
+}
+
+button:hover,
+.link:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 28px rgba(22, 33, 44, 0.12);
+}
+
+.section {
+  display: grid;
+  gap: 0.92rem;
+  margin-bottom: 1.15rem;
+}
+
+.section-head {
+  display: grid;
+  gap: 0.5rem;
+  padding: 1rem 1.05rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(145deg, rgba(16, 28, 43, 0.96), rgba(33, 48, 71, 0.94));
+  box-shadow: 0 20px 48px rgba(15, 28, 43, 0.16);
+}
+
+.section-head .eyebrow {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.section-head h2 {
+  color: #fff;
+}
+
+.section-head p,
+.section-subtitle {
+  color: rgba(255, 255, 255, 0.74);
+  max-width: 42rem;
+}
+
+.list,
+.days,
+.guide-grid,
+.shop-grid,
+.static-grid {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.days,
+.guide-grid,
+.shop-grid,
+.static-grid.two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.today-focus-shell,
+#stays,
+#days,
+#shopping-days,
+#shopping-top,
+#shopping {
+  scroll-margin-top: 1rem;
+}
+
+#today-focus .card,
+#stays .card,
+#days .card,
+#shopping-days .card,
+#shopping-top .shop-card,
+#shopping .shop-card,
+.list > .card {
+  position: relative;
+  min-height: 100%;
+  border-color: rgba(255, 255, 255, 0.88);
+  box-shadow: var(--shadow-card);
+}
+
+#today-focus .card::before,
+#stays .card::before,
+#days .card::before,
+#shopping-days .card::before,
+.list > .card::before,
+#shopping-top .shop-card::before,
+#shopping .shop-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 4px;
+  border-radius: 999px 999px 0 0;
+  background: linear-gradient(90deg, var(--accent), #e7c17b, #f0d8a6);
+}
+
+.day-top,
+.phase-top,
+.shop-price,
+.meta-row,
+.mode-row,
+.toolbar-inner,
+.today-focus-shell .day-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+}
+
+.day-top {
+  align-items: flex-start;
+}
+
+.day-top h3,
+.phase-top h3,
+.shop-card h3 {
+  color: var(--surface-ink);
+}
+
+.mini,
+.task-text,
+.shop-card p,
+.meta-row span:last-child {
+  color: var(--muted);
+}
+
+.time-row,
+.shop-price {
+  flex-wrap: wrap;
+}
+
+
+.route-list {
+  display: grid;
+  gap: 0.72rem;
+}
+
+.route-block {
+  display: grid;
+  gap: 0.52rem;
+  padding: 0.92rem 0.95rem;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: rgba(15, 36, 51, 0.04);
+}
+
+.route-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.55rem;
+  flex-wrap: wrap;
+}
+
+.route-time {
+  color: var(--surface-ink);
+  font-size: 0.88rem;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+}
+
+.route-block h4 {
+  margin: 0;
+  color: var(--surface-ink);
+  font-size: 1rem;
+  line-height: 1.34;
+  letter-spacing: -0.02em;
+}
+
+.route-path {
+  color: var(--muted);
+}
+
+.route-path strong,
+.route-fallback strong {
+  color: var(--surface-ink);
+}
+
+.route-fallback {
+  color: #7f5222;
+}
+
+.route-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.route-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 1.86rem;
+  padding: 0.28rem 0.7rem;
+  border-radius: 999px;
+  background: rgba(30, 41, 59, 0.08);
+  color: var(--surface-ink);
+  font-size: 0.74rem;
+  font-weight: 800;
+}
+
+.route-why {
+  color: #33525e;
+}
+
+.route-places {
+  display: grid;
+  gap: 0.28rem;
+}
+
+.route-actions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.6rem;
+}
+
+.route-actions .link {
+  min-height: 2.85rem;
+  padding-inline: 0.7rem;
+}
+
+.priority-head {
+  background:
+    linear-gradient(145deg, rgba(26, 41, 61, 0.98), rgba(38, 55, 81, 0.95));
+}
+
+.priority-summary {
+  display: grid;
+  gap: 0.88rem;
+}
+
+.day-switcher {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.day-switcher-row,
+.priority-meta-row,
+.priority-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.day-switch {
+  min-height: 2.9rem;
+  padding: 0.65rem 0.9rem;
+  border: 1px solid rgba(30, 41, 59, 0.1);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--surface-ink);
+  font-size: 0.84rem;
+  font-weight: 800;
+  box-shadow: var(--shadow-soft);
+}
+
+.day-switch.active {
+  border-color: rgba(216, 154, 75, 0.45);
+  background: linear-gradient(135deg, #f1c16d, #d89a4b);
+  color: #fff;
+}
+
+.usecase-tabs,
+.usecase-summary-grid {
+  display: grid;
+  gap: 0.72rem;
+}
+
+.usecase-tabs {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.usecase-tab {
+  min-height: 3rem;
+  padding: 0.72rem 0.8rem;
+  border: 1px solid rgba(30, 41, 59, 0.1);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--surface-ink);
+  font-size: 0.86rem;
+  font-weight: 800;
+  box-shadow: var(--shadow-soft);
+}
+
+.usecase-tab.active {
+  border-color: rgba(216, 154, 75, 0.45);
+  background: linear-gradient(135deg, #f1c16d, #d89a4b);
+  color: #fff;
+}
+
+.usecase-summary-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.usecase-summary-card {
+  display: grid;
+  gap: 0.58rem;
+}
+
+.usecase-summary-card h3 {
+  color: var(--surface-ink);
+}
+
+.priority-overview {
+  display: grid;
+  gap: 0.78rem;
+  padding: 0.96rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.82);
+  border-radius: 20px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(255, 249, 240, 0.95)),
+    var(--surface);
+  box-shadow: var(--shadow-soft);
+}
+
+.priority-overview strong {
+  color: var(--surface-ink);
+}
+
+.priority-alert {
+  display: grid;
+  gap: 0.34rem;
+  padding: 0.92rem 1rem;
+  border: 1px solid rgba(216, 154, 75, 0.2);
+  border-radius: 20px;
+  background:
+    linear-gradient(180deg, rgba(255, 249, 240, 0.98), rgba(255, 244, 226, 0.95));
+  box-shadow: var(--shadow-soft);
+}
+
+.priority-alert strong {
+  color: var(--surface-ink);
+}
+
+.priority-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem;
+}
+
+.priority-card {
+  display: grid;
+  gap: 0.7rem;
+  padding: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.88);
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(255, 249, 240, 0.96)),
+    var(--surface);
+  box-shadow: var(--shadow-card);
+}
+
+.priority-card h3 {
+  color: var(--surface-ink);
+}
+
+.priority-copy {
+  color: var(--muted);
+}
+
+.priority-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.6rem;
+}
+
+.priority-actions .link {
+  min-height: 2.8rem;
+  padding-inline: 0.7rem;
+}
+
+.platform-grid,
+.food-grid,
+.ticket-grid,
+.budget-grid,
+.tips-grid {
+  display: grid;
+  gap: 0.9rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.price-list,
+.budget-list,
+.tip-list,
+.detail-list,
+.menu-list {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.price-note {
+  border-style: solid;
+  border-color: rgba(216, 154, 75, 0.22);
+  background:
+    linear-gradient(180deg, rgba(255, 251, 245, 0.98), rgba(255, 247, 235, 0.95)),
+    var(--surface-soft);
+  color: #7f5222;
+}
+
+.price-line {
+  display: grid;
+  gap: 0.5rem;
+  padding: 0.72rem 0.78rem;
+  border: 1px solid rgba(30, 41, 59, 0.08);
+  border-radius: 16px;
+  background: rgba(15, 36, 51, 0.03);
+}
+
+.price-main {
+  display: grid;
+  gap: 0.16rem;
+}
+
+.price-main strong {
+  color: var(--surface-ink);
+  font-size: 0.9rem;
+}
+
+.price-main span {
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.price-values {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.42rem;
+}
+
+.price-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 1.95rem;
+  padding: 0.26rem 0.68rem;
+  border-radius: 999px;
+  background: rgba(49, 88, 186, 0.12);
+  color: #3158ba;
+  font-size: 0.76rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.price-badge.soft {
+  background: rgba(216, 154, 75, 0.14);
+  color: #8c4f22;
+}
+
+.price-badge.muted {
+  background: rgba(30, 41, 59, 0.08);
+  color: var(--surface-ink);
+}
+
+.detail-section {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.detail-section h4 {
+  margin: 0;
+  color: var(--surface-ink);
+  font-size: 0.95rem;
+  line-height: 1.32;
+  letter-spacing: -0.02em;
+}
+
+.detail-list {
+  margin: 0;
+  padding-left: 1rem;
+}
+
+.detail-list li,
+.menu-list li {
+  color: var(--muted);
+}
+
+.menu-note {
+  color: #577182;
+  font-size: 0.8rem;
+}
+
+.budget-row,
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.budget-bar {
+  width: 100%;
+  height: 0.7rem;
+  border-radius: 999px;
+  background: rgba(30, 41, 59, 0.08);
+  overflow: hidden;
+}
+
+.budget-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #d89a4b, #f3c56f);
+}
+
+.ticket-badge {
+  background: rgba(31, 122, 92, 0.14);
+  color: #155e46;
+}
+
+.ticket-badge.warn {
+  background: rgba(185, 101, 45, 0.14);
+  color: #8c4f22;
+}
+
+.checklist {
+  display: grid;
+  gap: 0.72rem;
+  list-style: none;
+  padding: 0;
+}
+
+.task {
+  list-style: none;
+}
+
+.task label {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.72rem;
+  align-items: flex-start;
+  padding: 0.85rem 0.95rem;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(255, 249, 241, 0.85);
+}
+
+.task input {
+  width: 1.12rem;
+  height: 1.12rem;
+  margin-top: 0.14rem;
+  accent-color: var(--green);
+}
+
+.task.done label {
+  border-color: rgba(31, 122, 92, 0.22);
+  background: rgba(31, 122, 92, 0.08);
+}
+
+.task.done .task-text {
+  color: #46665a;
+  text-decoration: line-through;
+}
+
+.offline-alert {
+  border-color: rgba(216, 154, 75, 0.24);
+  background:
+    linear-gradient(180deg, rgba(255, 250, 240, 0.98), rgba(255, 247, 233, 0.95)),
+    var(--surface-soft);
+}
+
+.search-box {
+  gap: 0.95rem;
+  border-color: rgba(30, 41, 59, 0.12);
+}
+
+.search-wrap {
+  display: grid;
+  gap: 0.88rem;
+}
+
+.ghost-input {
+  width: 100%;
+  min-height: 3.35rem;
+  padding: 0.95rem 1rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 18px;
+  background: #fff;
+  color: var(--surface-ink);
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.ghost-input::placeholder {
+  color: #8f98a2;
+  font-weight: 600;
+}
+
+.quick-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.56rem;
+}
+
+.quick-chip,
+#clear-search,
+#toggle-today {
+  min-height: 2.8rem;
+  border-radius: 15px;
+  background: rgba(30, 41, 59, 0.06);
+  color: var(--surface-ink);
+}
+
+.mode-row {
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.result-chip {
+  background: rgba(30, 41, 59, 0.08);
+  color: var(--surface-ink);
+}
+
+.guide-lead {
+  gap: 0.5rem;
+  border-color: rgba(216, 154, 75, 0.24);
+  background:
+    linear-gradient(180deg, rgba(255, 252, 245, 0.98), rgba(255, 247, 234, 0.96)),
+    var(--surface-soft);
+}
+
+details.guide {
+  overflow: hidden;
+}
+
+details.guide summary {
+  display: grid;
+  gap: 0.32rem;
+  padding: 1rem 1.05rem;
+  cursor: pointer;
+  list-style: none;
+  color: var(--surface-ink);
+  font-size: 1.02rem;
+  font-weight: 900;
+}
+
+details.guide summary::-webkit-details-marker {
+  display: none;
+}
+
+details.guide summary small {
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+details.guide .content {
+  padding: 0 1.05rem 1rem;
+}
+
+.shop-card {
+  display: grid;
+  gap: 0.72rem;
+  padding: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.88);
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(255, 249, 240, 0.96)),
+    var(--surface);
+  box-shadow: var(--shadow-card);
+}
+
+.meta-list {
+  gap: 0.75rem;
+}
+
+.meta-row {
+  align-items: flex-start;
+  padding-top: 0.22rem;
+  border-top: 1px solid var(--line);
+}
+
+.meta-row:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.meta-label {
+  color: var(--surface-ink);
+  font-weight: 800;
+}
+
+.note,
+.empty {
+  padding: 1rem 1.05rem;
+  border: 1px dashed rgba(30, 41, 59, 0.18);
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.68);
+  color: var(--muted);
+}
+
+.toolbar {
+  position: sticky;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 0.7rem);
+  z-index: 8;
+  margin-top: 0.8rem;
+}
+
+.toolbar-inner {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0.55rem;
+  padding: 0.68rem;
+  border: 1px solid rgba(255, 255, 255, 0.84);
+  border-radius: 24px;
+  background: rgba(255, 253, 249, 0.92);
+  box-shadow: 0 24px 56px rgba(17, 28, 39, 0.16);
+  backdrop-filter: blur(18px);
+}
+
+.toolbar-inner .link,
+.toolbar-inner button {
+  min-height: 3rem;
+  padding: 0.5rem 0.35rem;
+  border-radius: 16px;
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.toolbar-inner button {
+  background: rgba(184, 77, 58, 0.08);
+  color: #8c372b;
+}
+
+.static-grid {
+  margin-top: 0.1rem;
+}
+
+.static-card {
+  display: grid;
+  gap: 0.75rem;
+  padding: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.86);
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(255, 248, 238, 0.94)),
+    var(--surface);
+  box-shadow: var(--shadow-soft);
+}
+
+.static-list {
+  display: grid;
+  gap: 0.55rem;
+}
+
+@media (max-width: 820px) {
+  .days,
+  .guide-grid,
+  .shop-grid,
+  .static-grid.two,
+  .priority-grid,
+  .platform-grid,
+  .food-grid,
+  .ticket-grid,
+  .budget-grid,
+  .tips-grid,
+  .usecase-summary-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .app {
+    padding-inline: 0.82rem;
+  }
+
+  .hero {
+    padding: 1.05rem;
+  }
+
+  .hero-actions,
+  .hero-actions.secondary,
+  .copy-row {
+    grid-template-columns: 1fr;
+  }
+
+  .quick-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .usecase-tabs {
+    grid-template-columns: 1fr;
+  }
+
+  .toolbar-inner {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+  <section class="hero card">
+    <div class="hero-head">
+      <div>
+        <span class="eyebrow">首尔 4/24–4/28</span>
+        <h1>韩国旅行清单增强版</h1>
+        <p>标题、住宿、每天任务、采购单和购物都在下面；往下滑就是完整版，不是只有一页。</p>
+      </div>
+      <span class="hero-badge">Birdsnest → Boro → Lux</span>
+    </div>
+    <div class="hero-meta">
+      <span class="meta-pill">4/24 深夜到达 T1</span>
+      <span class="meta-pill">4/28 23:40 从仁川起飞</span>
+      <span class="meta-pill">4/29 凌晨到国内</span>
+    </div>
+    <div class="hero-actions">
+      <a class="link" href="./night-arrival-lite.html">🌙 落地夜</a>
+      <a class="link" href="./safe-open.html">安全入口</a>
+    </div>
+    <div class="hero-actions secondary">
+      <a class="link" href="./">返回总入口</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="card offline-alert">
+      <h3>出发前最重要：把离线版 HTML 存进手机“文件”App</h3>
+      <ul>
+        <li>先用 Safari 打开完整版，再添加到主屏幕。</li>
+        <li>同时把“韩国旅行清单_出国应急离线版.html”存进文件 App。</li>
+        <li>如果国外网络抽风，不回聊天记录翻链接，直接开离线版。</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="today-focus-shell">
+    <div class="section-head">
+      <span class="eyebrow">Today Focus</span>
+      <h2>今天先看这个</h2>
+      <p>静态兜底版先把今天路线和今天采购单放在前面，脚本失败时你也能照着走。</p>
+    </div>
+    <div class="static-grid two">
+      <article class="static-card">
+        <div class="day-top">
+          <div>
+            <span class="chip">Day 1｜4/24 周五晚</span>
+            <h3>T1 出关 → N6002 → 弘大酒店</h3>
+          </div>
+        </div>
+        <p class="mini">落地后优先出关，目标是 01:00 / 01:40 的 N6002。现金优先，准备 20,000 KRW。</p>
+        <ul class="static-list">
+          <li>先看 Bus / Airport Bus / Late-night Bus / Bus Ticket。</li>
+          <li>确认方向是 Hongdae / Cheongnyangni 这条线。</li>
+          <li>到弘大后只去酒店，不再开新路线。</li>
+        </ul>
+      </article>
+
+      <article class="static-card">
+        <div class="day-top">
+          <div>
+            <span class="chip">4/26–4/28</span>
+            <h3>按天采购单兜底版</h3>
+          </div>
+        </div>
+        <p class="mini">时间不够就记住三件事：明洞买药妆，GOTO / Musinsa 买基础款，最后一天只补缺项。</p>
+        <ul class="static-list">
+          <li>4/26：Dr.G / Torriden / 痘痘贴 / Mediheal 优先。</li>
+          <li>4/27：GOTO 先逛一圈再买，Musinsa 只补 1–2 件主力单品。</li>
+          <li>4/28：只补缺项，不开新商圈，不乱买大瓶香水和高客单彩妆。</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <span class="eyebrow">Static Backup</span>
+      <h2>静态兜底内容</h2>
+      <p>即使脚本失败，你至少还能看到这些核心块：每天任务、采购单、礼物方向和入口。</p>
+    </div>
+    <div class="static-grid two">
+      <article class="static-card">
+        <h3>每天要干什么</h3>
+        <ul class="static-list">
+          <li>4/25：先处理交通卡，再走景福宫 / 北村 / 益善洞 / 广藏。</li>
+          <li>4/26：弘大 / 延南慢逛，下午去明洞做药妆和伴手礼补货。</li>
+          <li>4/27：GOTO Mall + 盘浦汉江，主打低预算购物和免费夜景。</li>
+          <li>4/28：只补漏，不开新景点，晚上去仁川 T1 回国。</li>
+        </ul>
+      </article>
+      <article class="static-card">
+        <h3>礼物和购物重点</h3>
+        <ul class="static-list">
+          <li>给妈妈：小套装护肤 + 护手霜 / 润唇膏 + 旅行装身体护理更稳。</li>
+          <li>给爸爸：海苔 / 杏仁 / 咖啡包 + 男士洗护小套装 / 基础袜子帽子最稳。</li>
+          <li>给女朋友：Tamburins / Nonfiction 护手霜、小香、已知色号唇妆、小配饰。</li>
+          <li>给弟弟：Musinsa 基础 T 恤 / 帽子 / 袜子 + 联名零食最稳。</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <noscript>
+    <section class="section">
+      <div class="card note">
+        当前浏览器没有运行脚本。你现在看到的是静态兜底版，已经够你先用；如果想要搜索、勾选和今天模式，请改用 Safari 或支持脚本的浏览器重新打开。
+      </div>
+    </section>
+  </noscript>
+</div>
+<script>
+const TASK_KEY='kr-trip-rich-mobile-v2-tasks';
+const UI_KEY='kr-trip-rich-mobile-v2-ui';
+const hotelStays=[
+  {key:'stay-day1',dayRange:'4/24–4/25',name:'Birdsnest Hongdae / 鸟巢旅馆弘大 - 仅限外国人',address:'18 Yeonnam-ro 3-gil, Mapo-gu, Seoul 03988',area:'弘大 / 延南',checkInOut:'4/24 入住，4/25 退房',stayType:'第一晚进城落点',constraints:'Birdsnest 只负责深夜从 T1 稳稳进城。',notes:'N6002 下车后步行最顺。',mapsQuery:'Birdsnest Hongdae 18 Yeonnam-ro 3-gil Mapo-gu Seoul 03988'},
+  {key:'stay-day2',dayRange:'4/25–4/26',name:'Boro hanok hostel in myeongdong / 明洞博罗韩屋旅舍',address:'04630, Jung-gu, Seoul',area:'明洞 / 南山',checkInOut:'4/25 入住，4/26 退房',stayType:'第二晚明洞过渡住宿',constraints:'门牌未公开，按酒店名 + 区号 + 南山/N 首尔塔周边检索。',notes:'第二晚收在明洞，让景福宫线和明洞夜里收口接顺。',mapsQuery:'Boro hanok hostel in myeongdong 04630 Jung-gu Seoul N Seoul Tower Namsan Cable Car'},
+  {key:'stay-day34',dayRange:'4/26–4/28',name:'Lux Guesthouse / Lux 旅馆',address:'156 Wausan-ro, Mapo-gu, Seoul 04061',area:'弘大入口 / Wausan-ro',checkInOut:'4/26 入住，4/28 退房',stayType:'男生专用宿舍（4 people）｜后两晚主住',constraints:'15:00–21:00 check-in｜11:00 check-out｜不含早餐｜距弘大入口站约 540m',notes:'后两晚回到弘大入口一带，适合 GOTO、盘浦汉江和返程补漏。',mapsQuery:'Lux Guesthouse 156 Wausan-ro Mapo-gu Seoul 04061 Hongik Univ Station'}
+];
+const luggageFallbacks=['Myeongdong Station 周边储物柜 / 行李寄存点','Euljiro 1(il)-ga / 乙支路入口站附近储物柜','Hongik Univ. Station 周边储物柜 / 行李寄存点'];
+const tripDates=['2026-04-24','2026-04-25','2026-04-26','2026-04-27','2026-04-28'];
+const phases=[
+  {title:'阶段一｜出发前',subtitle:'本地环境配置',items:['买好韩国 eSIM，保存二维码、安装说明和客服截图。','装好 Google Maps、Papago、Kakao T，并保存酒店地址。','有 Visa 就把它设为主卡，再用支付宝国内预付 + 韩元现金落地 + WOWPASS 本地刷卡做三层兜底。','提前用支付宝 / 微信把酒店、eSIM 和能预付的项目先付掉。','提前确认 Visa 已开通境外支付、额度够用、短信或 App 验证正常。','提前下乐天 / 新罗 / 新世界免税 App 领券；如果线上免税支付卡住，就改走线下 OY 即时退税。']},
+  {title:'阶段二｜抵达机场',subtitle:'系统初始化',items:['落地后优先出关，不在机场乱逛。','主住弘大就盯 N6002；主住钟路 / 首尔站才看 N6701。','第一晚用韩元现金解决夜巴和便利店，不把支付宝当夜巴主支付。','第二天在弘大买 Climate Card，不在落地夜研究复杂交通卡。','第二天再找弘大 / 明洞 / 首尔站一带办 WOWPASS，小额试刷成功后再当主力。']},
+  {title:'阶段三｜首尔执行',subtitle:'游玩与购物',items:['景福宫 / 北村 / 益善洞 / 广藏市场走经典线。','药妆只买 1+1、SALE、即时退税款。','衣服主战场是 GOTO Mall，不是潮牌街。','吃饭优先吐司、饭卷、汤饭、炸酱面。']},
+  {title:'阶段四｜回程',subtitle:'收口与资源释放',items:['大额退税商品别先托运。','先确认退税 / 提货，再托运，再安检。','回程日不开新景点，只做补漏和去机场。']}
+];
+const guideSections=[
+  {
+    "title": "🌙 T1 到 N6002 保姆线",
+    "open": true,
+    "bullets": [
+      "23:50 抵达仁川 T1，现实里大概率 01:00–01:30 出到 1F 到达层公共区域。",
+      "出到公共区后直接找 Bus / Airport Bus / Late-night Bus / Bus Ticket，不先逛便利店。",
+      "主住弘大就买 N6002 to Hongdae，目标 T1 01:00 / 01:40，最现实盯 01:40。",
+      "成人票按 17,000 KRW 准备，单独拿 20,000 KRW 韩元现金；现金优先，现场支持再用 Visa / 交通卡，支付宝不当夜巴主支付。",
+      "T1 到弘大约 45–65 分钟，到站后用 Google Maps 步行去酒店，02:30 左右入住是正常节奏。",
+      "错过 01:40：先看 04:00 / 04:40 后续夜巴，再考虑机场 / 云西过渡；真打车只走官方出租车站。"
+    ]
+  },
+  {
+    "title": "📱 App 与硬通货",
+    "open": false,
+    "bullets": [
+      "导航用 Google Maps，翻译用 Papago，打车用 Kakao T。",
+      "eSIM、转换插头、充电宝、Visa、支付宝、微信、韩元现金、人民币现金和能用的银联卡都要提前准备。",
+      "你现在有 Visa：Visa 负责大部分刷卡消费，支付宝负责国内预付和部分韩国商户补位，韩元现金负责落地夜巴和交通充值，WOWPASS 负责市区刷卡兜底。",
+      "WOWPASS 可以做支付和交通卡兜底，但它不是免费神卡。"
+    ]
+  },
+  {
+    "title": "🧭 Google 地图怎么点",
+    "open": false,
+    "bullets": [
+      "这版地图按钮统一改成 Google 定位。你看不懂英文和韩语也没关系，直接点按钮，不要自己手输店名。",
+      "路线卡里的 “Google 定位” 只负责把你定位到终点；从哪到哪、怎么走、坐什么，按卡片中文说明执行。",
+      "店铺卡里的 “主推荐 / 备选” 也都是 Google 定位，不需要自己在 Google 里重新搜英文或韩文。",
+      "如果 Google 没反应，就先复制店铺中文名，回到页面看“定位 / 区域 / 卖什么 / 价格带”，再让身边人帮你点一次。"
+    ]
+  },
+  {
+    "title": "👕 爸爸想要：MLB 服饰",
+    "open": false,
+    "bullets": [
+      "爸爸线优先看 MLB，不先去一堆潮牌店乱逛。首选 MLB 弘大店，备选 MLB 明洞中央店。",
+      "最稳顺序：先看帽子，再看短袖 / 长袖 T 恤，最后才看卫衣和外套；帽子最不挑尺码，最适合先买。",
+      "参考价：帽子约 49,000–61,000 KRW；T 恤约 66,000–89,000 KRW；卫衣 / 套头约 126,000–150,000 KRW。",
+      "特色：MLB 主打 Yankees / Dodgers 等队标款，适合想要明显品牌感、但又不想买太难搭的衣服的人。"
+    ]
+  },
+  {
+    "title": "🧴 妈妈想要：雅诗兰黛护肤",
+    "open": false,
+    "bullets": [
+      "妈妈线优先去明洞免税 / 百货专柜，不在街边小店买高端护肤。首选乐天免税店明洞本店雅诗兰黛，备选乐天百货总店雅诗兰黛柜台。",
+      "最稳顺序：先看小棕瓶，再看眼霜，再看 Revitalizing Supreme+ 面霜和礼盒；先确认活动和套装，再决定要不要上正装。",
+      "参考价：小棕瓶 20ml 约 34,000 KRW；小棕瓶正装 / 套装约 127,000–200,000 KRW+；眼霜约 130,000 KRW；面霜约 118,000–220,000 KRW。",
+      "特色：雅诗兰黛最适合送妈妈的是修护线和礼盒，不建议第一次就盲买彩妆。"
+    ]
+  },
+  {
+    "title": "👟 代购想要：鞋",
+    "open": false,
+    "bullets": [
+      "鞋代购优先看常规热门款，不碰太极限的限量。首选 Musinsa Kicks 弘大，备选 ABC-MART GRAND STAGE 明洞中央店。",
+      "最稳顺序：先确认鞋码和配色，再看箱子体积和能不能退税；代购鞋不先谈“值不值”，先看能不能稳妥带回去。",
+      "参考价：基础休闲鞋约 79,000–129,000 KRW；热门跑鞋 / 老爹鞋约 139,000–219,000 KRW；Jordan / 热门联名约 199,000 KRW+。",
+      "特色：Musinsa Kicks 更适合看韩系热门鞋和年轻人想买的款，ABC-MART 更适合一站看 Nike / adidas / New Balance / Vans / Converse 等基础品牌。"
+    ]
+  },
+  {
+    "title": "💳 有 Visa 怎么付更稳",
+    "open": false,
+    "bullets": [
+      "出发前：酒店、eSIM、保险和能预约的项目优先用支付宝 / 微信在国内付完，订单截图离线保存；Visa 作为境外主卡。",
+      "落地第一晚：优先用韩元现金解决 N6002 夜巴、便利店和应急，不在机场深夜研究复杂支付。",
+      "第二天：到弘大 / 明洞 / 首尔站一带办 WOWPASS，小额试刷成功后作为 Visa 之外的韩国本地支付兜底。",
+      "支付宝：看到 Alipay+ / ZeroPay 或店员确认 Alipay okay 再用；传统市场、路边小店、交通充值和老式储物柜仍按现金准备。",
+      "购物退税：Olive Young / Daiso / 大型商场优先刷 Visa；如果失败再切 WOWPASS 或支付宝，结账前问 Alipay okay? Tax refund okay? 即时退税看护照和店铺规则，不是必须 Visa。"
+    ]
+  },
+  {
+    "title": "🛍 买什么更丰富：面膜 / 口红 / 香水 / 衣服",
+    "open": false,
+    "bullets": [
+      "面膜 / 棉片优先看 Olive Young：Mediheal、Abib、Biodance、Torriden 这类更适合你这次少量带回。",
+      "彩妆优先看唇妆，不要第一次就重仓底妆；平价看 rom&nd、3CE，想更精致可以看 HERA。",
+      "香氛优先小容量和礼盒：Tamburins、Nonfiction、Granhand 适合线下闻；大牌香水先在线上免税比价再决定。",
+      "衣服分两路：GOTO Mall 买平价基础款和小配件，Musinsa Standard 买真正会穿回国的主力单品。",
+      "伴手礼优先海苔、杏仁、咖啡包、护手霜、旅行装；不要买大件摆件和一堆普通面膜。",
+      "你 17 岁，这次买得丰富可以，但别买得像库存。"
+    ]
+  },
+  {
+    "title": "💸 预算分档怎么买",
+    "open": false,
+    "bullets": [
+      "500 RMB 左右：主打痘痘贴、护手霜、唇膏、面膜 / 棉片、海苔、杏仁、旅行装；Olive Young + Daiso / 便利店就够。",
+      "1000 RMB 左右：在 500 档基础上加 Dr.G、Torriden、Mediheal，再挑 1 支唇釉或 1 件基础款衣服。",
+      "2000 RMB 左右：这是你这次最稳主力档，药妆主清单 + 1–2 件基础款衣服 + 1 个香氛小件或 1–2 支彩妆。",
+      "3000 RMB 以上：才考虑大牌护肤、免税香水、HERA / 3CE 等更精致彩妆，但仍然要先线上免税比价。",
+      "一旦预算快到顶，就优先保留 Dr.G、Torriden、痘痘贴和真会穿的衣服，砍掉冲动加购。"
+    ]
+  },
+  {
+    "title": "🗺 按区域逛店：明洞 / 弘大 / GOTO / 免税",
+    "open": false,
+    "bullets": [
+      "明洞：主买 Olive Young 药妆、防晒、精华、痘痘贴、棉片和唇部小彩妆；不建议一路买主街小吃。",
+      "弘大 / 延南：主买文具、小物、帽子、袜子、轻配饰和伴手礼，适合慢逛，不适合做全场大采购。",
+      "GOTO Mall：主买基础款上衣、薄外套、裙子、袜子、小包和简单饰品；先逛一圈再回头补。",
+      "Musinsa Standard：主买真的会穿回国的卫衣、T 恤、衬衫、牛仔和基础裤；不是最便宜，但更稳。",
+      "线上免税：只看大牌护肤、香水、彩妆、礼盒；先比价、领券、再下单，不在线下免税店临时冲动买。"
+    ]
+  },
+  {
+    "title": "🧾 按天采购单：4/26 / 4/27 / 4/28",
+    "open": false,
+    "bullets": [
+      "4/26 明洞药妆日：先看 1+1 / SALE / Tax Refund，再按 Dr.G / Torriden / 痘痘贴 / Mediheal / Round Lab 顺序拿货。",
+      "4/26 彩妆只补 1–2 件：rom&nd、3CE、HERA 里挑明确想要的，不整排试色带走；香氛今天只试，不大买大瓶。",
+      "4/26 付款顺序固定：Visa → WOWPASS → 支付宝 → 现金；结账后立刻分开收小票、退税单、未拆封商品。",
+      "4/27 白天先 GOTO Mall，先设服饰预算上限，再买基础款上衣、薄外套、袜子、小包、小配饰；不买难带大件。",
+      "4/27 如果还想买更稳的基础款，再去 Musinsa Standard，只补 1–2 件真会穿回国的卫衣 / T 恤 / 衬衫 / 牛仔。",
+      "4/28 回程补漏日只买缺项，药妆只补消耗品；香水 / 大牌 / 高客单彩妆今天不再新开坑。",
+      "4/28 回酒店后提前区分退税商品、托运行李、随身物品、机场免税提货；大额退税商品不要先托运。"
+    ]
+  },
+  {
+    "title": "🎁 给朋友带什么最稳",
+    "open": false,
+    "bullets": [
+      "最稳原则：轻、小、好分、不挑肤质、不挑尺码。优先痘痘贴、护手霜、润唇膏、面膜小套装、Daiso / Artbox 小物、海苔和杏仁。",
+      "关系普通：海苔、杏仁、咖啡包、Daiso 小文具、痘痘贴最稳。",
+      "关系比较好：Tamburins / Nonfiction 护手霜、Granhand Sachet、小容量香氛更有质感。",
+      "便宜但是看着贵的优先级：Tamburins / Nonfiction 护手霜 > Granhand Sachet / 小香 > rom&nd 唇釉 > Daiso / Artbox 小文具 > 海苔 / 杏仁 / 咖啡包。",
+      "送男生：咖啡包、海苔、杏仁、男士洗护小套装、基础帽子 / 袜子最稳。",
+      "送女生：Tamburins / Nonfiction 护手霜、Granhand 小香、rom&nd 唇釉、润唇膏最稳。",
+      "送妈妈：小套装护肤、护手霜、润唇膏、旅行装身体护理最稳；如果她平时不用香氛，就别硬送味道很重的款。",
+      "送爸爸：海苔、杏仁、咖啡包、男士洗护小套装、基础袜子 / 帽子 / 简单 T 恤最稳；香氛只放到很后面，不作为主推。",
+      "送家人：海苔、杏仁、咖啡包、护手霜、旅行装洗护、小包装保健功能线更稳。",
+      "送老师 / 同学：Daiso / Artbox 小文具、咖啡包、痘痘贴、护手霜、零食小包最稳。",
+      "送女朋友：Tamburins / Nonfiction 护手霜、Granhand 小香、rom&nd / 3CE / HERA 唇妆、小包和发饰最稳；如果不确定色号，就优先香氛小件和配饰。",
+      "送弟弟：Musinsa 基础 T 恤 / 帽子 / 袜子、便利店联名零食、海苔 / 杏仁最稳；不送大瓶香水和成熟护肤线。",
+      "不要给朋友乱带：大瓶香水、底妆、厚重衣服、难退换鞋子、大件摆件、肉类食品。",
+      "预算不高时，买 10 个轻小实用品，比买 1 个贵但对方未必用的大件更好。"
+    ]
+  },
+  {
+    "title": "🏨 住宿预订注意事项",
+    "open": false,
+    "bullets": [
+      "现在就订，最晚不要晚于出发前 3–5 天；你要抢的是 17 岁可入住、凌晨 2 点后 self check-in、能国内预付或 Visa 担保。",
+      "首选 Hongik Univ. Station / 홍대입구역，尤其 2、3、8 号口附近，步行 3–8 分钟最好；次选 Hapjeong Station / 합정역。",
+      "下单前必须问：17 岁能否单独入住、是否接受 guardian consent form、是否支持 after 2:00 AM self check-in、是否能在线预付或 Visa 担保。",
+      "直接发酒店：I am 17 years old and will arrive after midnight. Can I check in alone with guardian consent form? Do you support self check-in after 2:00 AM?",
+      "不要订 motel / love hotel / 成人限定、23:00 前必须入住、离地铁 12 分钟以上、山坡房、只有韩文说明或房东不回消息的房。"
+    ]
+  },
+  {
+    "title": "🚇 交通卡怎么买最便宜",
+    "open": false,
+    "bullets": [
+      "这趟不是买一次性 4 天票。4/24 深夜 N6002 机场夜巴单独用韩元现金，4/25 早上再处理市区交通卡。",
+      "Plan A：Climate Card 短期票，优先看 5 日票，覆盖 4/25、4/26、4/27、4/28 市区地铁公交；实体卡和票价以现场机器显示为准。",
+      "你有 Visa，可以先试机器是否支持海外 Visa；不行就用韩元现金。",
+      "Plan B：T-money / WOWPASS 交通功能。交通余额通常要用 KRW 现金单独充值，购物余额和交通余额不是一回事。",
+      "身上至少留 10,000–20,000 KRW 专门给交通充值，别全花在购物。",
+      "如果 Climate Card 机器卡住，不要耗太久，直接退一步用 T-money / WOWPASS 交通功能。"
+    ]
+  },
+  {
+    "title": "🗣 软件怎么搜 / 怎么问",
+    "open": false,
+    "bullets": [
+      "Google Maps 搜索建议：Incheon Airport Terminal 1、Hongik Univ. Station、Gyeongbokgung Palace、Express Bus Terminal Station。",
+      "明洞药妆搜 Olive Young Myeongdong Town / 올리브영 명동타운；GOTO Mall 搜 고투몰；汉江搜 Banpo Hangang Park / 반포한강공원。",
+      "Papago 问夜巴：Does this bus go to Hongdae? / 이 버스 홍대 가나요?",
+      "买票：N6002 to Hongdae, one person, please. / N6002 홍대 방향 한 명이요.",
+      "付款：Can I pay by Visa? / 비자카드 결제 되나요?；支付宝：Can I use Alipay? / 알리페이 되나요?",
+      "退税：Immediate tax refund, please. / 즉시 환급 해주세요.",
+      "酒店：I am 17 years old. Can I check in alone with guardian consent form?"
+    ]
+  },
+  {
+    "title": "💳 WOWPASS（金卡）怎么办",
+    "open": false,
+    "bullets": [
+      "你有 Visa，WOWPASS 不是必须主卡，是韩国本地支付、换汇和交通兜底。",
+      "第一晚不办：23:50 到 T1 后直接用韩元现金坐 N6002 去弘大。",
+      "官方 FAQ 写明仁川机场目前没有可用 WOW Exchange kiosk；第二天去弘大 / 明洞 / 首尔站附近机器再办。",
+      "办卡时选 English / Chinese，按机器提示发行卡、充值、绑定 App；第一次只充 50,000–100,000 KRW 试刷。",
+      "WOWPASS 的购物余额和 T-money 交通余额分开，交通余额通常要用 KRW 现金在便利店或地铁蓝色 T-money 机器充值。",
+      "丢卡后如果已绑定 App，先在 App 里暂停卡片；刷卡失败就切 Visa。"
+    ]
+  },
+  {
+    "title": "🛒 购物具体流程",
+    "open": false,
+    "bullets": [
+      "Olive Young：进店先看 1+1、SALE、Tax Refund，再拿 Dr.G、Torriden、痘痘贴、Mediheal、Round Lab。",
+      "结账前实体护照拿手上，直接问 Alipay okay? Tax refund okay?；付款顺序是 Visa → WOWPASS → 支付宝 → 现金。",
+      "结账后看小票有没有即时退税或 tax refund 信息，小票和未拆封商品分开放。",
+      "GOTO Mall：先设 50,000–100,000 KRW 预算，只买基础款和小配件；小店现金最稳，能刷再刷 Visa。",
+      "机场退税：先退税 / 海关验货，再托运行李，再安检；大额退税商品不要先托运。",
+      "回酒店当天就清点买了什么、几件、多少钱、是否退税，不要拖到回程日。"
+    ]
+  },
+  {
+    "title": "🚫 海关与 17 岁特别注意",
+    "open": false,
+    "bullets": [
+      "肉类、水果、蔬菜、种子、中药材这类别带。",
+      "你 17 岁，不建议碰烟酒额度逻辑，最稳就是不买不带。",
+      "酒店可能要求监护人同意书和监护人证件复印件，提前邮件确认。"
+    ]
+  },
+  {
+    "title": "💸 退税顺序",
+    "open": false,
+    "bullets": [
+      "即时退税先在店里直接做，记得带实体护照。",
+      "高额商品默认按先机场确认、后托运处理。",
+      "过安检后再去免税提货点拿线上订单。"
+    ]
+  },
+  {
+    "title": "💝 有意义的礼物：按对象直接买",
+    "open": false,
+    "bullets": [
+      "送妈妈：Sulwhasoo / HERA / Laneige 小套装 + Tamburins / Nonfiction 护手霜 + Granhand 小香最稳，看起来不像机场临时抓的，而像你专门挑了韩国感和体面感。",
+      "送爸爸：Granhand 小香 / 香包、海苔 / 杏仁 / 咖啡包组合、基础帽子 / 袜子 / 小包最稳，重点是日常会用上，不会尴尬。",
+      "送女朋友：Tamburins / Nonfiction、Granhand 小香、rom&nd / 3CE / HERA 唇妆、GOTO / 弘大小配饰更像根据她风格挑过。",
+      "送弟弟：Musinsa Standard 基础 T 恤 / 卫衣、帽子 / 袜子 / 小包、便利店联名零食 / 海苔 / 杏仁更像“这件东西适合他本人”，不是家里随便分一份。",
+      "送家人：海苔 / 蜂蜜黄油杏仁 / 咖啡包 / 护手霜 / 旅行装洗护，轻、好分、韩国感明确。",
+      "送老师 / 同学：Daiso / Artbox 小文具、痘痘贴、护手霜、零食小包最稳，小而精、便宜但像认真带回来的。",
+      "什么看起来更有意义：优先小套装 / 小容量 / 韩国本地感强的东西；什么显得像临时买：大瓶香水、随机纪念品、盲买底妆、难确认尺码的衣服鞋子。"
+    ]
+  }
+];
+const days=[
+  {
+    "day": "Day 1｜4/24 周五晚",
+    "goal": "仁川 T1 → N6002 → Birdsnest Hongdae",
+    "dayBudget": "约 90–130 RMB / 19,000–28,000 KRW",
+    "dayTags": ["落地夜", "只求稳", "不购物", "不加吃饭支线"],
+    "focusMove": {
+      "title": "仁川 T1 → N6002 → Birdsnest",
+      "summary": "第一晚只做进城和入住，不额外开景点和便利店支线。",
+      "primaryPlace": "Birdsnest Hongdae",
+      "primaryMapsQuery": "Birdsnest Hongdae 18 Yeonnam-ro 3-gil Mapo-gu Seoul 03988",
+      "backupPlace": "Incheon Airport Terminal 1 Bus Ticket",
+      "backupMapsQuery": "Incheon Airport Terminal 1 Bus Ticket",
+      "budget": "现金预留约 17,000 KRW 夜巴车费",
+      "why": "先到酒店比什么都重要，凌晨不要自己加戏。"
+    },
+    "focusEat": {
+      "title": "今晚不安排专门吃饭",
+      "summary": "如果机场太晚，只保留进城和入住；不额外找宵夜。",
+      "primaryPlace": "不单独安排",
+      "primaryMapsQuery": "Birdsnest Hongdae 18 Yeonnam-ro 3-gil Mapo-gu Seoul 03988",
+      "backupPlace": "到店后附近便利店",
+      "backupMapsQuery": "Hongdae convenience store",
+      "budget": "0–30 RMB / 0–6,500 KRW",
+      "why": "第一晚的目标是稳到酒店，不是为了吃一顿宵夜打乱节奏。"
+    },
+    "focusShop": {
+      "title": "今晚不安排购物",
+      "summary": "今天不买任何药妆和衣服，只保留截图、充电、睡觉。",
+      "primaryPlace": "Birdsnest Hongdae",
+      "primaryMapsQuery": "Birdsnest Hongdae 18 Yeonnam-ro 3-gil Mapo-gu Seoul 03988",
+      "backupPlace": "第二天再开始",
+      "backupMapsQuery": "Hongdae",
+      "budget": "0 RMB",
+      "why": "落地夜最容易乱花钱，直接归零最稳。"
+    },
+    "hardStop": {
+      "time": "01:40–02:35",
+      "title": "N6002 进城",
+      "note": "先抓住夜巴，不要临时乱换线。"
+    },
+    "times": [
+      "23:50–00:20 落地开网",
+      "00:20–01:15 边检取行李",
+      "01:15–01:35 找夜巴",
+      "01:40–02:35 N6002 去弘大",
+      "02:35–02:55 步行去 Birdsnest",
+      "03:00 后 入住睡觉"
+    ],
+    "routeBlocks": [
+      {
+        "kind": "move",
+        "start": "23:50",
+        "end": "00:20",
+        "title": "落地、开网、跟着 Arrivals 指示走",
+        "from": "仁川 T1 到达口",
+        "to": "T1 边检区",
+        "transport": "步行",
+        "mapsMode": "search",
+        "mapsQueryTo": "Incheon International Airport Terminal 1 Arrivals",
+        "notes": "开 eSIM、先确认 Birdsnest 地址截图，不在机场乱逛。",
+        "fallback": "如果手机网慢，先连机场 Wi‑Fi，再开 Google Maps。"
+      },
+      {
+        "kind": "move",
+        "start": "00:20",
+        "end": "01:15",
+        "title": "边检 + 取行李",
+        "from": "T1 边检区",
+        "to": "T1 1F 到达层公共区",
+        "transport": "步行",
+        "mapsMode": "search",
+        "mapsQueryTo": "Incheon International Airport Terminal 1",
+        "notes": "过边检后直接去 1F 公共区，不在免税店和便利店停留。",
+        "fallback": "如果行李晚出，优先盯 01:40 那班 N6002。"
+      },
+      {
+        "kind": "move",
+        "start": "01:15",
+        "end": "01:35",
+        "title": "找 Bus Ticket / Late-night Bus / N6002 站台",
+        "from": "T1 1F 到达层公共区",
+        "to": "N6002 夜巴站台",
+        "transport": "步行",
+        "mapsMode": "search",
+        "mapsQueryTo": "Incheon Airport Terminal 1 Bus Ticket",
+        "notes": "只找 Bus / Airport Bus / Late-night Bus / Bus Ticket 这些英文标识。",
+        "fallback": "找不到站台时，直接问工作人员 N6002 to Hongdae。"
+      },
+      {
+        "kind": "move",
+        "start": "01:40",
+        "end": "02:35",
+        "title": "坐 N6002 进城去弘大",
+        "from": "Incheon International Airport Terminal 1",
+        "to": "Hongdae",
+        "transport": "机场夜巴 N6002",
+        "mapsMode": "dir",
+        "mapsQueryFrom": "Incheon International Airport Terminal 1",
+        "mapsQueryTo": "Hongdae",
+        "notes": "方向确认 Hongdae / Cheongnyangni，现金按 17,000 KRW 预留。",
+        "fallback": "错过 01:40 就先查后续夜巴，不临时乱换线。"
+      },
+      {
+        "kind": "move",
+        "start": "02:35",
+        "end": "02:55",
+        "title": "从弘大下车点步行去 Birdsnest",
+        "from": "Hongdae",
+        "to": "Birdsnest Hongdae 18 Yeonnam-ro 3-gil",
+        "transport": "步行",
+        "mapsMode": "dir",
+        "mapsQueryFrom": "Hongdae",
+        "mapsQueryTo": "Birdsnest Hongdae 18 Yeonnam-ro 3-gil Mapo-gu Seoul 03988",
+        "notes": "下车后只做一件事：去酒店。",
+        "fallback": "如果夜里方向感乱了，就直接点 Google Maps 步行导航。"
+      },
+      {
+        "kind": "checkin",
+        "start": "03:00",
+        "end": "03:20",
+        "title": "Birdsnest 办入住、充电、睡觉",
+        "from": "Birdsnest Hongdae",
+        "to": "Birdsnest Hongdae",
+        "transport": "入住",
+        "mapsMode": "search",
+        "mapsQueryTo": "Birdsnest Hongdae 18 Yeonnam-ro 3-gil Mapo-gu Seoul 03988",
+        "notes": "第一晚只求进城成功，不研究复杂支付和路线。",
+        "fallback": "先把第二天路线和酒店地址截图离线保存。"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "d1a",
+        "text": "落地后已开 eSIM，手机能查 Google Maps 和 Birdsnest 地址"
+      },
+      {
+        "id": "d1b",
+        "text": "已过边检、取行李，出到 T1 1F 到达层公共区域"
+      },
+      {
+        "id": "d1c",
+        "text": "已按 Bus / Late-night Bus / Bus Ticket 指示找到 N6002 站台"
+      },
+      {
+        "id": "d1d",
+        "text": "已准备 20,000 KRW 现金，N6002 票价按 17,000 KRW 预留"
+      },
+      {
+        "id": "d1e",
+        "text": "已坐上 01:00 或 01:40 的 N6002，方向确认是 Hongdae / Cheongnyangni"
+      },
+      {
+        "id": "d1f",
+        "text": "到弘大后已步行到鸟巢旅馆弘大，并完成凌晨入住"
+      },
+      {
+        "id": "d1g",
+        "text": "手机和充电宝已充电，第二天路线已截图"
+      }
+    ],
+    "note": "第一晚只求进城和 Birdsnest 入住，不研究复杂支付，不开新路线。"
+  },
+  {
+    "day": "Day 2｜4/25 周六",
+    "goal": "Birdsnest 退房 → Boro 寄存 → 景福宫经典线 → 晚上回明洞",
+    "dayBudget": "约 180–320 RMB / 39,000–69,000 KRW",
+    "dayTags": ["第一次去友好", "景点经典线", "明洞收口", "轻代购"],
+    "focusMove": {
+      "title": "景福宫 → 北村 → 益善洞 → 广藏 → 明洞",
+      "summary": "今天走经典钟路线，晚上必须收在明洞，不再回弘大。",
+      "primaryPlace": "Gyeongbokgung Palace",
+      "primaryMapsQuery": "Gyeongbokgung Palace",
+      "backupPlace": "Myeongdong Station",
+      "backupMapsQuery": "Myeongdong Station",
+      "budget": "交通 + 轻吃约 50–120 RMB",
+      "why": "第二晚住明洞，这条线最顺，不折返。"
+    },
+    "focusEat": {
+      "title": "益善洞午饭 + 明洞晚饭",
+      "summary": "午饭放益善洞休息，晚饭回明洞吃稳妥简餐。",
+      "primaryPlace": "香港饭店0410 明洞店 / 逆转乌冬0410 明洞店",
+      "primaryMapsQuery": "홍콩반점0410 명동",
+      "backupPlace": "Isaac Toast 明洞店",
+      "backupMapsQuery": "이삭토스트 명동",
+      "budget": "20–50 RMB / 餐",
+      "why": "今天的重点是把节奏走顺，不为网红店排长队。"
+    },
+    "focusShop": {
+      "title": "今天不做大购物，只补轻小件",
+      "summary": "最多明洞便利补给或 Daiso，小逛可以，别把 Day 2 逛成采购日。",
+      "primaryPlace": "Myeongdong Station",
+      "primaryMapsQuery": "Myeongdong Station",
+      "backupPlace": "Daiso 明洞站店",
+      "backupMapsQuery": "다이소 명동역점",
+      "budget": "0–100 RMB",
+      "why": "真正的药妆主采购放 Day 3，今天只做顺路补给。"
+    },
+    "hardStop": {
+      "time": "19:00–20:30",
+      "title": "明洞晚饭 + 回 Boro 入住",
+      "note": "今天的收口必须是明洞，不再写回弘大。"
+    },
+    "times": [
+      "09:00–09:40 Birdsnest 退房",
+      "09:40–10:30 去 Boro 寄存",
+      "10:30–12:40 景福宫",
+      "12:40–15:40 北村 → 益善洞午饭",
+      "15:40–17:20 广藏市场",
+      "17:20–20:30 清溪川 → 明洞晚饭 + 入住"
+    ],
+    "routeBlocks": [
+      {
+        "kind": "move",
+        "start": "09:00",
+        "end": "09:40",
+        "title": "Birdsnest 退房",
+        "from": "Birdsnest Hongdae",
+        "to": "Birdsnest Hongdae",
+        "transport": "退房",
+        "mapsMode": "search",
+        "mapsQueryTo": "Birdsnest Hongdae 18 Yeonnam-ro 3-gil Mapo-gu Seoul 03988",
+        "notes": "今天不再默认晚上回弘大。",
+        "fallback": "护照、现金、充电宝放最上层。"
+      },
+      {
+        "kind": "move",
+        "start": "09:40",
+        "end": "10:30",
+        "title": "先去 Boro Hanok 尝试寄存行李",
+        "from": "Birdsnest Hongdae",
+        "to": "Boro hanok hostel in myeongdong",
+        "transport": "地铁 / 步行",
+        "mapsMode": "dir",
+        "mapsQueryFrom": "Birdsnest Hongdae 18 Yeonnam-ro 3-gil Mapo-gu Seoul 03988",
+        "mapsQueryTo": "Boro hanok hostel in myeongdong 04630 Jung-gu Seoul N Seoul Tower Namsan Cable Car",
+        "notes": "先把第二晚住宿卡住，路线才稳。",
+        "fallback": "Boro 不能寄存时，默认改用 Myeongdong Station 或 Euljiro 1-ga 储物柜。"
+      },
+      {
+        "kind": "move",
+        "start": "10:30",
+        "end": "11:10",
+        "title": "从明洞去景福宫",
+        "from": "Myeongdong Station",
+        "to": "Gyeongbokgung Palace",
+        "transport": "地铁",
+        "mapsMode": "dir",
+        "mapsQueryFrom": "Myeongdong Station",
+        "mapsQueryTo": "Gyeongbokgung Palace",
+        "notes": "今天的经典线从景福宫开始，不拖到别的日子。",
+        "fallback": "如果 Google 当下显示步行更慢，照地铁换乘走。"
+      },
+      {
+        "kind": "move",
+        "start": "11:10",
+        "end": "12:40",
+        "title": "景福宫",
+        "from": "Gyeongbokgung Palace",
+        "to": "Gyeongbokgung Palace",
+        "transport": "步行游览",
+        "mapsMode": "search",
+        "mapsQueryTo": "Gyeongbokgung Palace",
+        "notes": "先把最重的景点完成。",
+        "fallback": "体力一般就只看主殿区，不追求全刷。"
+      },
+      {
+        "kind": "move",
+        "start": "12:40",
+        "end": "13:10",
+        "title": "去北村韩屋村",
+        "from": "Gyeongbokgung Palace",
+        "to": "Bukchon Hanok Village",
+        "transport": "步行",
+        "mapsMode": "dir",
+        "mapsQueryFrom": "Gyeongbokgung Palace",
+        "mapsQueryTo": "Bukchon Hanok Village",
+        "notes": "这段用步行最直观。",
+        "fallback": "如果腿很累，就只在入口区短停留。"
+      },
+      {
+        "kind": "move",
+        "start": "13:10",
+        "end": "14:00",
+        "title": "北村轻量停留",
+        "from": "Bukchon Hanok Village",
+        "to": "Bukchon Hanok Village",
+        "transport": "步行游览",
+        "mapsMode": "search",
+        "mapsQueryTo": "Bukchon Hanok Village",
+        "notes": "只停 30–40 分钟，不在居民区绕太久。",
+        "fallback": "拍完就走，不追加绕路点。"
+      },
+      {
+        "kind": "food",
+        "start": "14:00",
+        "end": "15:40",
+        "title": "益善洞午饭 / 咖啡",
+        "from": "北村韩屋村",
+        "to": "益善洞韩屋街",
+        "transport": "步行 / 地铁",
+        "mapsMode": "search",
+        "mapsQueryTo": "익선동 한옥거리",
+        "primaryPlace": "益善洞简餐 / 咖啡区",
+        "primaryMapsQuery": "익선동 한옥거리 카페",
+        "backupPlace": "香港饭店0410 钟路 / 益善洞店",
+        "backupMapsQuery": "홍콩반점0410 종로 익선동",
+        "budget": "20–50 RMB / 餐",
+        "whyThisStop": "益善洞放中段最稳，能坐下休息，也适合一个人吃饭。",
+        "notes": "主推荐是轻松坐下的咖啡 / 简餐区，备选是炸酱面和面食快店。",
+        "fallback": "如果午饭店排队，就直接进备选，不硬等网红店。"
+      },
+      {
+        "kind": "move",
+        "start": "15:40",
+        "end": "16:10",
+        "title": "去广藏市场",
+        "from": "Ikseon-dong Hanok Village",
+        "to": "Gwangjang Market",
+        "transport": "步行",
+        "mapsMode": "dir",
+        "mapsQueryFrom": "Ikseon-dong Hanok Village",
+        "mapsQueryTo": "Gwangjang Market",
+        "notes": "这段可以直接步行。",
+        "fallback": "如果下雨就改地铁一站。"
+      },
+      {
+        "kind": "food",
+        "start": "16:10",
+        "end": "17:20",
+        "title": "广藏市场轻吃一轮",
+        "from": "广藏市场",
+        "to": "广藏市场",
+        "transport": "步行觅食",
+        "mapsMode": "search",
+        "mapsQueryTo": "광장시장",
+        "primaryPlace": "广藏市场",
+        "primaryMapsQuery": "광장시장",
+        "backupPlace": "广藏市场外圈饭卷 / 轻食",
+        "backupMapsQuery": "광장시장 김밥",
+        "budget": "20–50 RMB / 餐",
+        "whyThisStop": "这段适合边走边吃，不适合再安排正式正餐。",
+        "notes": "只吃最想吃的 1–2 样，不把预算炸掉。",
+        "fallback": "人太多就把停留压到 40 分钟，然后直接去清溪川。"
+      },
+      {
+        "kind": "move",
+        "start": "17:20",
+        "end": "18:00",
+        "title": "去清溪川轻走",
+        "from": "Gwangjang Market",
+        "to": "Cheonggyecheon",
+        "transport": "步行",
+        "mapsMode": "dir",
+        "mapsQueryFrom": "Gwangjang Market",
+        "mapsQueryTo": "Cheonggyecheon",
+        "notes": "当作消食和收口段。",
+        "fallback": "下雨时可直接省略，提前回明洞。"
+      },
+      {
+        "kind": "move",
+        "start": "18:00",
+        "end": "18:40",
+        "title": "回明洞",
+        "from": "Cheonggyecheon",
+        "to": "Myeongdong Station",
+        "transport": "地铁 / 步行",
+        "mapsMode": "dir",
+        "mapsQueryFrom": "Cheonggyecheon",
+        "mapsQueryTo": "Myeongdong Station",
+        "notes": "第二晚必须收在明洞。",
+        "fallback": "体力差时可直接打车回明洞住宿周边。"
+      },
+      {
+        "kind": "food",
+        "start": "19:00",
+        "end": "20:30",
+        "title": "明洞晚饭 + 回 Boro 入住",
+        "from": "明洞站",
+        "to": "Boro hanok hostel in myeongdong",
+        "transport": "步行",
+        "mapsMode": "search",
+        "mapsQueryTo": "명동역",
+        "primaryPlace": "香港饭店0410 明洞店 / 逆转乌冬0410 明洞店",
+        "primaryMapsQuery": "홍콩반점0410 명동",
+        "backupPlace": "Isaac Toast 明洞店",
+        "backupMapsQuery": "이삭토스트 명동",
+        "budget": "20–50 RMB / 餐",
+        "whyThisStop": "明洞晚上最适合吃一顿稳妥简餐，然后直接回住宿。",
+        "notes": "今天最后动作是回明洞，不再写回弘大。",
+        "fallback": "先入住再吃饭也可以，但原则是不离开明洞收口。"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "d2a",
+        "text": "早上已从 Birdsnest Hongdae 退房，不再默认晚上回弘大"
+      },
+      {
+        "id": "d2b",
+        "text": "已先去 Boro Hanok 尝试寄存行李；如不行，已改用明洞 / 乙支路储物柜"
+      },
+      {
+        "id": "d2c",
+        "text": "已按今天经典钟路线走，不硬搜中文店名"
+      },
+      {
+        "id": "d2d",
+        "text": "景福宫已放在第一站，没有拖到周二闭馆日"
+      },
+      {
+        "id": "d2e",
+        "text": "北村只顺路看 30–40 分钟，没有在居民区绕太久"
+      },
+      {
+        "id": "d2f",
+        "text": "广藏市场只吃最想吃的 1–2 样，已用小额现金控制预算"
+      },
+      {
+        "id": "d2g",
+        "text": "晚上已收在明洞，不再写回弘大"
+      }
+    ],
+    "note": "第二晚住明洞，今天路线就必须按明洞收口。"
+  },
+  {
+    "day": "Day 3｜4/26 周日",
+    "goal": "Boro 退房 → 明洞 / 南山轻量体验 → 明洞药妆主采购 → Lux 入住",
+    "dayBudget": "约 800–3,500 RMB / 173,000–756,000 KRW",
+    "dayTags": ["药妆主采购", "妈妈线", "明洞优先", "晚间回弘大"],
+    "focusMove": {
+      "title": "明洞轻体验 → 药妆主采购 → Lux",
+      "summary": "今天真正的大头在明洞采购，傍晚必须回弘大办 Lux 入住。",
+      "primaryPlace": "Olive Young 明洞 Town",
+      "primaryMapsQuery": "올리브영 명동타운",
+      "backupPlace": "Lux Guesthouse",
+      "backupMapsQuery": "Lux Guesthouse 156 Wausan-ro Mapo-gu Seoul 04061 Hongik Univ Station",
+      "budget": "交通 + 轻体验约 60–150 RMB",
+      "why": "第二晚住明洞的意义，就是把药妆和妈妈线集中做完。"
+    },
+    "focusEat": {
+      "title": "明洞快吃快走",
+      "summary": "今天午饭只求快、稳、不辣，保证采购时间。",
+      "primaryPlace": "Isaac Toast 明洞店",
+      "primaryMapsQuery": "이삭토스트 명동",
+      "backupPlace": "逆转乌冬0410 明洞店",
+      "backupMapsQuery": "역전우동0410 명동",
+      "budget": "20–50 RMB / 餐",
+      "why": "中午吃太重会拖慢药妆节奏，快餐最适合。"
+    },
+    "focusShop": {
+      "title": "药妆 + 雅诗兰黛 + Daiso",
+      "summary": "先 Olive Young 主清单，再妈妈雅诗兰黛，最后才是小物。",
+      "primaryPlace": "Olive Young 明洞 Town（药妆主采购）",
+      "primaryMapsQuery": "올리브영 명동타운",
+      "backupPlace": "乐天免税店明洞本店 / 雅诗兰黛",
+      "backupMapsQuery": "롯데면세점 명동본점 에스티로더",
+      "budget": "主采购段约 500–3000 RMB",
+      "why": "今天是全程最重的采购日，不再混衣服、香水和远线。"
+    },
+    "hardStop": {
+      "time": "17:00–17:40",
+      "title": "Lux 办入住",
+      "note": "Lux 15:00–21:00 可入住，这天最晚傍晚就要回弘大。"
+    },
+    "times": [
+      "09:00–09:40 Boro 退房",
+      "09:40–10:10 寄存行李",
+      "10:10–11:40 南山轻量体验",
+      "11:40–14:00 明洞午饭 + 药妆",
+      "14:00–15:10 雅诗兰黛 / Daiso / Artbox",
+      "15:30–17:40 去 Lux 入住",
+      "18:30–21:00 弘大晚饭收口"
+    ],
+    "routeBlocks": [
+      {
+        "kind": "move",
+        "start": "09:00",
+        "end": "09:40",
+        "title": "Boro 退房",
+        "from": "Boro hanok hostel in myeongdong",
+        "to": "Boro hanok hostel in myeongdong",
+        "transport": "退房",
+        "mapsMode": "search",
+        "mapsQueryTo": "보로 한옥 호스텔 명동",
+        "notes": "先把行李处理好，再开始白天路线。",
+        "fallback": "退房后优先问寄存，不行就立刻改车站储物柜。"
+      },
+      {
+        "kind": "move",
+        "start": "09:40",
+        "end": "10:10",
+        "title": "寄存 / 处理行李",
+        "from": "Boro hanok hostel in myeongdong",
+        "to": "明洞站",
+        "transport": "步行",
+        "mapsMode": "search",
+        "mapsQueryTo": "명동역",
+        "notes": "今天只保留一个寄存 fallback，不再多开分支。",
+        "fallback": "默认 fallback：明洞站或乙支路入口站。"
+      },
+      {
+        "kind": "move",
+        "start": "10:10",
+        "end": "10:35",
+        "title": "去南山缆车一带",
+        "from": "明洞站",
+        "to": "南山缆车",
+        "transport": "步行 / 地铁",
+        "mapsMode": "search",
+        "mapsQueryTo": "남산케이블카",
+        "notes": "南山只做轻量体验，不拖成大景点日。",
+        "fallback": "如果天气差，就直接跳到明洞午饭。"
+      },
+      {
+        "kind": "move",
+        "start": "10:35",
+        "end": "11:40",
+        "title": "南山缆车 / N 首尔塔轻量停留",
+        "from": "南山缆车",
+        "to": "N 首尔塔",
+        "transport": "步行游览",
+        "mapsMode": "search",
+        "mapsQueryTo": "N서울타워",
+        "notes": "只停留到体力舒服为止。",
+        "fallback": "如果排队长，只在缆车 / 山脚周边轻量打卡。"
+      },
+      {
+        "kind": "food",
+        "start": "11:40",
+        "end": "12:30",
+        "title": "回明洞午饭",
+        "from": "N 首尔塔",
+        "to": "明洞站",
+        "transport": "步行 / 地铁",
+        "mapsMode": "search",
+        "mapsQueryTo": "명동역",
+        "primaryPlace": "Isaac Toast 明洞店",
+        "primaryMapsQuery": "이삭토스트 명동",
+        "backupPlace": "逆转乌冬0410 明洞店",
+        "backupMapsQuery": "역전우동0410 명동",
+        "budget": "20–50 RMB / 餐",
+        "whyThisStop": "午饭固定回明洞解决，保证下午药妆采购不乱。",
+        "notes": "选快、稳、一个人也不尴尬的店。",
+        "fallback": "如果南山没去成，这段直接改成明洞慢吃午饭。"
+      },
+      {
+        "kind": "shop",
+        "start": "12:30",
+        "end": "14:00",
+        "title": "Olive Young 明洞 Town 主采购",
+        "from": "明洞站",
+        "to": "Olive Young 明洞 Town",
+        "transport": "步行",
+        "mapsMode": "search",
+        "mapsQueryTo": "올리브영 명동타운",
+        "primaryPlace": "Olive Young 明洞 Town（药妆主采购）",
+        "primaryMapsQuery": "올리브영 명동타운",
+        "backupPlace": "Olive Young 明洞中央区门店",
+        "backupMapsQuery": "올리브영 명동",
+        "budget": "500–2000 RMB 总采购段",
+        "whyThisStop": "Day 3 先做药妆主清单，不混衣服和大牌香水。",
+        "notes": "先拿 Dr.G、Torriden、痘痘贴，再看彩妆。",
+        "fallback": "时间超了就先砍后面的小物，不砍 Lux 入住时间。"
+      },
+      {
+        "kind": "shop",
+        "start": "14:00",
+        "end": "14:40",
+        "title": "雅诗兰黛（妈妈线）",
+        "from": "Olive Young 明洞 Town",
+        "to": "乐天免税店明洞本店 / 雅诗兰黛",
+        "transport": "步行",
+        "mapsMode": "search",
+        "mapsQueryTo": "롯데면세점 명동본점 에스티로더",
+        "primaryPlace": "乐天免税店明洞本店 / 雅诗兰黛",
+        "primaryMapsQuery": "롯데면세점 명동본점 에스티로더",
+        "backupPlace": "乐天百货总店 / 雅诗兰黛专柜",
+        "backupMapsQuery": "롯데백화점 본점 에스티로더",
+        "budget": "1000–3000 RMB 妈妈护肤线",
+        "whyThisStop": "妈妈想要雅诗兰黛，就优先在免税 / 百货专柜解决，不在街边小店买高端护肤。",
+        "notes": "先看小棕瓶，再看眼霜和面霜礼盒。",
+        "fallback": "如果今天排队太长，改成线上免税比价，线下只做试香 / 试质地。"
+      },
+      {
+        "kind": "shop",
+        "start": "14:40",
+        "end": "15:10",
+        "title": "Daiso / Artbox 小物补漏",
+        "from": "乐天免税店明洞本店",
+        "to": "Daiso 明洞店",
+        "transport": "步行",
+        "mapsMode": "search",
+        "mapsQueryTo": "다이소 명동",
+        "primaryPlace": "Daiso 明洞店（小物 / 收纳）",
+        "primaryMapsQuery": "다이소 명동",
+        "backupPlace": "Artbox 明洞店（文具 / 小礼物）",
+        "backupMapsQuery": "아트박스 명동점",
+        "budget": "20–100 RMB 小物补漏",
+        "whyThisStop": "这段只补轻小件，避免把明洞逛成一整天。",
+        "notes": "先 Daiso，再看 Artbox；预算不够就不进 Artbox。",
+        "fallback": "这段最容易被砍，砍掉也不影响主线。"
+      },
+      {
+        "kind": "move",
+        "start": "15:30",
+        "end": "16:20",
+        "title": "从明洞去弘大 / Lux",
+        "from": "Daiso 明洞店",
+        "to": "Lux Guesthouse 156 Wausan-ro",
+        "transport": "地铁",
+        "mapsMode": "search",
+        "mapsQueryTo": "Lux Guesthouse 156 Wausan-ro Mapo-gu Seoul 04061 Hongik Univ Station",
+        "notes": "今天的硬约束是 21:00 前到 Lux。",
+        "fallback": "Google 当下显示更快时才改打车，不自己脑补捷径。"
+      },
+      {
+        "kind": "checkin",
+        "start": "17:00",
+        "end": "17:40",
+        "title": "Lux 办入住",
+        "from": "Lux Guesthouse",
+        "to": "Lux Guesthouse",
+        "transport": "入住",
+        "mapsMode": "search",
+        "mapsQueryTo": "Lux Guesthouse 156 Wausan-ro Mapo-gu Seoul 04061 Hongik Univ Station",
+        "notes": "Lux：15:00–21:00 check-in｜男生专用宿舍（4 people）｜不含早餐。",
+        "fallback": "最晚 19:30 前一定往 Lux 走，别拖。"
+      },
+      {
+        "kind": "food",
+        "start": "18:30",
+        "end": "21:00",
+        "title": "弘大晚饭 / 合井轻松收口",
+        "from": "Lux Guesthouse",
+        "to": "弘大",
+        "transport": "步行 / 地铁",
+        "mapsMode": "search",
+        "mapsQueryTo": "홍대",
+        "primaryPlace": "香港饭店0410 弘大店",
+        "primaryMapsQuery": "홍콩반점0410 홍대",
+        "backupPlace": "Mom's Touch 弘大店",
+        "backupMapsQuery": "맘스터치 홍대",
+        "budget": "20–50 RMB / 餐",
+        "whyThisStop": "晚上只留给稳妥晚饭，不再折回明洞。",
+        "notes": "主推荐炸酱 / 面食，备选是汉堡炸鸡。",
+        "fallback": "如果累了，直接在 Lux 附近找最近能坐下的店。"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "d3a",
+        "text": "早上已从 Boro Hanok 退房，并处理好寄存行李"
+      },
+      {
+        "id": "d3b",
+        "text": "今天没有再按旧版写成上午弘大 / 延南慢逛"
+      },
+      {
+        "id": "d3c",
+        "text": "明洞 / 南山只做轻量体验，没有拖成大景点日"
+      },
+      {
+        "id": "d3d",
+        "text": "Olive Young Myeongdong 已作为今天主采购点"
+      },
+      {
+        "id": "d3e",
+        "text": "已在 21:00 前到 Lux Guesthouse 办入住，没有错过 check-in 窗口"
+      },
+      {
+        "id": "d3f",
+        "text": "已确认 Lux 是男生专用宿舍、不含早餐、第二天早餐按外食处理"
+      },
+      {
+        "id": "d3g",
+        "text": "晚上已在弘大 / 合井轻松收口，没有再折回明洞购物"
+      }
+    ],
+    "note": "Lux 15:00–21:00 可入住，这天最晚傍晚就要回弘大。"
+  },
+  {
+    "day": "Day 4｜4/27 周一",
+    "goal": "Lux → GOTO Mall → 盘浦汉江 → 回 Lux",
+    "dayBudget": "约 180–520 RMB / 39,000–112,000 KRW",
+    "dayTags": ["低预算衣服日", "GOTO 主场", "免费夜景", "外食早餐"],
+    "focusMove": {
+      "title": "Lux → GOTO → 盘浦汉江 → Lux",
+      "summary": "今天路线不绕，商圈和免费夜景都压在一条线上。",
+      "primaryPlace": "GOTO Mall",
+      "primaryMapsQuery": "GOTO Mall",
+      "backupPlace": "Banpo Hangang Park",
+      "backupMapsQuery": "Banpo Hangang Park",
+      "budget": "交通 + 夜景约 40–100 RMB",
+      "why": "保守版路线只做 GOTO 和汉江，不再硬塞 Musinsa。"
+    },
+    "focusEat": {
+      "title": "车站午饭 + 弘大晚饭",
+      "summary": "午饭在车站内部解决，晚上回弘大再吃一顿稳妥晚饭。",
+      "primaryPlace": "Express Bus Terminal food court",
+      "primaryMapsQuery": "Express Bus Terminal food court",
+      "backupPlace": "Mom's Touch Hongdae",
+      "backupMapsQuery": "맘스터치 홍대",
+      "budget": "20–50 RMB / 餐",
+      "why": "今天的饭点服务于逛街，不再为吃饭专门绕路。"
+    },
+    "focusShop": {
+      "title": "GOTO Mall 两轮买法",
+      "summary": "第一轮只看预算和店，第二轮回头下单，优先袜子 / 小包 / 小配饰。",
+      "primaryPlace": "GOTO Mall",
+      "primaryMapsQuery": "GOTO Mall",
+      "backupPlace": "Shinsegae Gangnam",
+      "backupMapsQuery": "Shinsegae Gangnam",
+      "budget": "第一轮 50–100 RMB｜第二轮 100–300 RMB",
+      "why": "GOTO 最怕第一家就冲动下单，今天就按两轮买法执行。"
+    },
+    "hardStop": {
+      "time": "15:30–17:30",
+      "title": "盘浦汉江慢待",
+      "note": "这是 Day 4 唯一夜景段，免费且轻松，不再加收费项目。"
+    },
+    "times": [
+      "09:30–10:10 去 Express Bus Terminal",
+      "10:10–12:40 GOTO 第一轮",
+      "12:40–15:10 午饭 + 第二轮",
+      "15:10–17:30 去盘浦汉江",
+      "18:00–21:00 回 Lux + 弘大晚饭"
+    ],
+    "routeBlocks": [
+      {
+        "kind": "move",
+        "start": "09:30",
+        "end": "10:10",
+        "title": "Lux 去 Express Bus Terminal",
+        "from": "Lux Guesthouse",
+        "to": "Express Bus Terminal Station",
+        "transport": "地铁",
+        "mapsMode": "dir",
+        "mapsQueryFrom": "Lux Guesthouse 156 Wausan-ro Mapo-gu Seoul 04061 Hongik Univ Station",
+        "mapsQueryTo": "Express Bus Terminal Station",
+        "notes": "早餐默认外食，因为 Lux 不含早餐。",
+        "fallback": "Google Maps 当天如果显示巴士更优，再切机场巴士。"
+      },
+      {
+        "kind": "shop",
+        "start": "10:10",
+        "end": "12:40",
+        "title": "GOTO Mall 第一轮",
+        "from": "Express Bus Terminal Station",
+        "to": "GOTO Mall",
+        "transport": "步行逛店",
+        "mapsMode": "dir",
+        "mapsQueryFrom": "Express Bus Terminal Station",
+        "mapsQueryTo": "GOTO Mall",
+        "primaryPlace": "GOTO Mall",
+        "primaryMapsQuery": "GOTO Mall",
+        "backupPlace": "Newcore / 新世界百货周边基础款区",
+        "backupMapsQuery": "Shinsegae Gangnam",
+        "budget": "50–100 RMB / 第一轮试探预算",
+        "whyThisStop": "先看袜子、小包、小配饰，再看基础款上衣和薄外套，不急着下单。",
+        "notes": "第一轮只看店和定预算，不急着买。",
+        "fallback": "先逛一圈再回头买，别第一家就烧光预算。"
+      },
+      {
+        "kind": "food",
+        "start": "12:40",
+        "end": "13:40",
+        "title": "车站午饭",
+        "from": "GOTO Mall",
+        "to": "Express Bus Terminal food court",
+        "transport": "步行",
+        "mapsMode": "search",
+        "mapsQueryTo": "Express Bus Terminal food court",
+        "primaryPlace": "Express Bus Terminal food court",
+        "primaryMapsQuery": "Express Bus Terminal food court",
+        "backupPlace": "GOTO Mall / 新世界百货周边简餐",
+        "backupMapsQuery": "Shinsegae Gangnam food",
+        "budget": "20–50 RMB / 餐",
+        "whyThisStop": "车站周边最稳，不用额外绕路。",
+        "notes": "午饭放在商圈内部解决，保证下午还能继续第二轮。",
+        "fallback": "如果 food court 太挤，就在周边简餐店随便找能坐下的。"
+      },
+      {
+        "kind": "shop",
+        "start": "13:40",
+        "end": "15:10",
+        "title": "GOTO 第二轮 / 回头下单",
+        "from": "Express Bus Terminal food court",
+        "to": "GOTO Mall",
+        "transport": "步行",
+        "mapsMode": "dir",
+        "mapsQueryFrom": "Express Bus Terminal food court",
+        "mapsQueryTo": "GOTO Mall",
+        "primaryPlace": "GOTO Mall",
+        "primaryMapsQuery": "GOTO Mall",
+        "backupPlace": "Express Bus Terminal underground shopping",
+        "backupMapsQuery": "Express Bus Terminal underground shopping center",
+        "budget": "100–300 RMB / 第二轮主力档",
+        "whyThisStop": "第二轮才下单，优先基础款和小配件，不把 Musinsa 强塞进今天。",
+        "notes": "今天就把 GOTO 做完，不再横跳别的商圈。",
+        "fallback": "如果上午已经买够，这段就缩短去喝咖啡休息。"
+      },
+      {
+        "kind": "move",
+        "start": "15:10",
+        "end": "15:30",
+        "title": "去盘浦汉江",
+        "from": "GOTO Mall",
+        "to": "Banpo Hangang Park",
+        "transport": "步行 / 地铁",
+        "mapsMode": "dir",
+        "mapsQueryFrom": "GOTO Mall",
+        "mapsQueryTo": "Banpo Hangang Park",
+        "notes": "盘浦汉江作为傍晚免费夜景段。",
+        "fallback": "如果下雨，就直接回弘大吃饭。"
+      },
+      {
+        "kind": "move",
+        "start": "15:30",
+        "end": "17:30",
+        "title": "盘浦汉江慢待",
+        "from": "Banpo Hangang Park",
+        "to": "Banpo Hangang Park",
+        "transport": "步行停留",
+        "mapsMode": "search",
+        "mapsQueryTo": "Banpo Hangang Park",
+        "notes": "只做轻松停留，不加收费项目。",
+        "fallback": "风太大就提前走。"
+      },
+      {
+        "kind": "move",
+        "start": "18:00",
+        "end": "18:50",
+        "title": "回 Lux",
+        "from": "Banpo Hangang Park",
+        "to": "Lux Guesthouse",
+        "transport": "地铁",
+        "mapsMode": "dir",
+        "mapsQueryFrom": "Banpo Hangang Park",
+        "mapsQueryTo": "Lux Guesthouse 156 Wausan-ro Mapo-gu Seoul 04061 Hongik Univ Station",
+        "notes": "Day 4 起点和收口都按 Lux。",
+        "fallback": "如果很累，晚饭直接在 Lux 附近解决。"
+      },
+      {
+        "kind": "food",
+        "start": "19:10",
+        "end": "21:00",
+        "title": "弘大晚饭",
+        "from": "Lux Guesthouse",
+        "to": "Hongdae",
+        "transport": "步行",
+        "mapsMode": "search",
+        "mapsQueryTo": "Hongdae restaurants",
+        "primaryPlace": "Mom's Touch Hongdae",
+        "primaryMapsQuery": "맘스터치 홍대",
+        "backupPlace": "Isaac Toast Hongdae / 弘大饭卷简餐",
+        "backupMapsQuery": "이삭토스트 홍대",
+        "budget": "20–50 RMB / 餐",
+        "whyThisStop": "晚上只留给稳妥晚饭，不再加景点。",
+        "notes": "主推荐快餐汉堡，备选是吐司或饭卷简餐。",
+        "fallback": "体力差就不出门太远，在 Lux 附近就近吃。"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "d4a",
+        "text": "早餐已按外食处理，因为 Lux 不含早餐"
+      },
+      {
+        "id": "d4b",
+        "text": "今天已从 Lux Guesthouse 出发，没有再写回旧酒店"
+      },
+      {
+        "id": "d4c",
+        "text": "已给 GOTO Mall 设置 50,000–100,000 KRW 服饰上限"
+      },
+      {
+        "id": "d4d",
+        "text": "只买基础款和小配件，没有拿大件或难带商品"
+      },
+      {
+        "id": "d4e",
+        "text": "小店用韩元现金，能刷店优先 Visa，付款方式没有卡住"
+      },
+      {
+        "id": "d4f",
+        "text": "傍晚去了盘浦汉江看免费夜景，没有加收费项目"
+      },
+      {
+        "id": "d4g",
+        "text": "晚上已回 Lux Guesthouse，第二天退房节奏已确认"
+      }
+    ],
+    "note": "Day 4 的起点和收口都按 Lux 写。"
+  },
+  {
+    "day": "Day 5｜4/28 周二",
+    "goal": "Lux 退房 / 寄存 → MLB 爸爸线 → 鞋代购线 → 弘大补漏 → 仁川 T1",
+    "dayBudget": "约 900–3,200 RMB / 194,000–691,000 KRW",
+    "dayTags": ["爸爸 MLB", "鞋代购", "最后补漏", "机场日"],
+    "focusMove": {
+      "title": "弘大补漏 → AREX → 仁川 T1",
+      "summary": "白天只做弘大线补漏，晚上固定走 Hongik Univ. Station → AREX。",
+      "primaryPlace": "Hongik Univ. Station",
+      "primaryMapsQuery": "Hongik Univ. Station",
+      "backupPlace": "Incheon International Airport Terminal 1",
+      "backupMapsQuery": "Incheon International Airport Terminal 1",
+      "budget": "交通 + 机场流程约 120–220 RMB",
+      "why": "最后一天最怕乱开新路线，保守版就锁死弘大和机场。"
+    },
+    "focusEat": {
+      "title": "弘大快吃快走",
+      "summary": "午饭继续快、稳、一个人友好，不把时间浪费在排队上。",
+      "primaryPlace": "Isaac Toast 弘大店",
+      "primaryMapsQuery": "이삭토스트 홍대",
+      "backupPlace": "香港饭店0410 弘大店",
+      "backupMapsQuery": "홍콩반점0410 홍대",
+      "budget": "20–50 RMB / 餐",
+      "why": "今天的饭点只是给购物和机场服务，不是重点。"
+    },
+    "focusShop": {
+      "title": "爸爸 MLB + 鞋代购 + Musinsa 补漏",
+      "summary": "先做爸爸线，再做鞋代购，最后才是基础款和小物补漏。",
+      "primaryPlace": "MLB 弘大店（帽子 / T 恤 / 卫衣）",
+      "primaryMapsQuery": "MLB 홍대점",
+      "backupPlace": "Musinsa Kicks 弘大（鞋代购线）",
+      "backupMapsQuery": "무신사 킥스 홍대",
+      "budget": "爸爸线 300–900 RMB｜鞋代购线 500–1800 RMB",
+      "why": "Day 5 的购物优先级必须非常清楚，不然最后一天最容易乱掉。"
+    },
+    "hardStop": {
+      "time": "18:10–19:00",
+      "title": "AREX 去仁川 T1",
+      "note": "返程主方案固定 AREX，不自己脑补更快捷径。"
+    },
+    "times": [
+      "09:30–10:20 MLB 爸爸线",
+      "10:20–11:30 鞋代购线",
+      "11:30–12:30 弘大午饭",
+      "12:30–14:00 Musinsa 补漏",
+      "14:00–15:00 Daiso / 小物",
+      "15:30–16:00 回 Lux 取行李",
+      "18:10–23:00 去仁川 T1"
+    ],
+    "routeBlocks": [
+      {
+        "kind": "move",
+        "start": "09:30",
+        "end": "10:00",
+        "title": "Lux 退房 / 寄存",
+        "from": "Lux Guesthouse",
+        "to": "Lux Guesthouse",
+        "transport": "退房",
+        "mapsMode": "search",
+        "mapsQueryTo": "Lux Guesthouse 156 Wausan-ro Mapo-gu Seoul 04061 Hongik Univ Station",
+        "notes": "先问寄存，再开始白天路线。",
+        "fallback": "Lux 不寄存时，默认改 Hongik Univ. Station 附近寄存点。"
+      },
+      {
+        "kind": "shop",
+        "start": "10:00",
+        "end": "10:50",
+        "title": "爸爸线：MLB 服饰",
+        "from": "Lux Guesthouse",
+        "to": "MLB 弘大店",
+        "transport": "步行 / 地铁",
+        "mapsMode": "search",
+        "mapsQueryTo": "MLB 홍대점",
+        "primaryPlace": "MLB 弘大店（帽子 / T 恤 / 卫衣）",
+        "primaryMapsQuery": "MLB 홍대점",
+        "backupPlace": "MLB 明洞中央店",
+        "backupMapsQuery": "MLB 명동중앙점",
+        "budget": "爸爸线 300–900 RMB",
+        "whyThisStop": "爸爸最想要 MLB，就优先帽子和短袖，不先去一堆潮牌混店。",
+        "notes": "先帽子，再 T 恤，最后才看卫衣和外套。",
+        "fallback": "如果弘大店没合适尺码，备选去明洞中央店。"
+      },
+      {
+        "kind": "shop",
+        "start": "10:50",
+        "end": "11:40",
+        "title": "鞋代购线",
+        "from": "MLB 弘大店",
+        "to": "Musinsa Kicks 弘大",
+        "transport": "步行 / 地铁",
+        "mapsMode": "search",
+        "mapsQueryTo": "무신사 킥스 홍대",
+        "primaryPlace": "Musinsa Kicks 弘大（鞋代购线）",
+        "primaryMapsQuery": "무신사 킥스 홍대",
+        "backupPlace": "ABC-MART GRAND STAGE 明洞中央店",
+        "backupMapsQuery": "ABC마트 그랜드스테이지 명동중앙점",
+        "budget": "鞋代购线 500–1800 RMB",
+        "whyThisStop": "代购想要鞋，就先确认鞋码、品牌、配色和能不能退税。",
+        "notes": "优先看 Nike / adidas / New Balance / Vans / Jordan 常规热门款。",
+        "fallback": "找不到款时，改去 ABC-MART，不在同一家硬耗。"
+      },
+      {
+        "kind": "food",
+        "start": "11:40",
+        "end": "12:30",
+        "title": "弘大午饭",
+        "from": "Musinsa Kicks 弘大",
+        "to": "弘大",
+        "transport": "步行",
+        "mapsMode": "search",
+        "mapsQueryTo": "홍대 맛집",
+        "primaryPlace": "Isaac Toast 弘大店",
+        "primaryMapsQuery": "이삭토스트 홍대",
+        "backupPlace": "香港饭店0410 弘大店 / 弘大简餐",
+        "backupMapsQuery": "홍콩반점0410 홍대",
+        "budget": "20–50 RMB / 餐",
+        "whyThisStop": "午饭继续走快、稳、一个人不尴尬路线。",
+        "notes": "这顿饭不再去远，不折返别的商圈。",
+        "fallback": "排队长就切到备选。"
+      },
+      {
+        "kind": "shop",
+        "start": "12:30",
+        "end": "13:40",
+        "title": "Musinsa Standard 弘大主力补漏",
+        "from": "弘大",
+        "to": "Musinsa Standard Hongdae",
+        "transport": "步行 / 地铁",
+        "mapsMode": "search",
+        "mapsQueryTo": "Musinsa Standard Hongdae",
+        "primaryPlace": "Musinsa Standard 弘大",
+        "primaryMapsQuery": "Musinsa Standard Hongdae",
+        "backupPlace": "弘大主街基础款店",
+        "backupMapsQuery": "홍대 쇼핑거리",
+        "budget": "100–300 RMB / 最后一轮主力补漏",
+        "whyThisStop": "最后一天只补真会穿回国的基础款，不再开新坑。",
+        "notes": "如果前几天衣服已经够了，这段就缩短。",
+        "fallback": "不为“最后一天”而硬凑预算。"
+      },
+      {
+        "kind": "shop",
+        "start": "13:40",
+        "end": "14:30",
+        "title": "弘大小物 / Daiso 补缺",
+        "from": "Musinsa Standard 弘大",
+        "to": "Daiso 弘大",
+        "transport": "步行",
+        "mapsMode": "search",
+        "mapsQueryTo": "Daiso Hongdae",
+        "primaryPlace": "Daiso 弘大店（小物 / 收纳）",
+        "primaryMapsQuery": "Daiso Hongdae",
+        "backupPlace": "弘大主街帽子 / 袜子 / 小物",
+        "backupMapsQuery": "홍대 쇼핑거리",
+        "budget": "20–100 RMB / 轻小件",
+        "whyThisStop": "最后一轮只补轻小件，避免再买难带的大件。",
+        "notes": "主线是帽子、袜子、小物，不再开大牌和香水。",
+        "fallback": "如果已经买够，这段就直接跳到取行李。"
+      },
+      {
+        "kind": "move",
+        "start": "15:30",
+        "end": "16:00",
+        "title": "回 Lux 取行李",
+        "from": "弘大",
+        "to": "Lux Guesthouse",
+        "transport": "步行",
+        "mapsMode": "search",
+        "mapsQueryTo": "Lux Guesthouse 156 Wausan-ro Mapo-gu Seoul 04061 Hongik Univ Station",
+        "notes": "回酒店拿箱子，重新整理退税商品和随身包。",
+        "fallback": "如果行李寄存在站里，就直接去站里取。"
+      },
+      {
+        "kind": "move",
+        "start": "18:10",
+        "end": "19:00",
+        "title": "Hongik Univ. Station → AREX → 仁川 T1",
+        "from": "Hongik Univ. Station",
+        "to": "Incheon International Airport Terminal 1",
+        "transport": "AREX / 机场铁路",
+        "mapsMode": "search",
+        "mapsQueryTo": "인천공항1터미널",
+        "notes": "Plan A 固定走 AREX；只有 Google 当天显示更优时，才切机场巴士。",
+        "fallback": "时间被压缩时，优先保留 AREX，不自己脑补捷径。"
+      },
+      {
+        "kind": "airport",
+        "start": "19:00",
+        "end": "21:00",
+        "title": "退税 / 托运 / 安检",
+        "from": "Incheon International Airport Terminal 1",
+        "to": "Incheon International Airport Terminal 1",
+        "transport": "机场流程",
+        "mapsMode": "search",
+        "mapsQueryTo": "인천공항1터미널",
+        "notes": "先确认退税 / 海关验货，再托运行李，再安检。",
+        "fallback": "大额退税商品不要先托运。"
+      },
+      {
+        "kind": "airport",
+        "start": "21:00",
+        "end": "23:00",
+        "title": "候机 / 免税提货",
+        "from": "Incheon International Airport Terminal 1",
+        "to": "Incheon International Airport Terminal 1",
+        "transport": "候机",
+        "mapsMode": "search",
+        "mapsQueryTo": "인천공항1터미널 면세품 인도장",
+        "notes": "过安检后再去提货，登机前 40–60 分钟回登机口附近。",
+        "fallback": "提货排队长时，优先保证登机口时间。"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "d5a",
+        "text": "已从 Lux 退房并尝试寄存行李；不行就改用 Hongik Univ. Station 周边寄存点"
+      },
+      {
+        "id": "d5b",
+        "text": "今天默认只在弘大 / 延南补漏，没有再写回 That House 或旧弘大酒店"
+      },
+      {
+        "id": "d5c",
+        "text": "退税小票、护照、未拆封商品已放在随手可拿的位置"
+      },
+      {
+        "id": "d5d",
+        "text": "充电宝已放随身包，没有放进托运行李"
+      },
+      {
+        "id": "d5e",
+        "text": "已按 18:30–19:00 左右从弘大去仁川 T1"
+      },
+      {
+        "id": "d5f",
+        "text": "到机场先确认退税 / 海关验货，再托运行李，再安检"
+      },
+      {
+        "id": "d5g",
+        "text": "过安检后已去免税提货点，登机前 40–60 分钟到登机口附近"
+      }
+    ],
+    "note": "最后一天默认按 Lux 退房 / 寄存 → 弘大补漏 → 机场。"
+  }
+];
+const shoppingDays=[
+  {day:'4/26 明洞药妆日',note:'这一天只做药妆和彩妆补货，不把香水和衣服大采购混进来。',tasks:[{id:'sd426-1',text:'进门先看 1+1 / SALE / Tax Refund 标识，再开始拿货'},{id:'sd426-2',text:'主清单先拿 Dr.G / Torriden / 痘痘贴 / Mediheal / Round Lab'},{id:'sd426-3',text:'彩妆只补 1–2 件：rom&nd / 3CE / HERA 里挑明确想要的'},{id:'sd426-4',text:'香氛今天只试，不大买大瓶'},{id:'sd426-5',text:'付款顺序按 Visa → WOWPASS → 支付宝 → 现金执行'},{id:'sd426-6',text:'结账后已分开收小票、退税单、未拆封商品'}]},
+  {day:'4/27 GOTO / Musinsa 衣服日',note:'这一天只解决衣服和基础款，不把免税和药妆重采购再加回来。',tasks:[{id:'sd427-1',text:'进店前先设服饰预算上限，没有边逛边改预算'},{id:'sd427-2',text:'GOTO 先买基础款上衣 / 薄外套 / 袜子 / 小包 / 小配饰'},{id:'sd427-3',text:'没有买难带大件，也没有拿“像大牌”的冲动款'},{id:'sd427-4',text:'先逛一圈记店铺，再回头下单，没有第一家就烧光预算'},{id:'sd427-5',text:'Musinsa 只补 1–2 件真会穿回国的卫衣 / T 恤 / 衬衫 / 牛仔'},{id:'sd427-6',text:'小店现金，能刷就优先 Visa；如果 GOTO 已买够，Musinsa 已收手'}]},
+  {day:'4/28 回程补漏日',note:'今天的任务是收口和回机场，不再给自己加新的购物负担。',tasks:[{id:'sd428-1',text:'今天只买缺项，没有新开购物线'},{id:'sd428-2',text:'药妆只补消耗品，没有再开大牌和高客单彩妆'},{id:'sd428-3',text:'香水 / 大牌 / 新系列今天没有新开坑'},{id:'sd428-4',text:'回酒店后已区分退税商品 / 托运行李 / 随身物品 / 机场免税提货'},{id:'sd428-5',text:'大额退税商品没有先托运，护照和小票都放在最好拿的位置'},{id:'sd428-6',text:'预算剩余也只用于补缺，没有因为最后一天再乱买'}]}
+];
+const targetShoppingSections=[
+  {
+    "title": "爸爸 / MLB 服饰",
+    "area": "Day 5 弘大优先，明洞备选",
+    "primaryStore": "MLB 弘大店",
+    "primaryQuery": "MLB 홍대점",
+    "primaryLocation": "弘大商圈，适合和 Lux / Musinsa / 鞋代购线一起走",
+    "backupStore": "MLB 明洞中央店",
+    "backupQuery": "MLB 명동중앙점",
+    "backupLocation": "明洞主街，若 Day 3 在明洞还有体力可补看",
+    "feature": "主看帽子、T 恤、卫衣、薄外套；爸爸最稳的是帽子和基础 T。",
+    "signature": "队标帽、Yankees / Dodgers 基础 Tee、轻薄卫衣",
+    "priceRows": [
+      {
+        "label": "队标帽 / 棒球帽",
+        "krw": "约 49,000–61,000 KRW",
+        "rmb": "约 227–282 RMB",
+        "domestic": "国内参考：约 320–460 RMB",
+        "fit": "爸爸线最稳，尺码风险最低",
+        "resale": "指定需求 / 好带 / 利润一般"
+      },
+      {
+        "label": "基础 T 恤",
+        "krw": "约 66,000–89,000 KRW",
+        "rmb": "约 306–412 RMB",
+        "domestic": "国内参考：约 420–620 RMB",
+        "fit": "会穿就值，适合指定需求",
+        "resale": "指定需求 / 体积中等"
+      },
+      {
+        "label": "卫衣 / 套头",
+        "krw": "约 126,000–150,000 KRW",
+        "rmb": "约 584–695 RMB",
+        "domestic": "国内参考：约 760–980 RMB",
+        "fit": "有余预算再看",
+        "resale": "不适合先买 / 占体积"
+      }
+    ],
+    "buyOrder": [
+      "先看队标帽和棒球帽，最不容易翻车。",
+      "再看基础 T 恤，确认尺码和配色后再下单。",
+      "最后才看卫衣和外套，不然很容易超预算、占箱子。"
+    ],
+    "riskNotes": [
+      "不确定尺码时优先帽子，不赌上衣版型。",
+      "厚卫衣和外套不适合先买，带回去体积太大。",
+      "只在官方店 / 商场店买，街边非官方店不碰高价款。"
+    ],
+    "tags": ["指定需求", "爸爸线", "好带", "利润一般"],
+    "note": "先帽子再 T 恤，最后才看厚卫衣和外套，不然很容易超预算。"
+  },
+  {
+    "title": "妈妈 / 雅诗兰黛护肤",
+    "area": "Day 3 明洞优先",
+    "primaryStore": "乐天免税店明洞本店 / 雅诗兰黛",
+    "primaryQuery": "롯데면세점 명동본점 에스티로더",
+    "primaryLocation": "明洞 / 乙支路入口一带，和 Day 3 药妆主线顺路",
+    "backupStore": "乐天百货总店 / 雅诗兰黛专柜",
+    "backupQuery": "롯데백화점 본점 에스티로더",
+    "backupLocation": "百货正价柜台，适合对比套装和质地",
+    "feature": "主看小棕瓶、眼霜、Revitalizing Supreme+ 面霜和礼盒。",
+    "signature": "小棕瓶、修护眼霜、面霜礼盒",
+    "priceRows": [
+      {
+        "label": "小棕瓶 20ml",
+        "krw": "约 34,000 KRW",
+        "rmb": "约 157 RMB",
+        "domestic": "国内参考：约 220–320 RMB",
+        "fit": "试水、小礼物、补单都稳",
+        "resale": "适合送人 / 新手友好"
+      },
+      {
+        "label": "小棕瓶正装 / 套装",
+        "krw": "约 127,000–200,000 KRW",
+        "rmb": "约 588–926 RMB",
+        "domestic": "国内参考：约 760–1,280 RMB",
+        "fit": "妈妈线主力项",
+        "resale": "高客单 / 适合指定需求"
+      },
+      {
+        "label": "修护眼霜 / 面霜",
+        "krw": "约 118,000–220,000 KRW",
+        "rmb": "约 546–1,019 RMB",
+        "domestic": "国内参考：约 760–1,460 RMB",
+        "fit": "有明确需求时再买",
+        "resale": "高客单 / 不适合盲带"
+      }
+    ],
+    "buyOrder": [
+      "先看小棕瓶和小容量套装，最容易比较和值得买。",
+      "再看眼霜和面霜礼盒，确认妈妈平时会不会真用。",
+      "最后才碰大礼盒和高客单组合，避免被活动绑单。"
+    ],
+    "riskNotes": [
+      "高端护肤只走免税 / 百货专柜，不在街边小店碰。",
+      "先比套装成分和容量，不是礼盒就一定更划算。",
+      "如果需求不明确，宁可买小棕瓶，也不要乱上大面霜。"
+    ],
+    "tags": ["妈妈线", "专柜安全", "适合送人", "高客单"],
+    "note": "妈妈线优先免税 / 百货专柜，不在明洞街边小店买高端护肤。"
+  },
+  {
+    "title": "代购 / 鞋",
+    "area": "Day 5 弘大优先，明洞备选",
+    "primaryStore": "Musinsa Kicks 弘大",
+    "primaryQuery": "무신사 킥스 홍대",
+    "primaryLocation": "弘大线最顺，适合和 MLB / Musinsa Standard 放在同一天",
+    "backupStore": "ABC-MART GRAND STAGE 明洞中央店",
+    "backupQuery": "ABC마트 그랜드스테이지 명동중앙점",
+    "backupLocation": "明洞主街，适合 Day 3 还有空时补看",
+    "feature": "主看 Nike / adidas / New Balance / Vans / Jordan / Converse 常规热门款。",
+    "signature": "基础休闲鞋、热门跑鞋、老爹鞋、常规热卖款",
+    "priceRows": [
+      {
+        "label": "基础休闲鞋",
+        "krw": "约 79,000–129,000 KRW",
+        "rmb": "约 366–597 RMB",
+        "domestic": "国内参考：约 499–799 RMB",
+        "fit": "最适合新手代购",
+        "resale": "价格透明 / 好卖 / 码数最重要"
+      },
+      {
+        "label": "热门跑鞋 / 老爹鞋",
+        "krw": "约 139,000–219,000 KRW",
+        "rmb": "约 644–1,014 RMB",
+        "domestic": "国内参考：约 899–1,499 RMB",
+        "fit": "有人点名再买",
+        "resale": "利润一般 / 箱子体积大"
+      },
+      {
+        "label": "Jordan / 热门联名",
+        "krw": "约 199,000 KRW+",
+        "rmb": "约 921 RMB+",
+        "domestic": "国内参考：波动很大",
+        "fit": "只适合明确指定款",
+        "resale": "不适合新手 / 风险高"
+      }
+    ],
+    "buyOrder": [
+      "先看基础热卖鞋和常规码，先把最稳的单做掉。",
+      "再看热门跑鞋 / 老爹鞋，确认尺码和箱子体积。",
+      "最后才碰 Jordan 或联名，不赌当场热度。"
+    ],
+    "riskNotes": [
+      "先确认鞋码和配色，不要靠猜。",
+      "鞋盒体积大，回程前要先算箱子空间。",
+      "太极限的限量款不适合新手代购，也不适合乱背。"
+    ],
+    "tags": ["鞋代购", "弘大优先", "价格透明", "不赌限量"],
+    "note": "代购鞋先确认鞋码、配色、箱子体积和能不能退税，不碰太极限的限量。"
+  }
+];
+const procurementChannels=[
+  {title:'Olive Young 药妆线',where:'明洞 / 弘大 / 圣水',best:'防晒、精华、痘痘贴、棉片、唇妆',cheap:'盯 1+1、SALE、即时退税',avoid:'普通片装面膜大箱囤货',newbie:'新手友好',profit:'差价稳定，但不是暴利线',summary:'最适合第一次去首尔的人做主采购，买得清楚、退税顺手。'},
+  {title:'Daiso / Artbox 小物线',where:'明洞 / 弘大',best:'小收纳、文具、旅行小物、轻礼物',cheap:'单价低、补缺最方便',avoid:'不要买易碎摆件',newbie:'新手友好',profit:'利润低，更适合送人和补单',summary:'这条线不是为了赚，而是为了轻小好带、看着有完成度。'},
+  {title:'免税 / 百货大牌线',where:'明洞 / 乙支路入口',best:'雅诗兰黛、小棕瓶、香水、大牌礼盒',cheap:'看免税活动、券后价、礼盒套装',avoid:'街边小店高端护肤',newbie:'有预算再看',profit:'价差看品牌，不是每样都便宜',summary:'高端护肤和彩妆先比价，不是进免税店就什么都值得买。'},
+  {title:'MLB / 爸爸服饰线',where:'弘大优先 / 明洞备选',best:'帽子、基础 T、队标卫衣',cheap:'先帽子，再看 T 恤，最后才看外套',avoid:'厚外套、难带大件',newbie:'知道尺码更稳',profit:'不是暴利代购，更适合指定需求',summary:'爸爸指定要 MLB，就把这条线单独拉出来，不跟普通衣服混。'},
+  {title:'Musinsa / 鞋代购线',where:'弘大优先',best:'基础款衣服、热门鞋、常规品牌鞋',cheap:'先确认鞋码和箱子体积',avoid:'太极限的限量鞋',newbie:'中等难度',profit:'鞋利润看款，不看乱背',summary:'代购鞋最怕尺码和退税翻车，先看店和码再谈值不值。'},
+  {title:'便利店 / 超市线',where:'机场前 / 弘大 / 明洞',best:'海苔、杏仁、咖啡包、零食、饮料',cheap:'回程前最后补齐最省心',avoid:'大箱零食和玻璃瓶',newbie:'最友好',profit:'几乎不靠利润，主打伴手礼',summary:'这条线最适合最后一天收口，不要过早背一堆吃的。'}
+];
+const shoppingOverviewGroups=[
+  {title:'爸爸 / MLB',focus:'帽子、基础 T、队标卫衣',bestStore:'MLB 弘大店',area:'弘大优先',mapsQuery:'MLB 홍대점',priceKRW:'49,000–150,000 KRW',priceRMB:'约 227–695 RMB',resaleFit:'指定需求 / 利润一般',carryLevel:'帽子最好带',buyOrder:'先帽子，再 T 恤，最后卫衣',featuredModels:'NY Yankees 队标帽 / LA Dodgers 队标帽 / Basic Logo Tee'},
+  {title:'妈妈 / 雅诗兰黛',focus:'小棕瓶、眼霜、面霜礼盒',bestStore:'乐天免税店明洞本店 / 雅诗兰黛',area:'明洞优先',mapsQuery:'롯데면세점 명동본점 에스티로더',priceKRW:'34,000–220,000 KRW',priceRMB:'约 157–1,019 RMB',resaleFit:'适合送人 / 高客单',carryLevel:'体积中等',buyOrder:'先小棕瓶，再礼盒，再高客单面霜',featuredModels:'Advanced Night Repair / ANR Eye / Revitalizing Supreme+'},
+  {title:'鞋代购',focus:'基础鞋、跑鞋、常规热门款',bestStore:'Musinsa Kicks 弘大',area:'弘大优先',mapsQuery:'무신사 킥스 홍대',priceKRW:'79,000–219,000 KRW',priceRMB:'约 366–1,014 RMB',resaleFit:'价格透明 / 先看码',carryLevel:'鞋盒占空间',buyOrder:'先基础鞋，再跑鞋，最后联名',featuredModels:'Nike P-6000 / adidas Samba OG / NB 530 / Vans Old Skool'},
+  {title:'药妆 / 防晒',focus:'Dr.G、防晒、痘痘贴、棉片',bestStore:'Olive Young 明洞旗舰线',area:'明洞 / 弘大',mapsQuery:'올리브영 명동타운',priceKRW:'8,000–39,000 KRW',priceRMB:'约 38–180 RMB',resaleFit:'好带 / 新手友好',carryLevel:'最轻小',buyOrder:'先防晒，再痘痘贴，再棉片',featuredModels:'Dr.G Green Mild Up Sun+ / BOJ Relief Sun / Care Plus Patch'},
+  {title:'护肤 / 精华',focus:'Torriden、Round Lab、保湿精华',bestStore:'Olive Young',area:'明洞 / 弘大',mapsQuery:'올리브영 명동',priceKRW:'16,000–49,000 KRW',priceRMB:'约 75–227 RMB',resaleFit:'差价稳定 / 更适合自用或送人',carryLevel:'液体要控量',buyOrder:'先补水精华，再爽肤水，再组合装',featuredModels:'Torriden Dive-In Serum / Round Lab Dokdo Toner'},
+  {title:'伴手礼 / 小物',focus:'海苔、杏仁、咖啡包、文具小物',bestStore:'便利店 / Daiso / Artbox',area:'回程前补齐',mapsQuery:'다이소 명동역점',priceKRW:'2,000–18,000 KRW',priceRMB:'约 10–85 RMB',resaleFit:'利润低 / 最适合送人',carryLevel:'轻小好分',buyOrder:'先咖啡和海苔，再文具和小物',featuredModels:'Tom’s Honey Butter Almond / Maxim Mocha Gold / Artbox 平口袋'},
+  {title:'服饰 / 基础款',focus:'Musinsa Standard、袜子、帽子、小包',bestStore:'Musinsa Standard 弘大',area:'弘大',mapsQuery:'무신사 스탠다드 홍대',priceKRW:'5,000–89,000 KRW',priceRMB:'约 24–412 RMB',resaleFit:'更适合自己买或指定需求',carryLevel:'中等',buyOrder:'先袜子帽子，再 T 恤，最后薄外套',featuredModels:'Basic Crew Neck Tee / Standard Sweatshirt / Straight Denim'}
+];
+const shoppingUseCaseSections=[
+  {key:'self',title:'自己用最值',summary:'优先买回购高、自己能判断适不适合的东西。',best:'防晒、精华、自己色号明确的唇妆 / 底妆',avoid:'为了差价硬囤不确定会不会用的东西',budget:'500–2000 RMB 更合理',channel:'Olive Young > 百货 / 免税 > Daiso 补漏'},
+  {key:'gift',title:'送人最稳',summary:'优先买轻小、体面、接受度高的型号，不赌气味和色号。',best:'护手霜小件、香氛小件、妈妈护肤线、小礼物组合',avoid:'大瓶香水、底妆、强功效护肤、难控尺码衣服',budget:'80–400 RMB / 人最自然',channel:'Tamburins / Nonfiction / 百货 / 免税 / Daiso / Artbox'},
+  {key:'resale',title:'代购更合适',summary:'优先买价格透明、差价稳定、好带且新手不容易翻车的线。',best:'鞋代购、痘痘贴、防晒、少量药妆补单',avoid:'大体积液体、色号型彩妆、限量鞋、玻璃香水',budget:'300–1800 RMB / 单线',channel:'Olive Young > Musinsa Kicks > MLB / 指定需求店'}
+];
+const shoppingDetailCatalog={
+  "MLB 弘大店 / 明洞中央店":{brand:"MLB",model:"NY Yankees / LA Dodgers 队标帽、Basic Logo Tee、卫衣",spec:"帽子 / T恤 / 卫衣",priceKRW:"49,000–150,000 KRW",priceRMB:"约 227–695 RMB",domesticRMB:"国内参考：约 320–980 RMB",spreadNote:"帽子最稳，T 恤其次，厚卫衣差价没想象中大"},
+  "乐天免税店明洞本店 / 雅诗兰黛":{brand:"Estée Lauder",model:"Advanced Night Repair / ANR Eye / Revitalizing Supreme+",spec:"20ml / 30ml / 50ml / 套装",priceKRW:"34,000–220,000 KRW",priceRMB:"约 157–1,019 RMB",domesticRMB:"国内参考：约 220–1,460 RMB",spreadNote:"小棕瓶和套装差价更明显，面霜先比活动"},
+  "Musinsa Kicks 弘大 / ABC-MART GRAND STAGE 明洞中央店":{brand:"Nike / adidas / New Balance / Vans / Converse",model:"P-6000 / Samba OG / 530 / Old Skool / Chuck 70",spec:"常规热门款 / 常规尺码",priceKRW:"79,000–219,000 KRW",priceRMB:"约 366–1,014 RMB",domesticRMB:"国内参考：约 499–1,499 RMB",spreadNote:"常规热门款最稳，联名波动最大"},
+  "Dr.G Green Mild Up Sun+ 50ml":{brand:"Dr.G",model:"Green Mild Up Sun+",spec:"50ml",priceKRW:"约 13,000–19,000 KRW",priceRMB:"约 60–90 RMB",domesticRMB:"国内参考：约 129–169 RMB",spreadNote:"活动价时最值，正价不适合囤太多"},
+  "Beauty of Joseon Relief Sun":{brand:"Beauty of Joseon",model:"Relief Sun Rice + Probiotics",spec:"50ml",priceKRW:"约 14,000–20,000 KRW",priceRMB:"约 65–93 RMB",domesticRMB:"国内参考：约 109–159 RMB",spreadNote:"Dr.G 没货时最稳的替代线"},
+  "Torriden Dive-In Serum 50ml":{brand:"Torriden",model:"Dive-In Serum",spec:"50ml",priceKRW:"约 16,000–23,000 KRW",priceRMB:"约 75–105 RMB",domesticRMB:"国内参考：约 109–159 RMB",spreadNote:"差价稳定，但不是暴利项"},
+  "Round Lab 1025 Dokdo Toner 200ml":{brand:"Round Lab",model:"1025 Dokdo Toner",spec:"200ml",priceKRW:"约 12,000–17,000 KRW",priceRMB:"约 55–79 RMB",domesticRMB:"国内参考：约 89–119 RMB",spreadNote:"自用稳，液体占空间，最多 1–2 瓶"},
+  "Mediheal Madecassoside Blemish Pad 100+100":{brand:"Mediheal",model:"Madecassoside Blemish Pad",spec:"100+100 片",priceKRW:"约 20,000–29,000 KRW",priceRMB:"约 95–135 RMB",domesticRMB:"国内参考：约 129–189 RMB",spreadNote:"100+100 活动期最划算"},
+  "Abib 面膜 / 棉片":{brand:"Abib",model:"Mild Acidic pH Sheet Mask Heartleaf Fit / Heartleaf Spot Pad",spec:"面膜 10 片 / 棉片 80 片",priceKRW:"约 12,000–22,000 KRW",priceRMB:"约 56–102 RMB",domesticRMB:"国内参考：约 79–149 RMB",spreadNote:"适合少量带回，不适合囤大箱"},
+  "Biodance 面膜":{brand:"Biodance",model:"Bio-Collagen Real Deep Mask",spec:"4 片 / 盒",priceKRW:"约 13,000–21,000 KRW",priceRMB:"约 60–97 RMB",domesticRMB:"国内参考：约 89–139 RMB",spreadNote:"体验型热门面膜，少量买更合理"},
+  "Olive Young Care Plus Scar Cover 102pcs":{brand:"Olive Young Care Plus",model:"Scar Cover Spot Patch",spec:"102 片",priceKRW:"约 6,000–9,000 KRW",priceRMB:"约 28–40 RMB",domesticRMB:"国内参考：约 45–69 RMB",spreadNote:"小、轻、好分，是最稳的顺手线"},
+  "rom&nd Juicy Lasting Tint":{brand:"rom&nd",model:"Juicy Lasting Tint",spec:"约 5.5g",priceKRW:"约 8,000–11,000 KRW",priceRMB:"约 37–51 RMB",domesticRMB:"国内参考：约 59–89 RMB",spreadNote:"活动价差明显，1–2 支最实用"},
+  "rom&nd Glasting Water Tint":{brand:"rom&nd",model:"Glasting Water Tint",spec:"约 4g",priceKRW:"约 8,500–12,000 KRW",priceRMB:"约 39–56 RMB",domesticRMB:"国内参考：约 65–95 RMB",spreadNote:"更偏玻璃唇妆感，适合试色后买"},
+  "3CE 唇釉 / 唇泥":{brand:"3CE",model:"Blur Water Tint / Velvet Lip Tint",spec:"常规单支",priceKRW:"约 17,000–24,000 KRW",priceRMB:"约 79–111 RMB",domesticRMB:"国内参考：约 129–179 RMB",spreadNote:"更精致，但别第一次就重仓"},
+  "HERA Sensual Nude Gloss / Tint":{brand:"HERA",model:"Sensual Nude Gloss / Sensual Powder Matte",spec:"单支",priceKRW:"约 27,000–38,000 KRW",priceRMB:"约 125–176 RMB",domesticRMB:"国内参考：约 199–299 RMB",spreadNote:"免税更有优势，不确定色号别买多"},
+  "HERA / Laneige 气垫":{brand:"HERA / Laneige",model:"Black Cushion / Neo Cushion Matte / Neo Cushion Glow",spec:"15g*2",priceKRW:"约 39,000–65,000 KRW",priceRMB:"约 181–301 RMB",domesticRMB:"国内参考：约 299–459 RMB",spreadNote:"只适合明确知道自己色号的人"},
+  "Tamburins 手霜 / 香膏 / 小容量香氛":{brand:"Tamburins",model:"Shell Hand Cream / Pumkini Hand Cream / Chamo Perfume",spec:"30ml / 小容量",priceKRW:"约 15,000–45,000 KRW",priceRMB:"约 69–208 RMB",domesticRMB:"国内参考：约 109–329 RMB",spreadNote:"手霜和小件最稳，大瓶不建议盲买"},
+  "Nonfiction Hand Cream / Eau de Parfum 小容量":{brand:"Nonfiction",model:"Gentle Night Hand Cream / Santal Cream / Eau de Parfum",spec:"50ml / 30ml",priceKRW:"约 16,000–53,000 KRW",priceRMB:"约 74–245 RMB",domesticRMB:"国内参考：约 119–369 RMB",spreadNote:"小容量和礼盒更划算"},
+  "Granhand Sachet / 小香水":{brand:"Granhand",model:"Sachet / Multi Perfume",spec:"香包 / 10ml 小香",priceKRW:"约 9,000–29,000 KRW",priceRMB:"约 42–134 RMB",domesticRMB:"国内参考：约 69–219 RMB",spreadNote:"轻便、适合带人情，不建议一口气买很多玻璃瓶"},
+  "Jo Malone / Diptyque / Byredo / Maison Margiela Replica":{brand:"Jo Malone / Diptyque / Byredo / Replica",model:"Wood Sage / Do Son / Blanche / Lazy Sunday Morning",spec:"30ml / 50ml",priceKRW:"约 85,000–185,000 KRW",priceRMB:"约 394–857 RMB",domesticRMB:"国内参考：约 650–1,480 RMB",spreadNote:"线上免税叠券后才值得，不在线下冲动买"},
+  "Sulwhasoo / HERA / Laneige 大牌护肤线":{brand:"Sulwhasoo / HERA / Laneige",model:"First Care Activating Serum VI / Water Bank Blue HA / 套装线",spec:"60ml / 50ml / 旅行装",priceKRW:"约 45,000–180,000 KRW",priceRMB:"约 208–833 RMB",domesticRMB:"国内参考：约 329–1,299 RMB",spreadNote:"先锁定明确需求，不为了免税乱买"},
+  "Musinsa Standard T 恤 / 卫衣 / 衬衫 / 牛仔":{brand:"Musinsa Standard",model:"Basic Crew Neck Tee / Standard Sweatshirt / Straight Denim",spec:"基础常规版型",priceKRW:"约 12,000–89,000 KRW",priceRMB:"约 56–412 RMB",domesticRMB:"国内参考：约 89–499 RMB",spreadNote:"更强在版型和质感，不是纯看差价"},
+  "GOTO Mall 基础款上衣 / 薄外套 / 裙子 / 袜子 / 小包":{brand:"GOTO Mall",model:"基础针织 / 短开衫 / 薄外套 / 小包",spec:"平价现货线",priceKRW:"约 10,000–59,000 KRW",priceRMB:"约 46–273 RMB",domesticRMB:"国内参考：约 69–399 RMB",spreadNote:"先逛一圈再买，第一家不急着下单"},
+  "帽子 / 袜子 / 发饰 / 小包":{brand:"GOTO Mall / 弘大选物店",model:"队标帽 / 纯色袜子 / 发夹 / 小包",spec:"轻小件",priceKRW:"约 5,000–29,000 KRW",priceRMB:"约 23–134 RMB",domesticRMB:"国内参考：约 39–199 RMB",spreadNote:"胜在现场好挑，差价不是唯一重点"},
+  "Tamburins / Nonfiction 护手霜小支":{brand:"Tamburins / Nonfiction",model:"Shell Hand Cream / Gentle Night Hand Cream",spec:"30–50ml 小支",priceKRW:"约 15,000–29,000 KRW",priceRMB:"约 69–134 RMB",domesticRMB:"国内参考：约 109–219 RMB",spreadNote:"小支礼盒更适合送朋友"},
+  "润唇膏 / 护唇小物":{brand:"Laneige / Torriden / Daiso",model:"Lip Sleeping Mask Mini / Solid-In Lip Essence / 基础润唇",spec:"迷你装 / 单支",priceKRW:"约 4,000–15,000 KRW",priceRMB:"约 19–69 RMB",domesticRMB:"国内参考：约 29–99 RMB",spreadNote:"不确定对方喜好时，润唇最安全"},
+  "Mediheal / Abib / Biodance 少量面膜":{brand:"Mediheal / Abib / Biodance",model:"Tea Tree / Heartleaf / Bio-Collagen",spec:"4–10 片",priceKRW:"约 9,000–22,000 KRW",priceRMB:"约 42–102 RMB",domesticRMB:"国内参考：约 59–149 RMB",spreadNote:"只买活动装，少量更好分"},
+  "Daiso / Artbox 小文具和收纳":{brand:"Daiso / Artbox",model:"Flat Pouch / Gel Pen / Sticker Pack / 收纳袋",spec:"低价小物",priceKRW:"约 2,000–12,000 KRW",priceRMB:"约 10–56 RMB",domesticRMB:"国内参考：约 15–79 RMB",spreadNote:"有趣、轻便，比摆件更实用"},
+  "海苔 / 蜂蜜黄油杏仁 / 咖啡包":{brand:"Tom’s / Maxim / 乐天",model:"Honey Butter Almond / Mocha Gold / 烤海苔",spec:"小包 / 20T / 轻量组合",priceKRW:"约 2,000–18,000 KRW",priceRMB:"约 10–83 RMB",domesticRMB:"国内参考：约 15–109 RMB",spreadNote:"回程前买最稳，避免压坏和早背重"},
+  "Lactofit Gold / 小型营养线":{brand:"Lactofit",model:"Gold",spec:"2g x 50 sticks",priceKRW:"约 10,000–14,000 KRW",priceRMB:"约 45–65 RMB",domesticRMB:"国内参考：约 79–109 RMB",spreadNote:"少量带就够，不适合囤成大货"},
+  "Sulwhasoo / HERA / Laneige 小套装 / 旅行装":{brand:"Sulwhasoo / HERA / Laneige",model:"First Care Set / Water Bank Set / 旅行装套组",spec:"小套装 / 旅行装",priceKRW:"约 35,000–85,000 KRW",priceRMB:"约 162–394 RMB",domesticRMB:"国内参考：约 229–599 RMB",spreadNote:"小套装更适合送妈妈，体面且不太重"},
+  "护手霜 / 润唇膏 / 身体护理小件":{brand:"Tamburins / Nonfiction / Laneige",model:"Shell Hand Cream / Gentle Night / Lip Sleeping Mask Mini",spec:"30–50ml / 迷你装",priceKRW:"约 9,000–29,000 KRW",priceRMB:"约 42–134 RMB",domesticRMB:"国内参考：约 69–219 RMB",spreadNote:"比大瓶香氛更稳，也更适合长辈"},
+  "海苔 / 杏仁 / 咖啡包 / 男士洗护小套装":{brand:"Tom’s / Maxim / Olive Young Men",model:"Honey Butter Almond / Mocha Gold / Men All-in-One 小套装",spec:"零食 + 男士洗护组合",priceKRW:"约 3,000–25,000 KRW",priceRMB:"约 14–116 RMB",domesticRMB:"国内参考：约 20–169 RMB",spreadNote:"吃的 + 男士洗护比香氛更贴近爸爸真实使用"},
+  "基础袜子 / 棒球帽 / 简单 T 恤":{brand:"Musinsa Standard / MLB",model:"Basic Socks / Logo Cap / Crew Neck Tee",spec:"基础小件",priceKRW:"约 5,000–39,000 KRW",priceRMB:"约 24–181 RMB",domesticRMB:"国内参考：约 39–259 RMB",spreadNote:"只适合低风险基础款，不赌尺码"},
+  "Tamburins / Nonfiction 护手霜礼盒 / Granhand 小香":{brand:"Tamburins / Nonfiction / Granhand",model:"Shell Gift Set / Gentle Night Gift Set / Multi Perfume 10ml",spec:"护手霜礼盒 / 小香",priceKRW:"约 15,000–55,000 KRW",priceRMB:"约 69–255 RMB",domesticRMB:"国内参考：约 109–399 RMB",spreadNote:"最像贵价礼物，但不至于像大瓶香水那么难送"},
+  "rom&nd / 3CE / HERA 唇妆 1–2 件":{brand:"rom&nd / 3CE / HERA",model:"Juicy Lasting Tint / Blur Water Tint / Sensual Nude Gloss",spec:"单支 / 1–2 件",priceKRW:"约 8,000–38,000 KRW",priceRMB:"约 37–176 RMB",domesticRMB:"国内参考：约 59–299 RMB",spreadNote:"明确色号才买，别从礼物变翻车"},
+  "小包 / 发饰 / 帽子 / 基础开衫":{brand:"Musinsa Standard / 弘大选物店",model:"Mini Shoulder Bag / Hair Claw / Basic Cardigan",spec:"轻小件 / 宽松基础款",priceKRW:"约 8,000–45,000 KRW",priceRMB:"约 37–208 RMB",domesticRMB:"国内参考：约 59–299 RMB",spreadNote:"小配饰比大件衣服更适合当礼物"},
+  "Musinsa Standard 基础 T 恤 / 帽子 / 袜子":{brand:"Musinsa Standard",model:"Crew Neck Tee / Logo Cap / Rib Socks",spec:"基础穿搭线",priceKRW:"约 5,000–39,000 KRW",priceRMB:"约 24–181 RMB",domesticRMB:"国内参考：约 39–259 RMB",spreadNote:"比纯零食更像专门给弟弟挑过"},
+  "联名零食 / 海苔 / 杏仁 / 小包 / 袜子":{brand:"GS25 / Tom’s / Daiso",model:"联名薯片 / Honey Butter Almond / 小包 / 袜子",spec:"零食 + 小物组合",priceKRW:"约 2,000–18,000 KRW",priceRMB:"约 10–83 RMB",domesticRMB:"国内参考：约 15–109 RMB",spreadNote:"零食 + 小物组合比只买吃的更像礼物"},
+  "海苔 / 杏仁 / 咖啡包 / 护手霜 / 润唇膏 / 旅行装洗护":{brand:"Tom’s / Maxim / Tamburins / Laneige",model:"Honey Butter Almond / Mocha Gold / Hand Cream / Mini Lip Care",spec:"全家可分组合",priceKRW:"约 2,000–29,000 KRW",priceRMB:"约 10–134 RMB",domesticRMB:"国内参考：约 15–219 RMB",spreadNote:"适合拆分送，不需要每人都送大件"},
+  "小文具 / 咖啡包 / 痘痘贴 / 护手霜小支 / 零食小包":{brand:"Daiso / Maxim / Olive Young / Tamburins",model:"Gel Pen / Mocha Gold / Care Plus Patch / Hand Cream Mini",spec:"多人分发小礼物",priceKRW:"约 2,000–18,000 KRW",priceRMB:"约 10–83 RMB",domesticRMB:"国内参考：约 15–119 RMB",spreadNote:"最适合老师同学，不压预算也不显敷衍"}
+};
+const foodZones=[
+  {area:'弘大',vibe:'一个人也好吃 / 晚上顺路 / 不贵',spots:[
+    {name:'Isaac Toast 弘大店',type:'吐司 / 早饭',priceKRW:'4,000–7,000 KRW',priceRMB:'约 20–35 RMB',solo:'适合',tourist:'适合',feature:'快、稳、一个人不尴尬',why:'早饭和赶路日最好用',mapsQuery:'이삭토스트 홍대',menus:[{name:'经典火腿吐司',krw:'约 4,500 KRW',rmb:'约 21 RMB',note:'赶时间最稳'},{name:'牛肉吐司 / 招牌款',krw:'约 5,900–6,500 KRW',rmb:'约 27–30 RMB',note:'更扎实，适合出门前吃饱'},{name:'美式咖啡',krw:'约 2,500 KRW',rmb:'约 12 RMB',note:'最常见搭配'}]},
+    {name:'香港饭店0410 弘大店',type:'炸酱面 / 面食',priceKRW:'7,000–11,000 KRW',priceRMB:'约 35–55 RMB',solo:'适合',tourist:'适合',feature:'炸酱面、炒码面、锅气明显',why:'晚饭最稳，吃完就能回住宿',mapsQuery:'홍콩반점0410 홍대',menus:[{name:'炸酱面',krw:'约 6,500–7,000 KRW',rmb:'约 30–32 RMB',note:'一个人最稳'},{name:'炒码面',krw:'约 8,000–8,500 KRW',rmb:'约 37–39 RMB',note:'想吃热汤面时点'},{name:'煎饺 / 锅贴',krw:'约 6,000 KRW',rmb:'约 28 RMB',note:'更适合两人分'}]},
+    {name:'Mom\'s Touch 弘大店',type:'汉堡 / 炸鸡',priceKRW:'6,000–11,000 KRW',priceRMB:'约 30–55 RMB',solo:'适合',tourist:'适合',feature:'汉堡、炸鸡、薯条',why:'如果只想快点吃完继续走，连锁最省脑',mapsQuery:'맘스터치 홍대',menus:[{name:'招牌鸡腿堡',krw:'约 6,900–7,500 KRW',rmb:'约 32–35 RMB',note:'最常点'},{name:'单人套餐',krw:'约 8,500–10,500 KRW',rmb:'约 39–49 RMB',note:'配薯条和饮料更省脑'},{name:'薯条 / 小食',krw:'约 3,500–4,500 KRW',rmb:'约 16–21 RMB',note:'一个人别点太多'}]}
+  ]},
+  {area:'明洞',vibe:'游客最顺路 / 药妆和吃饭能一起做',spots:[
+    {name:'Isaac Toast 明洞店',type:'吐司 / 轻午饭',priceKRW:'4,000–7,000 KRW',priceRMB:'约 20–35 RMB',solo:'适合',tourist:'很适合',feature:'吐司、咖啡、出餐快',why:'Day 3 中午最省时间',mapsQuery:'이삭토스트 명동',menus:[{name:'火腿奶酪吐司',krw:'约 4,700 KRW',rmb:'约 22 RMB',note:'最不踩雷'},{name:'牛肉吐司',krw:'约 6,000–6,600 KRW',rmb:'约 28–31 RMB',note:'药妆前补能量最稳'},{name:'冰咖啡',krw:'约 2,500–3,000 KRW',rmb:'约 12–14 RMB',note:'排队时顺手买'}]},
+    {name:'逆转乌冬0410 明洞店',type:'乌冬 / 盖饭',priceKRW:'5,000–9,000 KRW',priceRMB:'约 25–45 RMB',solo:'适合',tourist:'适合',feature:'乌冬、饭类、汤面',why:'不想吃太辣时更稳',mapsQuery:'역전우동0410 명동',menus:[{name:'原味乌冬',krw:'约 4,500–5,500 KRW',rmb:'约 21–25 RMB',note:'少辣最稳'},{name:'牛肉盖饭',krw:'约 7,000–8,000 KRW',rmb:'约 32–37 RMB',note:'饱腹感更强'},{name:'炸猪排饭',krw:'约 8,000–9,000 KRW',rmb:'约 37–42 RMB',note:'想吃热饭时选'}]},
+    {name:'香港饭店0410 明洞店',type:'炸酱面 / 中式简餐',priceKRW:'7,000–11,000 KRW',priceRMB:'约 35–55 RMB',solo:'适合',tourist:'适合',feature:'炸酱面、炒码面、锅贴',why:'晚上回明洞收口最方便',mapsQuery:'홍콩반점0410 명동',menus:[{name:'炸酱面',krw:'约 6,500–7,000 KRW',rmb:'约 30–32 RMB',note:'一人吃最稳'},{name:'炒码面',krw:'约 8,000–8,500 KRW',rmb:'约 37–39 RMB',note:'热汤面更适合晚上'},{name:'煎饺 / 锅贴',krw:'约 6,000 KRW',rmb:'约 28 RMB',note:'两人更划算'}]}
+  ]},
+  {area:'圣水',vibe:'适合逛店 + 咖啡，但不一定最省钱',spots:[
+    {name:'圣水咖啡 / 轻食区',type:'咖啡 / 三明治 / 甜点',priceKRW:'7,000–15,000 KRW',priceRMB:'约 35–75 RMB',solo:'适合',tourist:'适合',feature:'咖啡店密度高、适合歇脚',why:'逛圣水时更适合坐下休息，不适合硬找便宜大餐',mapsQuery:'성수 카페',menus:[{name:'拿铁 / 美式',krw:'约 5,500–7,000 KRW',rmb:'约 25–32 RMB',note:'最常见价格带'},{name:'三明治 / 贝果',krw:'约 6,500–9,500 KRW',rmb:'约 30–44 RMB',note:'轻食最稳'},{name:'甜点 / 蛋糕',krw:'约 7,500–12,000 KRW',rmb:'约 35–56 RMB',note:'适合坐下休息'}]},
+    {name:'圣水饭卷 / 简餐',type:'饭卷 / 拌饭 / 汤饭',priceKRW:'6,000–10,000 KRW',priceRMB:'约 30–50 RMB',solo:'适合',tourist:'适合',feature:'简单、稳、吃完继续逛',why:'如果只是顺路去圣水，简餐最省时',mapsQuery:'성수 김밥',menus:[{name:'金枪鱼饭卷',krw:'约 5,000–6,000 KRW',rmb:'约 23–28 RMB',note:'最稳'},{name:'拌饭 / 汤饭',krw:'约 7,000–9,000 KRW',rmb:'约 32–42 RMB',note:'想吃热饭时选'},{name:'拉面 / 小汤面',krw:'约 4,500–6,500 KRW',rmb:'约 21–30 RMB',note:'预算最低'}]}
+  ]},
+  {area:'东大门',vibe:'夜里好逛，但不是最省钱的吃饭区',spots:[
+    {name:'东大门饭卷 / 汤饭简餐',type:'饭卷 / 汤饭',priceKRW:'6,000–10,000 KRW',priceRMB:'约 30–50 RMB',solo:'适合',tourist:'适合',feature:'快、稳、能坐下',why:'逛街前后都能顶一顿',mapsQuery:'동대문 김밥',menus:[{name:'紫菜饭卷',krw:'约 4,500–5,500 KRW',rmb:'约 21–25 RMB',note:'最便宜'},{name:'汤饭 / 大酱汤配饭',krw:'约 7,000–9,000 KRW',rmb:'约 32–42 RMB',note:'夜里更舒服'},{name:'拌饭',krw:'约 8,000–10,000 KRW',rmb:'约 37–46 RMB',note:'逛街前后都行'}]},
+    {name:'东大门炸鸡 / 夜宵',type:'炸鸡 / 夜宵',priceKRW:'18,000–28,000 KRW',priceRMB:'约 90–140 RMB',solo:'一般',tourist:'适合多人',feature:'夜里热闹，但一个人不一定最划算',why:'如果不是多人，不建议把这块当主饭点',mapsQuery:'동대문 치킨',menus:[{name:'半只炸鸡',krw:'约 12,000–15,000 KRW',rmb:'约 56–69 RMB',note:'一个人勉强可点'},{name:'整只炸鸡',krw:'约 19,000–24,000 KRW',rmb:'约 88–111 RMB',note:'两人以上更值'},{name:'炸鸡 + 啤酒',krw:'约 24,000–30,000 KRW',rmb:'约 111–139 RMB',note:'夜宵感强但不省钱'}]}
+  ]},
+  {area:'江南 / 高速巴士客运站',vibe:'逛 GOTO 时顺路吃最合理',spots:[
+    {name:'Express Bus Terminal Food Court',type:'简餐 / 快餐 / 面饭',priceKRW:'7,000–12,000 KRW',priceRMB:'约 35–60 RMB',solo:'适合',tourist:'很适合',feature:'离 GOTO 近、快、少走路',why:'Day 4 中午最稳，不用额外绕路',mapsQuery:'고속터미널 푸드코트',menus:[{name:'盖饭 / 咖喱饭',krw:'约 8,000–10,000 KRW',rmb:'约 37–46 RMB',note:'最常见主食'},{name:'面 / 乌冬',krw:'约 7,000–9,000 KRW',rmb:'约 32–42 RMB',note:'出餐快'},{name:'小吃 / 饺子',krw:'约 4,000–6,000 KRW',rmb:'约 19–28 RMB',note:'只补一点时最方便'}]},
+    {name:'新世界百货周边简餐',type:'百货餐饮 / 盖饭 / 面食',priceKRW:'9,000–16,000 KRW',priceRMB:'约 45–80 RMB',solo:'适合',tourist:'适合',feature:'环境更舒服，但比食堂贵一点',why:'想坐得舒服一点时再考虑',mapsQuery:'신세계백화점 강남 식당',menus:[{name:'牛肉盖饭 / 定食',krw:'约 11,000–14,000 KRW',rmb:'约 51–65 RMB',note:'坐得舒服一点'},{name:'面食 / 乌冬',krw:'约 9,000–12,000 KRW',rmb:'约 42–56 RMB',note:'稳妥选项'},{name:'咖啡 / 甜点',krw:'约 6,000–9,000 KRW',rmb:'约 28–42 RMB',note:'逛累了再坐'}]}
+  ]}
+];
+const ticketCards=[
+  {name:'景福宫',price:'约 3,000 KRW / 约 15 RMB',worth:'高',free:false,stay:'60–90 分钟',tags:['第一次去','拍照','白天'],note:'经典必去，门票低，性价比高',mapsQuery:'경복궁'},
+  {name:'北村韩屋村',price:'免费',worth:'中高',free:true,stay:'30–40 分钟',tags:['顺路','拍照','轻量'],note:'顺路看最合理，不建议久留打扰居民',mapsQuery:'북촌한옥마을'},
+  {name:'清溪川',price:'免费',worth:'高',free:true,stay:'20–40 分钟',tags:['免费','晚上也行','收口'],note:'最适合和广藏市场串起来',mapsQuery:'청계천'},
+  {name:'N 首尔塔观景台',price:'约 21,000–26,000 KRW / 约 105–130 RMB',worth:'中',free:false,stay:'40–70 分钟',tags:['拍照','夜景','情侣'],note:'观景台不算便宜，预算紧就只去山脚或缆车周边',mapsQuery:'N서울타워'},
+  {name:'南山缆车',price:'往返约 15,000 KRW / 约 75 RMB',worth:'中',free:false,stay:'20–40 分钟',tags:['轻体验','上山','拍照'],note:'如果只想轻量体验南山，这个比硬爬舒服',mapsQuery:'남산케이블카'},
+  {name:'盘浦汉江公园',price:'免费',worth:'高',free:true,stay:'60–120 分钟',tags:['免费','晚上','散步'],note:'Day 4 傍晚最适合，免费但体验好',mapsQuery:'반포한강공원'},
+  {name:'COEX Aquarium',price:'约 32,000–35,000 KRW / 约 150–170 RMB',worth:'中',free:false,stay:'90–120 分钟',tags:['室内','下雨备选','收费'],note:'如果天气差才更值得考虑，不是穷游优先项',mapsQuery:'코엑스 아쿠아리움'}
+];
+const budgetCards=[
+  {tier:'低配',rmb:'约 2800–4200 RMB / 5天',krw:'约 604,000–907,000 KRW',parts:[['住宿','900–1400'],['餐饮','450–700'],['交通','150–250'],['门票','50–150'],['购物 / 代购','900–1300'],['备用金','300–400']],note:'吃饭以 20–50 RMB、免费景点优先、购物控制在刚需线。'},
+  {tier:'正常',rmb:'约 4200–6500 RMB / 5天',krw:'约 907,000–1,404,000 KRW',parts:[['住宿','1400–2200'],['餐饮','700–1100'],['交通','200–320'],['门票','150–350'],['购物 / 代购','1300–2200'],['备用金','450–600']],note:'最适合你现在这版路线：药妆、MLB、雅诗兰黛、鞋代购都能留余地。'},
+  {tier:'稍舒服',rmb:'约 6500–9800 RMB / 5天',krw:'约 1,404,000–2,117,000 KRW',parts:[['住宿','2200–3200'],['餐饮','1100–1700'],['交通','250–400'],['门票','350–700'],['购物 / 代购','2200–3300'],['备用金','600–900']],note:'吃饭和门票都更松，但不代表每样都更划算。'}
+];
+const paymentTips=[
+  {title:'交通',items:['N6002 夜巴先用韩元现金最稳。','市区地铁 / 公交优先 Climate Card 或 T-money / WOWPASS 交通功能。','打车只在太晚、太累、Google Maps 显示换乘太折腾时考虑。']},
+  {title:'支付',items:['大店 / 百货 / Olive Young 先试 Visa。','Visa 不顺时再切 WOWPASS / 支付宝。','传统市场、小店、储物柜、夜巴默认准备现金。']},
+  {title:'汇率',items:['这版预算按 1 RMB ≈ 216 KRW 估算，仅供参考。','汇率会波动，页面里所有 KRW / RMB 都只当参考区间。','不要为了“看起来便宜”把大额购物全压到最后一天。']}
+];
+const savingTips=[
+  'Day 3 明洞药妆只买主清单，不把大牌护肤、香水和小物全混进去。',
+  '爸爸 MLB 先帽子再 T 恤，最容易控制预算和尺码风险。',
+  '妈妈雅诗兰黛优先免税 / 百货专柜，不在街边小店碰高端护肤。',
+  '鞋代购先看尺码和箱子体积，再看利润，不然最容易翻车。',
+  'GOTO Mall 先逛一圈再买，比第一家就下单更省钱。',
+  '最后一天只补缺项，不开新购物线，是最有效的省钱方式。'
+];
+const shopping=[
+  {
+    "kind": "爸爸 / MLB 服饰",
+    "zone": "弘大 / 明洞",
+    "budget": "300–900 RMB",
+    "name": "MLB 弘大店 / 明洞中央店",
+    "where": "弘大优先，明洞备选",
+    "fit": "爸爸线主目标",
+    "channel": "官方门店 / 商场店",
+    "storeHint": "先逛 MLB 弘大店，不够再补明洞店",
+    "carryLevel": "帽子最好带，上衣中等，大件最难带",
+    "newbieLevel": "指定需求友好",
+    "resaleFit": "利润一般 / 更适合帮爸爸带",
+    "priceKRW": "49,000–150,000 KRW",
+    "priceRMB": "约 227–695 RMB",
+    "domesticRMB": "国内参考：约 320–980 RMB",
+    "spreadNote": "帽子差价更稳，厚卫衣差价没想象中大",
+    "kr": "帽子 49,000–61,000 KRW｜T 恤 66,000–89,000 KRW",
+    "cn": "国内代购通常更贵",
+    "gap": "胜在现场试尺码、看队标和直接退税",
+    "priority": "高",
+    "bestFor": "爸爸想要 MLB 衣服时直接冲这条线",
+    "buyWhen": "Day 5 弘大补漏优先",
+    "avoid": "不要先买厚外套和太重卫衣",
+    "tip": "先帽子，再 T 恤，最后才看卫衣。",
+    "whyMeaningful": "MLB 是爸爸指定需求，优先级高于普通弘大小物。",
+    "giftFor": "爸爸",
+    "giftBudget": "300–900 RMB",
+    "notFor": "不适合完全不确定尺码和穿衣习惯的人"
+  },
+  {
+    "kind": "妈妈 / 雅诗兰黛护肤",
+    "zone": "明洞免税 / 百货",
+    "budget": "1000–3000 RMB",
+    "name": "乐天免税店明洞本店 / 雅诗兰黛",
+    "where": "明洞 / 乙支路入口",
+    "fit": "妈妈线主目标",
+    "channel": "免税店 / 百货专柜",
+    "storeHint": "先免税看活动，再去百货对质地和套装",
+    "carryLevel": "中等，礼盒别买太大",
+    "newbieLevel": "明确需求更稳",
+    "resaleFit": "更适合送人 / 不适合盲带",
+    "priceKRW": "34,000–220,000 KRW",
+    "priceRMB": "约 157–1,019 RMB",
+    "domesticRMB": "国内参考：约 220–1,460 RMB",
+    "spreadNote": "小棕瓶和套装差价更明显，大面霜先比活动",
+    "kr": "小棕瓶 20ml 约 34,000 KRW｜正装 / 套装约 127,000–200,000 KRW+",
+    "cn": "国内专柜通常更贵",
+    "gap": "套装和免税价更有优势",
+    "priority": "高",
+    "bestFor": "妈妈想要雅诗兰黛护肤时",
+    "buyWhen": "Day 3 明洞药妆主线后顺路",
+    "avoid": "不要在街边小店买高端护肤",
+    "tip": "先看小棕瓶、眼霜、面霜礼盒。",
+    "whyMeaningful": "妈妈线应优先走免税 / 百货专柜，安全性和礼物感都更高。",
+    "giftFor": "妈妈 / 女性长辈",
+    "giftBudget": "1000–3000 RMB",
+    "notFor": "不适合完全不确定护肤需求的人"
+  },
+  {
+    "kind": "代购 / 鞋",
+    "zone": "弘大 / 明洞",
+    "budget": "500–1800 RMB",
+    "name": "Musinsa Kicks 弘大 / ABC-MART GRAND STAGE 明洞中央店",
+    "where": "弘大优先，明洞备选",
+    "fit": "鞋代购主目标",
+    "channel": "品牌集合店 / 鞋店",
+    "storeHint": "弘大优先看 Musinsa Kicks，明洞只做备选",
+    "carryLevel": "鞋盒占空间，带 1–2 双就差不多",
+    "newbieLevel": "中等难度",
+    "resaleFit": "价格透明 / 先看码再说",
+    "priceKRW": "79,000–219,000 KRW",
+    "priceRMB": "约 366–1,014 RMB",
+    "domesticRMB": "国内参考：约 499–1,499 RMB",
+    "spreadNote": "常规热门款最稳，联名波动最大",
+    "kr": "基础鞋 79,000–129,000 KRW｜热门跑鞋 139,000–219,000 KRW",
+    "cn": "国内代购利润空间更高",
+    "gap": "现场试码和挑配色更直接",
+    "priority": "高",
+    "bestFor": "代购明确要鞋时",
+    "buyWhen": "Day 5 弘大优先",
+    "avoid": "不要先碰太极限的限量鞋",
+    "tip": "先看常规热门款，再决定要不要上更贵的联名。",
+    "whyMeaningful": "鞋代购最怕尺码和箱子体积翻车，先看店和码再说。",
+    "giftFor": "代购 / 帮人带鞋",
+    "giftBudget": "500–1800 RMB",
+    "notFor": "不适合完全不清楚鞋码的人"
+  },
+  {
+    "kind": "护肤 / 防晒",
+    "zone": "明洞 / Olive Young",
+    "budget": "500–2000 档",
+    "name": "Dr.G Green Mild Up Sun+ 50ml",
+    "where": "Olive Young",
+    "fit": "最稳回购线",
+    "channel": "Olive Young 药妆",
+    "storeHint": "优先明洞大店，看到 1+1 或套装再拿",
+    "carryLevel": "最好带",
+    "newbieLevel": "新手友好",
+    "resaleFit": "好带 / 差价稳定 / 适合补单",
+    "priceKRW": "约 13,000–19,000 KRW",
+    "priceRMB": "约 60–90 RMB",
+    "domesticRMB": "国内参考：约 129–169 RMB",
+    "spreadNote": "活动价时最值，不活动就别囤太多",
+    "kr": "60–90 RMB",
+    "cn": "129–169 RMB",
+    "gap": "价差约 40–80",
+    "priority": "最高",
+    "bestFor": "日常防晒，轻、小、回购率高",
+    "buyWhen": "只看 SALE / 1+1 / 套装",
+    "avoid": "别在无活动正价时一口气买太多",
+    "tip": "第一梯队，小体积、需求广、最好带。"
+  },
+  {
+    "kind": "护肤 / 防晒替代",
+    "zone": "明洞 / Olive Young",
+    "budget": "500–1000 档",
+    "name": "Beauty of Joseon Relief Sun",
+    "where": "Olive Young / 药妆店",
+    "fit": "Dr.G 没货替代",
+    "kr": "看活动",
+    "cn": "国内同款常有溢价",
+    "gap": "活动价更有优势",
+    "priority": "中高",
+    "bestFor": "防晒替代项，适合想多试一支的人",
+    "buyWhen": "Dr.G 缺货或活动更好时",
+    "avoid": "别和 Dr.G 同时囤太多防晒",
+    "tip": "作为替代项很稳，但不是第一优先。"
+  },
+  {
+    "kind": "护肤 / 精华",
+    "zone": "明洞 / Olive Young",
+    "budget": "500–2000 档",
+    "name": "Torriden Dive-In Serum 50ml",
+    "where": "Olive Young",
+    "fit": "补水稳定线",
+    "channel": "Olive Young 药妆",
+    "storeHint": "有组合装再买，单瓶差价没那么惊艳",
+    "carryLevel": "液体中等，数量别太多",
+    "newbieLevel": "新手友好",
+    "resaleFit": "自用和送人更稳 / 代购利润一般",
+    "priceKRW": "约 16,000–23,000 KRW",
+    "priceRMB": "约 75–105 RMB",
+    "domesticRMB": "国内参考：约 109–159 RMB",
+    "spreadNote": "差价稳定，但不是暴利项",
+    "kr": "75–105 RMB",
+    "cn": "109–159 RMB",
+    "gap": "价差约 20–50",
+    "priority": "高",
+    "bestFor": "补水精华，自用和送人都稳",
+    "buyWhen": "有组合装或打折再拿",
+    "avoid": "别把精华当大货囤太多",
+    "tip": "回购率高，适合自己用也适合送人。"
+  },
+  {
+    "kind": "护肤 / 爽肤水",
+    "zone": "明洞 / Olive Young",
+    "budget": "1000–2000 档",
+    "name": "Round Lab 1025 Dokdo Toner 200ml",
+    "where": "Olive Young",
+    "fit": "自用稳",
+    "kr": "55–75 RMB",
+    "cn": "89–119 RMB",
+    "gap": "价差约 20–45",
+    "priority": "中高",
+    "bestFor": "爽肤水，自用稳定",
+    "buyWhen": "看到 SALE / 套装再买",
+    "avoid": "液体占行李，最多 1–2 瓶",
+    "tip": "液体占行李，最多带 1–2 瓶。"
+  },
+  {
+    "kind": "面膜 / 棉片",
+    "zone": "明洞 / Olive Young",
+    "budget": "500–2000 档",
+    "name": "Mediheal Madecassoside Blemish Pad 100+100",
+    "where": "Olive Young",
+    "fit": "活动期很值",
+    "kr": "95–135 RMB",
+    "cn": "129–189 RMB",
+    "gap": "价差约 30–60",
+    "priority": "高",
+    "bestFor": "棉片，活动期性价比高",
+    "buyWhen": "有 100+100 / 1+1 再买",
+    "avoid": "体积偏大，不要买太多盒",
+    "tip": "棉片比普通面膜更稳，但体积偏大。"
+  },
+  {
+    "kind": "面膜 / 贴片",
+    "zone": "明洞 / Olive Young",
+    "budget": "500–1000 档",
+    "name": "Abib 面膜 / 棉片",
+    "where": "Olive Young",
+    "fit": "少量带回",
+    "kr": "看活动",
+    "cn": "国内同款通常更贵",
+    "gap": "靠套装拉差价",
+    "priority": "中高",
+    "bestFor": "少量带回，自用或送朋友",
+    "buyWhen": "只买活动装",
+    "avoid": "别囤大箱普通面膜",
+    "tip": "优先买功能明确的面膜，不囤普通片装大箱。"
+  },
+  {
+    "kind": "面膜 / 体验型",
+    "zone": "明洞 / Olive Young",
+    "budget": "500–1000 档",
+    "name": "Biodance 面膜",
+    "where": "Olive Young",
+    "fit": "体验型面膜",
+    "kr": "看活动",
+    "cn": "国内同款通常更贵",
+    "gap": "活动价更明显",
+    "priority": "中",
+    "bestFor": "想试韩国热门面膜的人",
+    "buyWhen": "少量活动装",
+    "avoid": "别当主力囤货",
+    "tip": "少量买，别当主力囤货。"
+  },
+  {
+    "kind": "痘痘贴 / 小物",
+    "zone": "明洞 / Olive Young",
+    "budget": "500 档",
+    "name": "Olive Young Care Plus Scar Cover 102pcs",
+    "where": "Olive Young",
+    "fit": "最轻最好塞",
+    "kr": "28–40 RMB",
+    "cn": "45–69 RMB",
+    "gap": "价差约 10–25",
+    "priority": "最高",
+    "bestFor": "痘痘贴，小、轻、好带",
+    "buyWhen": "看到 SALE 可多拿几盒",
+    "avoid": "别夸张到像批发",
+    "tip": "最适合顺手多带几盒，像自用也像送人。"
+  },
+  {
+    "kind": "唇妆 / 平价",
+    "zone": "明洞 / Olive Young",
+    "budget": "500–1000 档",
+    "name": "rom&nd Juicy Lasting Tint",
+    "where": "Olive Young / 明洞彩妆店",
+    "fit": "适合自己用",
+    "kr": "看活动",
+    "cn": "国内旗舰常常更贵",
+    "gap": "活动价差更明显",
+    "priority": "高",
+    "bestFor": "平价唇釉，适合自己用",
+    "buyWhen": "试色后买 1–2 支",
+    "avoid": "不要按代带思路囤一排色号",
+    "tip": "买 1–2 支最实用。"
+  },
+  {
+    "kind": "唇妆 / 玻璃唇",
+    "zone": "明洞 / Olive Young",
+    "budget": "500–1000 档",
+    "name": "rom&nd Glasting Water Tint",
+    "where": "Olive Young / 明洞彩妆店",
+    "fit": "玻璃唇妆感",
+    "kr": "看活动",
+    "cn": "国内旗舰常常更贵",
+    "gap": "活动价差更明显",
+    "priority": "中高",
+    "bestFor": "喜欢清透水光唇妆的人",
+    "buyWhen": "试色后买",
+    "avoid": "不盲选色号",
+    "tip": "适合想买一支有韩系感觉的唇釉。"
+  },
+  {
+    "kind": "唇妆 / 韩系大牌",
+    "zone": "明洞 / 百货 / 免税",
+    "budget": "1000–3000 档",
+    "name": "3CE 唇釉 / 唇泥",
+    "where": "明洞 / 免税店 / 百货",
+    "fit": "更有韩系彩妆感",
+    "kr": "看柜台与免税",
+    "cn": "国内专柜通常更贵",
+    "gap": "免税和券后更有优势",
+    "priority": "中高",
+    "bestFor": "想买更精致彩妆的人",
+    "buyWhen": "明洞 / 免税 / 百货看价格",
+    "avoid": "不要第一次就重仓底妆和彩妆",
+    "tip": "先试色，不要第一次就重仓底妆。"
+  },
+  {
+    "kind": "唇妆 / 韩系大牌",
+    "zone": "明洞 / 免税 / 百货",
+    "budget": "1000–3000 档",
+    "name": "HERA Sensual Nude Gloss / Tint",
+    "where": "百货 / 免税",
+    "fit": "韩系大牌唇部线",
+    "kr": "看柜台与免税",
+    "cn": "国内专柜通常更贵",
+    "gap": "免税时更有优势",
+    "priority": "中",
+    "bestFor": "想买 HERA 氛围感唇妆的人",
+    "buyWhen": "免税或柜台价格合适时",
+    "avoid": "不确定色号就不要买多",
+    "tip": "只买明确喜欢的 1 支。"
+  },
+  {
+    "kind": "底妆 / 谨慎买",
+    "zone": "明洞 / 百货 / 免税",
+    "budget": "1000–3000 档",
+    "name": "HERA / Laneige 气垫",
+    "where": "百货 / 免税",
+    "fit": "试色后再买",
+    "kr": "看柜台与免税",
+    "cn": "国内专柜通常更贵",
+    "gap": "免税时更有优势",
+    "priority": "谨慎",
+    "bestFor": "明确知道自己色号的人",
+    "buyWhen": "只在试色准确后买",
+    "avoid": "色号容易错，不盲买",
+    "tip": "底妆色号风险高，只建议你自己明确色号后买。"
+  },
+  {
+    "kind": "香氛 / 韩系",
+    "zone": "圣水 / 明洞 / 旗舰店",
+    "budget": "1000–2000 档",
+    "name": "Tamburins 手霜 / 香膏 / 小容量香氛",
+    "where": "圣水 / 明洞 / 百货 / 旗舰店",
+    "fit": "体验感强",
+    "kr": "看线下套装和礼盒",
+    "cn": "国内代购价通常偏高",
+    "gap": "小容量和礼盒更划算",
+    "priority": "高",
+    "bestFor": "韩国线下体验感强，送人也好看",
+    "buyWhen": "闻完再买小容量和礼盒",
+    "avoid": "别盲买大瓶",
+    "tip": "优先手霜、香膏、旅行装，小容量最稳。"
+  },
+  {
+    "kind": "香氛 / 韩系",
+    "zone": "圣水 / 明洞 / 旗舰店",
+    "budget": "1000–2000 档",
+    "name": "Nonfiction Hand Cream / Eau de Parfum 小容量",
+    "where": "圣水 / 明洞 / 百货 / 旗舰店",
+    "fit": "简洁高级感",
+    "kr": "看线下套装和礼盒",
+    "cn": "国内代购价通常偏高",
+    "gap": "小容量和礼盒更划算",
+    "priority": "中高",
+    "bestFor": "喜欢简洁香氛的人",
+    "buyWhen": "先闻味道再买",
+    "avoid": "不盲买味道",
+    "tip": "适合小容量香氛和护手霜。"
+  },
+  {
+    "kind": "香氛 / 伴手礼",
+    "zone": "圣水 / 安国 / 旗舰店",
+    "budget": "500–1000 档",
+    "name": "Granhand Sachet / 小香水",
+    "where": "Granhand 门店",
+    "fit": "轻便伴手礼",
+    "kr": "看门店",
+    "cn": "国内代购价通常偏高",
+    "gap": "小件更稳",
+    "priority": "中高",
+    "bestFor": "轻便、适合伴手礼",
+    "buyWhen": "小件优先",
+    "avoid": "别买太多玻璃瓶",
+    "tip": "香包和小件更适合带回。"
+  },
+  {
+    "kind": "香水 / 免税大牌",
+    "zone": "线上免税",
+    "budget": "2000–3000 档",
+    "name": "Jo Malone / Diptyque / Byredo / Maison Margiela Replica",
+    "where": "乐天 / 新罗 / 新世界线上免税",
+    "fit": "免税比价后买",
+    "kr": "看券后和提货价",
+    "cn": "国内专柜更贵",
+    "gap": "叠券后差距大",
+    "priority": "只适合比价后买",
+    "bestFor": "明确知道自己喜欢的香水",
+    "buyWhen": "线上免税先比价，机场提货",
+    "avoid": "不在线下临时冲动买大瓶",
+    "tip": "大牌香水优先线上免税。"
+  },
+  {
+    "kind": "护肤 / 免税大牌",
+    "zone": "线上免税",
+    "budget": "2000–3000 档",
+    "name": "Sulwhasoo / HERA / Laneige 大牌护肤线",
+    "where": "乐天 / 新罗 / 新世界线上免税",
+    "fit": "先锁定明确需求",
+    "kr": "看券后和套装",
+    "cn": "国内专柜通常更贵",
+    "gap": "套装和券后更强",
+    "priority": "中高",
+    "bestFor": "明确自用或送人的大牌护肤",
+    "buyWhen": "先线上比价、领券、再下单",
+    "avoid": "不为了免税二字乱买套装",
+    "tip": "有明确自己要用或送谁再买，不然容易买贵。"
+  },
+  {
+    "kind": "衣服 / 基础款",
+    "zone": "Musinsa Standard",
+    "budget": "1000–3000 档",
+    "name": "Musinsa Standard T 恤 / 卫衣 / 衬衫 / 牛仔",
+    "where": "Musinsa Standard",
+    "fit": "稳定不翻车",
+    "kr": "看门店活动",
+    "cn": "国内同类基础款未必更便宜",
+    "gap": "主要赢在版型和质感",
+    "priority": "高",
+    "bestFor": "更稳的基础款",
+    "buyWhen": "只买 1–2 件真会穿回国的",
+    "avoid": "别因为品牌氛围多买",
+    "tip": "买真正会穿回国的主力单品。"
+  },
+  {
+    "kind": "衣服 / 平价线",
+    "zone": "GOTO Mall",
+    "budget": "500–2000 档",
+    "name": "GOTO Mall 基础款上衣 / 薄外套 / 裙子 / 袜子 / 小包",
+    "where": "GOTO Mall",
+    "fit": "预算优先",
+    "kr": "现金友好",
+    "cn": "同类款国内也有",
+    "gap": "胜在便宜和顺手买",
+    "priority": "高",
+    "bestFor": "平价穿搭和小配饰",
+    "buyWhen": "先逛一圈再回头买",
+    "avoid": "不买难带大件和像大牌的冲动款",
+    "tip": "先设预算，只买轻、薄、真会穿的。"
+  },
+  {
+    "kind": "鞋包 / 配饰",
+    "zone": "GOTO Mall / 弘大",
+    "budget": "500–1000 档",
+    "name": "帽子 / 袜子 / 发饰 / 小包",
+    "where": "GOTO Mall / 弘大选物店",
+    "fit": "顺手补位最值",
+    "kr": "看店铺和现金价",
+    "cn": "同类小物国内也有",
+    "gap": "胜在现场好挑",
+    "priority": "中高",
+    "bestFor": "轻小好带",
+    "buyWhen": "少量买",
+    "avoid": "不买占箱子的大摆件",
+    "tip": "只买轻小件。"
+  },
+  {
+    "kind": "朋友礼物 / 痘痘贴",
+    "zone": "明洞 / Olive Young",
+    "budget": "500 档",
+    "name": "Olive Young Care Plus Scar Cover 102pcs",
+    "where": "Olive Young",
+    "fit": "最不挑人",
+    "kr": "28–40 RMB",
+    "cn": "45–69 RMB",
+    "gap": "价差约 10–25",
+    "priority": "最高",
+    "bestFor": "朋友容易用上，小、轻、好分",
+    "buyWhen": "看到 SALE 可多拿几盒",
+    "avoid": "别买太多到像批发",
+    "tip": "给朋友带最稳的小物之一。"
+  },
+  {
+    "kind": "朋友礼物 / 护手霜",
+    "zone": "Olive Young / Tamburins / Nonfiction",
+    "budget": "500–1000 档",
+    "name": "Tamburins / Nonfiction 护手霜小支",
+    "where": "旗舰店 / Olive Young / 百货",
+    "fit": "好看不踩雷",
+    "kr": "看套装",
+    "cn": "国内代购价偏高",
+    "gap": "小支礼盒更划算",
+    "priority": "高",
+    "bestFor": "送朋友有质感，不太挑肤质",
+    "buyWhen": "看到小容量礼盒或套装再买",
+    "avoid": "别盲买味道太重的香型",
+    "tip": "适合送关系比较好的朋友。"
+  },
+  {
+    "kind": "朋友礼物 / 唇膏",
+    "zone": "Olive Young / Daiso",
+    "budget": "500 档",
+    "name": "润唇膏 / 护唇小物",
+    "where": "Olive Young / Daiso",
+    "fit": "低风险送人",
+    "kr": "看组合装",
+    "cn": "国内零售价更高",
+    "gap": "组合装更省",
+    "priority": "高",
+    "bestFor": "朋友、同学、同事都能用",
+    "buyWhen": "回程前补齐",
+    "avoid": "别买太多有强颜色的款",
+    "tip": "不确定对方喜好时，润唇比口红安全。"
+  },
+  {
+    "kind": "朋友礼物 / 面膜",
+    "zone": "Olive Young",
+    "budget": "500–1000 档",
+    "name": "Mediheal / Abib / Biodance 少量面膜",
+    "where": "Olive Young",
+    "fit": "适合分给多人",
+    "kr": "看 1+1 / 套装",
+    "cn": "国内同款常有溢价",
+    "gap": "活动装更有优势",
+    "priority": "中高",
+    "bestFor": "朋友多、想分着送",
+    "buyWhen": "只买活动装",
+    "avoid": "别囤普通片装大箱",
+    "tip": "少量不同款比一大箱同款更好分。"
+  },
+  {
+    "kind": "朋友礼物 / 香氛小件",
+    "zone": "Granhand / Tamburins / Nonfiction",
+    "budget": "500–1000 档",
+    "name": "Granhand Sachet / 香膏 / 小香",
+    "where": "品牌门店",
+    "fit": "轻便有记忆点",
+    "kr": "看门店",
+    "cn": "国内代购价偏高",
+    "gap": "小件最稳",
+    "priority": "中高",
+    "bestFor": "送喜欢香味的朋友",
+    "buyWhen": "现场闻完再买",
+    "avoid": "别替别人盲买大瓶香水",
+    "tip": "香包、小香、香膏比大瓶香水更适合带人情。"
+  },
+  {
+    "kind": "朋友礼物 / 文具小物",
+    "zone": "Daiso / Artbox / 弘大选物店",
+    "budget": "500 档",
+    "name": "Daiso / Artbox 小文具和收纳",
+    "where": "Daiso / Artbox",
+    "fit": "便宜好分",
+    "kr": "低价",
+    "cn": "国内不一定好买同款",
+    "gap": "胜在有趣和便宜",
+    "priority": "中高",
+    "bestFor": "同学朋友、多人分发",
+    "buyWhen": "最后补漏时买",
+    "avoid": "别买易碎和大件摆件",
+    "tip": "小贴纸、笔、收纳袋、钥匙扣都比摆件实用。"
+  },
+  {
+    "kind": "朋友礼物 / 零食",
+    "zone": "便利店 / 超市",
+    "budget": "500 档",
+    "name": "海苔 / 蜂蜜黄油杏仁 / 咖啡包",
+    "where": "便利店 / 超市",
+    "fit": "最好分",
+    "kr": "看组合装",
+    "cn": "国内代购价更高",
+    "gap": "量小但稳定",
+    "priority": "高",
+    "bestFor": "回国后分给很多人",
+    "buyWhen": "回程前买，避免压坏",
+    "avoid": "别买大箱、玻璃瓶、肉类制品",
+    "tip": "轻、小、不会坏，是最稳伴手礼。"
+  },
+  {
+    "kind": "朋友礼物 / 口红谨慎",
+    "zone": "Olive Young / 明洞",
+    "budget": "500–1000 档",
+    "name": "rom&nd 唇釉 1–2 支",
+    "where": "Olive Young / 明洞彩妆店",
+    "fit": "只送熟人",
+    "kr": "看活动",
+    "cn": "国内旗舰常常更贵",
+    "gap": "活动价差更明显",
+    "priority": "中",
+    "bestFor": "知道对方喜欢色号时",
+    "buyWhen": "明确色号后再买",
+    "avoid": "不要给不熟的人盲买色号",
+    "tip": "口红比护手霜更挑人，少量买就好。"
+  },
+  {
+    "kind": "保健 / 功能线",
+    "zone": "明洞 / Olive Young",
+    "budget": "1000–2000 档",
+    "name": "Lactofit Gold / 小型营养线",
+    "where": "Olive Young",
+    "fit": "只少量带",
+    "kr": "45–65 RMB",
+    "cn": "79–109 RMB",
+    "gap": "价差约 25–45",
+    "priority": "中",
+    "bestFor": "明确自用或家人要的情况",
+    "buyWhen": "确认数量后少量买",
+    "avoid": "别带太多，避免像保健品囤货",
+    "tip": "有差价，但别带太多。"
+  },
+  {
+    "kind": "妈妈礼物 / 护肤",
+    "zone": "百货 / 免税 / Olive Young",
+    "budget": "1000–3000 档",
+    "name": "Sulwhasoo / HERA / Laneige 小套装 / 旅行装",
+    "where": "百货 / 免税 / Olive Young",
+    "fit": "看起来体面",
+    "kr": "看套装和券后",
+    "cn": "国内专柜通常更贵",
+    "gap": "套装更容易显贵",
+    "priority": "中高",
+    "bestFor": "送妈妈更稳，护肤礼物感强",
+    "buyWhen": "只买小套装 / 旅行装",
+    "avoid": "别直接买大正装，也别赌强功效线",
+    "tip": "预算高一点时最适合送妈妈。",
+    "whyMeaningful": "小套装比正装更像专门挑过的礼盒，拿出来体面，但不会太重太贵。",
+    "giftFor": "妈妈 / 阿姨 / 女性长辈",
+    "giftBudget": "150–400 RMB / 人",
+    "notFor": "不适合完全不确定肤质、只想要极简礼物的人"
+  },
+  {
+    "kind": "妈妈礼物 / 小贵感",
+    "zone": "Tamburins / Nonfiction / Olive Young",
+    "budget": "500–1000 档",
+    "name": "护手霜 / 润唇膏 / 身体护理小件",
+    "where": "Tamburins / Nonfiction / Olive Young",
+    "fit": "便宜但看着贵",
+    "kr": "看礼盒和小支装",
+    "cn": "国内代购价偏高",
+    "gap": "小礼盒更划算",
+    "priority": "高",
+    "bestFor": "给妈妈带，拿出来体面又不太贵",
+    "buyWhen": "看到小礼盒或组合装时买",
+    "avoid": "不盲买味道太浓的款，也不主推大瓶香氛",
+    "tip": "护手霜、润唇和身体护理小件比香水更稳。",
+    "whyMeaningful": "这类礼物像认真挑过，但不会像香水那样挑味道，长辈接受度更高。",
+    "giftFor": "妈妈 / 女性长辈 / 熟人",
+    "giftBudget": "80–180 RMB / 人",
+    "notFor": "不适合很怕香味、只收完全无香礼物的人"
+  },
+  {
+    "kind": "爸爸礼物 / 日常",
+    "zone": "便利店 / 超市 / Olive Young Men",
+    "budget": "500–1000 档",
+    "name": "海苔 / 杏仁 / 咖啡包 / 男士洗护小套装",
+    "where": "便利店 / 超市 / Olive Young",
+    "fit": "低风险实用",
+    "kr": "看组合装",
+    "cn": "国内同类组合通常更贵",
+    "gap": "胜在轻小、真能用",
+    "priority": "高",
+    "bestFor": "送爸爸最稳，不挑尺码、不挑肤质、不挑味道",
+    "buyWhen": "回程前补齐，组合装优先",
+    "avoid": "不送大瓶香水和太文艺的香包香膏",
+    "tip": "最稳的是“吃的 + 男士洗护小件”组合，比香氛更贴近爸爸真实使用习惯。",
+    "whyMeaningful": "看起来像你想过他平时会不会真用，不是为了“看起来高级”硬塞奇怪礼物。",
+    "giftFor": "爸爸 / 男性长辈",
+    "giftBudget": "60–180 RMB / 人",
+    "notFor": "不适合想送正式大礼或完全不知道对方生活习惯的人"
+  },
+  {
+    "kind": "爸爸礼物 / 衣物",
+    "zone": "Musinsa Standard / GOTO Mall",
+    "budget": "500–1500 档",
+    "name": "基础袜子 / 棒球帽 / 简单 T 恤",
+    "where": "Musinsa Standard / GOTO Mall",
+    "fit": "只在明确风格时买",
+    "kr": "看门店活动",
+    "cn": "国内同类款也有",
+    "gap": "更多是顺手带但实用",
+    "priority": "中高",
+    "bestFor": "知道对方穿衣习惯时可带",
+    "buyWhen": "确认尺码和颜色后再买",
+    "avoid": "不赌厚外套、鞋、正式衬衫和成熟风难控单品",
+    "tip": "送爸爸的衣物只适合低风险基础款，小件比大件稳得多。",
+    "whyMeaningful": "只有在你明确知道他平时会戴帽子、穿基础 T 恤时，这类礼物才会显得贴心而不是尴尬。",
+    "giftFor": "爸爸 / 叔叔 / 男性长辈",
+    "giftBudget": "80–250 RMB / 人",
+    "notFor": "不适合不确定尺码和风格的人"
+  },
+  {
+    "kind": "女朋友礼物 / 香氛",
+    "zone": "Tamburins / Nonfiction / Granhand",
+    "budget": "500–2000 档",
+    "name": "Tamburins / Nonfiction 护手霜礼盒 / Granhand 小香",
+    "where": "旗舰店 / 百货 / 圣水 / 明洞",
+    "fit": "最像贵价礼物",
+    "kr": "看礼盒和小容量",
+    "cn": "国内代购价偏高",
+    "gap": "小礼盒更像贵价礼物",
+    "priority": "最高",
+    "bestFor": "送女朋友最稳，体面又不至于太夸张",
+    "buyWhen": "闻过味道后买小礼盒或小香",
+    "avoid": "不盲买大瓶香水，也不盲买她可能完全不喜欢的冷门香调",
+    "tip": "便宜但看着贵的第一梯队。",
+    "whyMeaningful": "香氛小件最像认真挑过，也最有“专门从韩国带回来”的感觉。",
+    "giftFor": "女朋友 / 关系很好的女生",
+    "giftBudget": "150–400 RMB / 人",
+    "notFor": "不适合完全不知道对方能不能接受香味的人"
+  },
+  {
+    "kind": "女朋友礼物 / 彩妆",
+    "zone": "明洞 / Olive Young / 百货",
+    "budget": "500–1500 档",
+    "name": "rom&nd / 3CE / HERA 唇妆 1–2 件",
+    "where": "Olive Young / 明洞 / 百货",
+    "fit": "明确色号才买",
+    "kr": "看活动和柜台",
+    "cn": "国内专柜通常更贵",
+    "gap": "活动价差明显",
+    "priority": "高",
+    "bestFor": "知道对方色号或偏好时",
+    "buyWhen": "试色后再买",
+    "avoid": "不盲送底妆和太挑色号的口红",
+    "tip": "彩妆礼物感强，但一定要保守买。",
+    "whyMeaningful": "唇妆最容易做出礼物感，但前提是你真的知道她的色号偏好。",
+    "giftFor": "女朋友 / 很熟的女生朋友",
+    "giftBudget": "80–220 RMB / 人",
+    "notFor": "不适合不清楚色号、唇妆风格的人"
+  },
+  {
+    "kind": "女朋友礼物 / 衣物小件",
+    "zone": "Musinsa Standard / 弘大 / GOTO Mall",
+    "budget": "500–1500 档",
+    "name": "小包 / 发饰 / 帽子 / 基础开衫",
+    "where": "Musinsa Standard / 弘大选物店 / GOTO Mall",
+    "fit": "确定风格再买",
+    "kr": "看门店",
+    "cn": "同类款国内也有",
+    "gap": "胜在韩系氛围",
+    "priority": "中高",
+    "bestFor": "知道她平时风格时",
+    "buyWhen": "只买轻小件或宽松基础款",
+    "avoid": "不赌尺码很死的衣服",
+    "tip": "配饰比衣服本体更适合当礼物。",
+    "whyMeaningful": "小配饰比大件衣服风险低，却更容易显得你是按她风格挑的。",
+    "giftFor": "女朋友 / 熟悉穿搭风格的人",
+    "giftBudget": "80–250 RMB / 人",
+    "notFor": "不适合完全不懂对方风格的人"
+  },
+  {
+    "kind": "弟弟礼物 / 穿搭",
+    "zone": "Musinsa Standard / 弘大 / GOTO Mall",
+    "budget": "500–1500 档",
+    "name": "Musinsa Standard 基础 T 恤 / 帽子 / 袜子",
+    "where": "Musinsa Standard / 弘大 / GOTO Mall",
+    "fit": "韩系穿搭感最稳",
+    "kr": "看门店活动",
+    "cn": "国内同类基础款也有",
+    "gap": "胜在版型和韩国氛围",
+    "priority": "高",
+    "bestFor": "送弟弟，想让礼物更像“专门给他挑的”",
+    "buyWhen": "确认他平时穿搭和尺码后再买",
+    "avoid": "不赌厚外套、鞋和夸张印花",
+    "tip": "弟弟礼物优先帽子、袜子、基础 T 恤，风险比卫衣和鞋低。",
+    "whyMeaningful": "比纯零食更像针对他本人挑过，带一点韩系穿搭感最自然。",
+    "giftFor": "弟弟 / 男性晚辈",
+    "giftBudget": "100–260 RMB / 人",
+    "notFor": "不适合完全不清楚尺码和风格的人"
+  },
+  {
+    "kind": "弟弟礼物 / 零食小件",
+    "zone": "便利店 / 超市 / Daiso",
+    "budget": "500 档",
+    "name": "联名零食 / 海苔 / 杏仁 / 小包 / 袜子",
+    "where": "便利店 / 超市 / Daiso",
+    "fit": "轻小好带",
+    "kr": "低价组合",
+    "cn": "国内代购更贵",
+    "gap": "胜在轻便好分",
+    "priority": "中高",
+    "bestFor": "送弟弟，预算不高也能像认真带回来的",
+    "buyWhen": "回程前最后补齐",
+    "avoid": "不买太甜太重的大箱零食",
+    "tip": "零食加小件组合，比只买吃的更像礼物。",
+    "whyMeaningful": "“零食 + 小物”会比单买一堆吃的更有完成度，也更像专门给他带的。",
+    "giftFor": "弟弟 / 表弟 / 男性晚辈",
+    "giftBudget": "40–120 RMB / 人",
+    "notFor": "不适合想送正式礼物的时候"
+  },
+  {
+    "kind": "家人 / 通用礼物",
+    "zone": "便利店 / Daiso / Olive Young",
+    "budget": "500–1000 档",
+    "name": "海苔 / 杏仁 / 咖啡包 / 护手霜 / 润唇膏 / 旅行装洗护",
+    "where": "便利店 / Daiso / Olive Young",
+    "fit": "最好分也最不出错",
+    "kr": "看组合装",
+    "cn": "代购价更高",
+    "gap": "量小但稳定",
+    "priority": "高",
+    "bestFor": "给家人分一圈最省心",
+    "buyWhen": "回程前最后补齐",
+    "avoid": "不买大箱、玻璃、肉类制品，也不建议重手保健品",
+    "tip": "全家都能分，实用性最高。",
+    "whyMeaningful": "这种组合最像你专门为全家拆分准备过，不只是随手买一袋零食。",
+    "giftFor": "家人 / 亲戚",
+    "giftBudget": "40–120 RMB / 人",
+    "notFor": "不适合想送单人高存在感礼物的时候"
+  },
+  {
+    "kind": "老师同学 / 小礼物",
+    "zone": "Daiso / Artbox / Olive Young",
+    "budget": "500 档",
+    "name": "小文具 / 咖啡包 / 痘痘贴 / 护手霜小支 / 零食小包",
+    "where": "Daiso / Artbox / Olive Young",
+    "fit": "便宜好分",
+    "kr": "低价",
+    "cn": "同类小物国内也有",
+    "gap": "胜在有趣和轻便",
+    "priority": "高",
+    "bestFor": "同学、老师、熟人小礼物",
+    "buyWhen": "最后补漏时买",
+    "avoid": "不买大件摆件和玻璃易碎，也不送太私人化香氛",
+    "tip": "轻小便宜，最适合多人分发。",
+    "whyMeaningful": "小而精的礼物最自然，不会有价格压力，也不会显得敷衍。",
+    "giftFor": "老师 / 同学 / 熟人",
+    "giftBudget": "20–80 RMB / 人",
+    "notFor": "不适合关系很近、需要更有存在感礼物的人"
+  }
+]
+function shoppingDayProgress(day){const total=day.tasks.length;const done=day.tasks.filter((task)=>isDone(task.id)).length;return {done,total};}
+function renderShoppingDayCard(day){const {done,total}=shoppingDayProgress(day);return `<article class="card"><div class="day-top"><div><span class="chip">${day.day}</span><h3>按天采购单</h3></div><span class="status ${done===total?'ok':''}">执行清单：${done}/${total}</span></div><p class="mini">${day.note}</p><ul class="checklist">${day.tasks.map((task)=>renderTask(task.id,task.text)).join('')}</ul></article>`;}
+function renderShoppingDays(){const visible=shoppingDays.filter((day)=>matchesQuery([day.day,day.note,...day.tasks.map((t)=>t.text)])); if(!visible.length) return '<div class="empty">采购单没有匹配结果。</div>'; return visible.map(renderShoppingDayCard).join('');}
+function renderPriorityCard(label,title,copy,actions=''){return `<article class="priority-card"><span class="chip">${label}</span><h3>${title}</h3><p class="mini priority-copy">${copy}</p>${actions?`<div class="priority-actions">${actions}</div>`:''}</article>`;}
+function getFocusDayIndex(){const idx=Number.isInteger(uiState.focusDayIndex)?uiState.focusDayIndex:getTodayIndex(); return idx>=0&&idx<days.length?idx:getTodayIndex();}
+function setFocusDay(index){uiState.focusDayIndex=index; saveUi(); render();}
+function renderPriorityBoard(){
+  const focusIndex=getFocusDayIndex();
+  const day=days[focusIndex];
+  const stay=getCurrentHotelStay(focusIndex);
+  const move=day.focusMove;
+  const eat=day.focusEat;
+  const shop=day.focusShop;
+  const hardStop=day.hardStop;
+  const tabs=`<div class="day-switcher"><div class="day-switcher-row">${days.map((item,index)=>`<button class="day-switch ${index===focusIndex?'active':''}" data-focus-day="${index}">${item.day.replace('｜',' ')}</button>`).join('')}</div><div class="priority-overview"><div class="priority-meta-row"><span class="chip">${day.day}</span><span class="pill bad">${day.dayBudget}</span><span class="pill warn">${stay.name}</span></div><p class="mini"><strong>今晚住宿：</strong>${stay.area}｜${stay.constraints}</p><div class="priority-tags">${(day.dayTags||[]).map((tag)=>`<span class="pill">${tag}</span>`).join('')}</div><p class="mini">${day.note}</p></div></div>`;
+  const moveCard=renderPriorityCard('今天最该去哪里', move.title, `${move.budget}｜${move.why}`, `<a class="link" href="${createGoogleMapsSearchUrl(move.primaryMapsQuery)}" target="_blank" rel="noopener noreferrer">主推荐</a>${move.backupMapsQuery?`<a class="link" href="${createGoogleMapsSearchUrl(move.backupMapsQuery)}" target="_blank" rel="noopener noreferrer">备选</a>`:''}`);
+  const eatCard=renderPriorityCard('今天先吃什么', eat.title, `${eat.budget}｜${eat.why}`, `<a class="link" href="${createGoogleMapsSearchUrl(eat.primaryMapsQuery)}" target="_blank" rel="noopener noreferrer">主推荐</a>${eat.backupMapsQuery?`<a class="link" href="${createGoogleMapsSearchUrl(eat.backupMapsQuery)}" target="_blank" rel="noopener noreferrer">备选</a>`:''}`);
+  const shopCard=renderPriorityCard('今天重点买什么', shop.title, `${shop.budget}｜${shop.why}`, `<a class="link" href="${createGoogleMapsSearchUrl(shop.primaryMapsQuery)}" target="_blank" rel="noopener noreferrer">主推荐</a>${shop.backupMapsQuery?`<a class="link" href="${createGoogleMapsSearchUrl(shop.backupMapsQuery)}" target="_blank" rel="noopener noreferrer">备选</a>`:''}`);
+  const stopCard=renderPriorityCard('今天最晚别错过', `${hardStop.time} ${hardStop.title}`, hardStop.note, `<a class="link" href="${createHotelMapsUrl(stay)}" target="_blank" rel="noopener noreferrer">今晚酒店</a><button data-copy-stay="${stay.key}">复制地址</button>`);
+  return `<section class="section" id="priority"><div class="section-head priority-head"><span class="eyebrow">Priority</span><h2>现在最该看什么</h2><p>可以直接切 Day 1–Day 5；先看今天吃什么、买什么、最该去哪里，再决定要不要继续看整段路线。</p></div><div class="priority-summary">${tabs}<div class="priority-grid">${eatCard}${shopCard}${moveCard}${stopCard}</div></div></section>`;}
+function renderTodayFocus(){const day=days[getTodayIndex()]; const shoppingIdx=getTodayShoppingIndex(); const shoppingDay=shoppingIdx>=0 ? shoppingDays[shoppingIdx] : null; const shoppingBlock=shoppingDay ? renderShoppingDayCard(shoppingDay) : `<article class="card"><div class="day-top"><div><span class="chip">${day.day}</span><h3>今天采购单</h3></div><span class="status warn">未激活</span></div><p class="mini">今天先把路线和节奏走顺，采购单从 4/26 才开始真正执行。</p></article>`; return `<section class="section today-focus-shell" id="today-focus"><div class="section-head"><span class="eyebrow">Today Focus</span><h2>今天先看这个</h2><p>自动把今天路线和今天采购单放一起，出门时不用在整页里翻半天。</p></div><div class="days">${renderDayCard(day)}${shoppingBlock}</div></section>`;}
+function renderPriceRows(rows){if(!rows?.length) return ''; return `<div class="price-list">${rows.map((row)=>`<div class="price-line"><div class="price-main"><strong>${row.label}</strong><span>${row.fit || ''}</span></div><div class="price-values"><span class="price-badge">${row.krw}</span><span class="price-badge soft">${row.rmb}</span>${row.domestic?`<span class="price-badge muted">${row.domestic}</span>`:''}${row.resale?`<span class="price-badge muted">${row.resale}</span>`:''}</div></div>`).join('')}</div>`;}
+function renderMenuRows(menus){if(!menus?.length) return ''; return `<div class="menu-list">${menus.map((menu)=>`<div class="price-line"><div class="price-main"><strong>${menu.name}</strong><span class="menu-note">${menu.note || ''}</span></div><div class="price-values"><span class="price-badge">${menu.krw}</span><span class="price-badge soft">${menu.rmb}</span></div></div>`).join('')}</div>`;}
+function getShoppingDetail(item){return {...item,...(shoppingDetailCatalog[item.name]||{})};}
+function getShoppingMeta(base){
+  const item={...getShoppingDetail(base)};
+  const kind=item.kind || '';
+  const useCases=(item.useCase ? String(item.useCase).split(',').map((part)=>part.trim()).filter(Boolean) : []);
+  if(!useCases.length){
+    if(/礼物|家人|老师同学|朋友/.test(kind)) useCases.push('gift');
+    if(kind.includes('代购 / 鞋') || /代购/.test(kind) || /价格透明/.test(item.resaleFit || '')) useCases.push('resale');
+    if(/护肤|防晒|精华|爽肤水/.test(kind)) useCases.push('self');
+    if(/面膜|痘痘贴/.test(kind)) useCases.push('self','gift','resale');
+    if(/唇妆/.test(kind)) useCases.push('self','gift');
+    if(/底妆/.test(kind)) useCases.push('self');
+    if(/香氛|香水/.test(kind)) useCases.push('gift','self');
+    if(/MLB|衣服|鞋包|配饰/.test(kind) && !useCases.length) useCases.push('self','gift');
+    if(!useCases.length) useCases.push('self');
+  }
+  item.useCases=Array.from(new Set(useCases));
+  item.useCase=item.useCases.join(',');
+  item.selfUseValue=item.selfUseValue || (/底妆/.test(kind) ? '自己明确色号后最值' : /护肤|防晒|精华|爽肤水/.test(kind) ? '回购高、自己最好判断' : /香氛/.test(kind) ? '先闻再买更稳' : '自己明确需求时更值');
+  item.giftSafety=item.giftSafety || (/礼物/.test(kind) || item.giftFor ? '送人最稳' : /底妆/.test(kind) ? '送人风险高' : /唇妆/.test(kind) ? '知道色号才适合送人' : /香氛/.test(kind) ? '先闻味道再送人' : '明确需求再送');
+  item.resaleSafety=item.resaleSafety || (item.useCases.includes('resale') ? (/底妆|香水/.test(kind) ? '不建议代购' : /价格透明/.test(item.resaleFit || '') ? '适合代购补单' : /液体|鞋盒/.test(item.carryLevel || '') ? '可代购，但要控体积' : '适合代购补单') : '不建议代购');
+  item.usePriority=item.usePriority || (item.useCases.includes('resale') && !item.useCases.includes('gift') ? '代购更合适' : item.useCases.includes('gift') && !item.useCases.includes('resale') ? '送人最稳' : item.useCases.includes('self') && !item.useCases.includes('gift') ? '自己用最值' : item.useCases.includes('gift') ? '送人 / 自己用都行' : '自己用最值');
+  return item;
+}
+function getUseCaseSection(){const key=uiState.shoppingUseCase || 'self'; return shoppingUseCaseSections.find((item)=>item.key===key) || shoppingUseCaseSections[0];}
+function renderUseCasePills(item){
+  const labels=[];
+  if(item.useCases.includes('self')) labels.push('自己用最值');
+  if(item.useCases.includes('gift')) labels.push('送人最稳');
+  if(item.useCases.includes('resale')) labels.push(item.resaleSafety === '不建议代购' ? '不建议代购' : '代购更合适');
+  return `<div class="tag-row">${labels.map((label)=>`<span class="pill">${label}</span>`).join('')}</div>`;
+}
+function renderShoppingByUseCase(){
+  const current=getUseCaseSection();
+  const visible=shopping.filter((base)=>{const item=getShoppingMeta(base); return item.useCases.includes(current.key) && matchesQuery([current.title,current.summary,current.best,current.avoid,current.budget,current.channel,item.kind,item.brand,item.model,item.spec,item.usePriority,item.giftSafety,item.resaleSafety,item.selfUseValue]);});
+  if(!visible.length) return '<div class="empty">按用途挑没有匹配结果。</div>';
+  const tabs=`<div class="usecase-tabs">${shoppingUseCaseSections.map((section)=>`<button class="usecase-tab ${section.key===current.key?'active':''}" data-usecase="${section.key}">${section.title}</button>`).join('')}</div>`;
+  const summary=`<div class="usecase-summary-grid"><article class="card usecase-summary-card"><span class="chip">${current.title}</span><h3>${current.summary}</h3><p class="mini">更适合：${current.best}</p><p class="mini">别乱买：${current.avoid}</p></article><article class="card usecase-summary-card"><span class="chip">预算 / 渠道</span><h3>${current.budget}</h3><p class="mini">优先渠道：${current.channel}</p><p class="mini">价格仍按参考区间写，先按用途决定，再看品牌和型号。</p></article></div>`;
+  const cards=visible.map((base)=>{const item=getShoppingMeta(base); const legacyKR=/KRW/i.test(item.kr||''); const legacyRmbInKr=/RMB/i.test(item.kr||''); const priceKRW=item.priceKRW || (legacyKR ? item.kr : '到店看活动'); const priceRMB=item.priceRMB || (legacyRmbInKr ? item.kr : item.budget || '按预算控制'); const domesticRMB=item.domesticRMB || item.cn || '国内价格看平台波动'; const spreadNote=item.spreadNote || item.gap || ''; const storeHint=item.storeHint || item.where; const channel=item.channel || item.where; const carryLevel=item.carryLevel || '看体积'; const newbieLevel=item.newbieLevel || '按熟悉度决定'; const resaleFit=item.resaleFit || '更适合自用或送人'; return `<article class="shop-card"><div class="shop-price"><span class="pill warn">${item.kind}</span><span class="pill bad">${item.budget}</span></div><h3>${item.brand || item.name}</h3><p class="mini"><strong>型号：</strong>${item.model || item.name}${item.spec?`｜${item.spec}`:''}</p>${renderUseCasePills(item)}<div class="shop-price"><span class="pill">${storeHint}</span><span class="pill warn">适合：${item.bestFor}</span></div><div class="tag-row"><span class="pill">${channel}</span><span class="pill warn">${carryLevel}</span><span class="pill bad">${newbieLevel}</span><span class="pill">${resaleFit}</span></div><div class="price-list"><div class="price-line"><div class="price-main"><strong>韩国参考</strong><span>${priceKRW}</span></div><div class="price-values"><span class="price-badge soft">${priceRMB}</span></div></div><div class="price-line"><div class="price-main"><strong>国内参考</strong><span>${domesticRMB}</span></div><div class="price-values">${spreadNote?`<span class="price-badge muted">${spreadNote}</span>`:''}</div></div></div><div class="tag-row"><span class="pill">${item.selfUseValue}</span><span class="pill warn">${item.giftSafety}</span><span class="pill bad">${item.resaleSafety}</span></div><p class="mini">什么时候买：${item.buyWhen}</p><p class="mini">避坑：${item.avoid}</p></article>`;}).join('');
+  return `${tabs}${summary}<div class="shop-grid">${cards}</div>`;
+}
+function renderShoppingOverview(){const visible=shoppingOverviewGroups.filter((item)=>matchesQuery([item.title,item.focus,item.bestStore,item.area,item.priceKRW,item.priceRMB,item.resaleFit,item.carryLevel,item.buyOrder,item.featuredModels])); if(!visible.length) return '<div class="empty">购物总览没有匹配结果。</div>'; return visible.map((item)=>`<article class="shop-card"><div class="shop-price"><span class="pill warn">${item.title}</span><span class="pill bad">${item.area}</span></div><h3>${item.bestStore}</h3><p class="mini">主看：${item.focus}</p>${item.featuredModels?`<p class="mini"><strong>代表型号：</strong>${item.featuredModels}</p>`:''}<div class="price-list"><div class="price-line"><div class="price-main"><strong>价格区间</strong><span>按 1 RMB ≈ 216 KRW 粗略估算</span></div><div class="price-values"><span class="price-badge">${item.priceKRW}</span><span class="price-badge soft">${item.priceRMB}</span></div></div></div><div class="tag-row"><span class="pill">${item.resaleFit}</span><span class="pill warn">${item.carryLevel}</span></div><div class="detail-section"><h4>购买顺序</h4><ul class="detail-list"><li>${item.buyOrder}</li></ul></div><div class="route-actions"><a class="link" href="${createGoogleMapsSearchUrl(item.mapsQuery)}" target="_blank" rel="noopener noreferrer">Google Maps</a></div></article>`).join('');}
+function renderTargetShopping(){const visible=targetShoppingSections.filter((item)=>matchesQuery([item.title,item.area,item.primaryStore,item.backupStore,item.primaryLocation,item.backupLocation,item.feature,item.signature,...(item.priceRows||[]).flatMap((row)=>[row.label,row.krw,row.rmb,row.domestic,row.fit,row.resale]),...(item.buyOrder||[]),...(item.riskNotes||[]),...(item.tags||[]),item.note])); if(!visible.length) return '<div class="empty">指定购物区没有匹配结果。</div>'; return visible.map((item)=>`<article class="shop-card"><div class="shop-price"><span class="pill warn">${item.title}</span><span class="pill bad">${item.area}</span></div><h3>${item.primaryStore}</h3><p class="mini">定位：${item.primaryLocation}</p><p class="mini">卖什么：${item.feature}</p><p class="mini">特色：${item.signature}</p><div class="tag-row">${(item.tags||[]).map((tag)=>`<span class="pill">${tag}</span>`).join('')}</div>${renderPriceRows(item.priceRows)}<div class="detail-section"><h4>购买顺序</h4><ul class="detail-list">${(item.buyOrder||[]).map((line)=>`<li>${line}</li>`).join('')}</ul></div><div class="detail-section"><h4>代购提醒</h4><ul class="detail-list">${(item.riskNotes||[]).map((line)=>`<li>${line}</li>`).join('')}</ul></div><p class="mini">备注：${item.note}</p><div class="route-actions"><a class="link" href="${createGoogleMapsSearchUrl(item.primaryQuery)}" target="_blank" rel="noopener noreferrer">主推荐定位</a><a class="link" href="${createGoogleMapsSearchUrl(item.backupQuery)}" target="_blank" rel="noopener noreferrer">备选定位</a></div></article>`).join('');}
+function renderProcurementChannels(){return procurementChannels.map((item)=>`<article class="shop-card"><div class="shop-price"><span class="pill warn">${item.title}</span><span class="pill bad">${item.where}</span></div><p class="mini">适合买：${item.best}</p><p class="mini">更便宜的买法：${item.cheap}</p><p class="mini">避坑：${item.avoid}</p><div class="shop-price"><span class="pill">${item.newbie}</span><span class="pill warn">${item.profit}</span></div><p class="mini">${item.summary}</p></article>`).join('');}
+function renderFoodZones(){const visibleZones=foodZones.map((zone)=>({...zone,spots:zone.spots.filter((spot)=>matchesQuery([zone.area,zone.vibe,spot.name,spot.type,spot.priceKRW,spot.priceRMB,spot.feature,spot.why,spot.mapsQuery,...(spot.menus||[]).flatMap((menu)=>[menu.name,menu.krw,menu.rmb,menu.note])]))})).filter((zone)=>zone.spots.length); if(!visibleZones.length) return '<div class="empty">美食区没有匹配结果。</div>'; return visibleZones.map((zone)=>`<article class="card"><div class="day-top"><div><span class="chip">${zone.area}</span><h3>${zone.vibe}</h3></div><span class="status warn">${zone.spots.length} 家</span></div><div class="food-grid">${zone.spots.map((spot)=>`<article class="shop-card"><div class="shop-price"><span class="pill warn">${spot.type}</span><span class="pill bad">${spot.priceRMB}</span></div><h3>${spot.name}</h3><p class="mini">店均价：${spot.priceKRW}｜${spot.priceRMB}</p><p class="mini">特色：${spot.feature}</p><p class="mini">为什么适合：${spot.why}</p><div class="shop-price"><span class="pill">${spot.solo === '适合' ? '一个人友好' : '多人更适合'}</span><span class="pill warn">${spot.tourist === '适合' || spot.tourist === '很适合' ? '游客友好' : '本地向'}</span></div>${renderMenuRows(spot.menus)}<div class="route-actions"><a class="link" href="${createGoogleMapsSearchUrl(spot.mapsQuery)}" target="_blank" rel="noopener noreferrer">Google Maps</a></div></article>`).join('')}</div></article>`).join('');}
+function renderTickets(){return ticketCards.map((item)=>`<article class="shop-card"><div class="shop-price"><span class="pill warn">${item.name}</span><span class="pill ${item.free ? 'ticket-badge' : 'ticket-badge warn'}">${item.free ? '免费 / 低价' : '收费参考'}</span></div><p class="mini">价格：${item.price}</p><p class="mini">建议停留：${item.stay}</p><p class="mini">值不值：${item.worth}</p><div class="tag-row">${item.tags.map((tag)=>`<span class="pill">${tag}</span>`).join('')}</div><p class="mini">${item.note}</p><div class="route-actions"><a class="link" href="${createGoogleMapsSearchUrl(item.mapsQuery)}" target="_blank" rel="noopener noreferrer">Google Maps</a></div></article>`).join('');}
+function renderBudgetCards(){return budgetCards.map((item,idx)=>`<article class="shop-card"><div class="shop-price"><span class="pill warn">${item.tier}</span><span class="pill bad">${item.rmb}</span></div><p class="mini">韩元参考：${item.krw}</p><div class="budget-bar"><div class="budget-fill" style="width:${[48,72,100][idx]}%"></div></div><div class="budget-list">${item.parts.map((part)=>`<div class="budget-row"><strong>${part[0]}</strong><span class="mini">${part[1]} RMB</span></div>`).join('')}</div><p class="mini">说明：${item.note}</p></article>`).join('');}
+function renderPaymentGuide(){return paymentTips.map((item)=>`<article class="shop-card"><div class="shop-price"><span class="pill warn">${item.title}</span></div><ul class="tip-list">${item.items.map((line)=>`<li>${line}</li>`).join('')}</ul></article>`).join('');}
+function renderSavingTips(){return savingTips.map((line)=>`<article class="shop-card"><p class="mini">${line}</p></article>`).join('');}
+function renderTopShopping(){const top=shopping.filter((item)=>['最高','高'].includes(item.priority)).slice(0,8);return top.map((base)=>{const item=getShoppingMeta(base);return `<article class="shop-card"><div class="shop-price"><span class="pill">${item.priority}</span><span class="pill warn">${item.kind}</span><span class="pill bad">${item.budget}</span></div><h3>${item.brand || item.name}</h3><p class="mini"><strong>型号：</strong>${item.model || item.name}${item.spec?`｜${item.spec}`:''}</p>${renderUseCasePills(item)}<p class="mini">适合：${item.bestFor}</p>${item.giftFor?`<p class="mini">适合送：${item.giftFor}</p>`:''}${item.whyMeaningful?`<p class="mini">为什么更有意义：${item.whyMeaningful}</p>`:''}<div class="price-values"><span class="price-badge">${item.priceKRW || '到店看活动'}</span><span class="price-badge soft">${item.priceRMB || item.budget}</span></div><p class="mini">怎么买：${item.buyWhen}</p><p class="mini">避坑：${item.avoid}</p></article>`;}).join('');}
+function renderShopping(){const visible=shopping.filter((base)=>{const item=getShoppingMeta(base);return matchesQuery([item.kind,item.zone,item.budget,item.name,item.where,item.fit,item.priority,item.bestFor,item.buyWhen,item.avoid,item.kr,item.cn,item.gap,item.tip,item.whyMeaningful,item.giftFor,item.giftBudget,item.notFor,item.priceKRW,item.priceRMB,item.domesticRMB,item.spreadNote,item.channel,item.storeHint,item.carryLevel,item.newbieLevel,item.resaleFit,item.brand,item.model,item.spec,item.useCase,item.usePriority,item.giftSafety,item.resaleSafety,item.selfUseValue]);}); if(!visible.length) return '<div class="empty">购物区没有匹配结果。</div>'; return visible.map((base)=>{const item=getShoppingMeta(base);const legacyKR=/KRW/i.test(item.kr||'');const legacyRmbInKr=/RMB/i.test(item.kr||'');const priceKRW=item.priceKRW || (legacyKR ? item.kr : '到店看活动');const priceRMB=item.priceRMB || (legacyRmbInKr ? item.kr : item.budget || '按预算控制');const domesticRMB=item.domesticRMB || item.cn || '国内价格看平台波动';const spreadNote=item.spreadNote || item.gap || '';const storeHint=item.storeHint || item.where;const channel=item.channel || item.where;const carryLevel=item.carryLevel || '看体积';const newbieLevel=item.newbieLevel || '按熟悉度决定';const resaleFit=item.resaleFit || '更适合自用或送人';return `<article class="shop-card"><div class="shop-price"><span class="pill">${item.kind}</span><span class="pill warn">${item.priority}</span><span class="pill bad">${item.budget}</span></div><h3>${item.brand || item.name}</h3><p class="mini"><strong>型号：</strong>${item.model || item.name}${item.spec?`｜${item.spec}`:''}</p>${renderUseCasePills(item)}<div class="shop-price"><span class="pill">${storeHint}</span><span class="pill warn">适合：${item.bestFor}</span></div>${item.giftFor?`<div class="shop-price"><span class="pill warn">适合送：${item.giftFor}</span>${item.giftBudget?`<span class="pill">预算：${item.giftBudget}</span>`:''}</div>`:''}<div class="tag-row"><span class="pill">${channel}</span><span class="pill warn">${carryLevel}</span><span class="pill bad">${newbieLevel}</span><span class="pill">${resaleFit}</span></div><div class="price-list"><div class="price-line"><div class="price-main"><strong>韩国参考</strong><span>${priceKRW}</span></div><div class="price-values"><span class="price-badge soft">${priceRMB}</span></div></div><div class="price-line"><div class="price-main"><strong>国内参考</strong><span>${domesticRMB}</span></div><div class="price-values">${spreadNote?`<span class="price-badge muted">${spreadNote}</span>`:''}</div></div></div><div class="tag-row"><span class="pill">${item.selfUseValue}</span><span class="pill warn">${item.giftSafety}</span><span class="pill bad">${item.resaleSafety}</span></div>${item.whyMeaningful?`<p class="mini">为什么更有意义：${item.whyMeaningful}</p>`:''}<p class="mini">什么时候买：${item.buyWhen}</p><p class="mini">避坑：${item.avoid}</p>${item.notFor?`<p class="mini">不建议送：${item.notFor}</p>`:''}<p class="mini">${item.tip}</p></article>`;}).join('');}
+function loadTasks(){try{return JSON.parse(localStorage.getItem(TASK_KEY)||'{}')}catch{return {}}}
+function loadUi(){try{return JSON.parse(localStorage.getItem(UI_KEY)||'{"search":"","todayOnly":false,"focusDayIndex":null,"shoppingUseCase":"self"}')}catch{return {search:'',todayOnly:false,focusDayIndex:null,shoppingUseCase:'self'}}}
+let tasksState=loadTasks();
+let uiState=loadUi();
+function saveTasks(){localStorage.setItem(TASK_KEY,JSON.stringify(tasksState));}
+function saveUi(){localStorage.setItem(UI_KEY,JSON.stringify(uiState));}
+function isDone(id){return Boolean(tasksState[id]);}
+function normalize(text){return String(text).toLowerCase();}
+function matchesQuery(parts){const q=normalize(uiState.search.trim());if(!q) return true;return parts.some((part)=>normalize(part).includes(q));}
+function getTodayIndex(){const now=new Date();const pad=(value)=>String(value).padStart(2,'0');const today=`${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}`;const idx=tripDates.indexOf(today);if(idx!==-1) return idx; if(today < tripDates[0]) return 0; return tripDates.length-1;}
+function getTodayShoppingIndex(){const idx=getTodayIndex(); return idx>=2 ? idx-2 : -1;}
+function copyText(text){if(navigator.clipboard?.writeText){navigator.clipboard.writeText(text).then(()=>alert('已复制，可直接粘贴到地图或备忘录。')).catch(()=>prompt('请手动复制下面内容：',text));return;}prompt('请手动复制下面内容：',text);}
+function getCurrentHotelStay(index = getTodayIndex()){ if(index<=0) return hotelStays[0]; if(index===1) return hotelStays[1]; return hotelStays[2]; }
+function createGoogleMapsSearchUrl(query){ return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(query || ''); }
+function createHotelMapsUrl(stay){ const query=stay?.mapsQuery || stay?.address || ''; return createGoogleMapsSearchUrl(query); }
+function createGoogleMapsDirectionsUrl(fromQuery,toQuery,transportMode='transit'){ return 'https://www.google.com/maps/dir/?api=1&origin=' + encodeURIComponent(fromQuery || '') + '&destination=' + encodeURIComponent(toQuery || '') + '&travelmode=' + encodeURIComponent(transportMode); }
+function inferGoogleTravelMode(transport=''){ if(transport.includes('步行') && !transport.includes('地铁') && !transport.includes('AREX') && !transport.includes('夜巴')) return 'walking'; return 'transit'; }
+function createRouteMapsUrl(block){ if(block.mapsMode==='dir'){ return createGoogleMapsDirectionsUrl(block.mapsQueryFrom || block.from, block.mapsQueryTo || block.to, inferGoogleTravelMode(block.transport)); } const query=block.mapsQueryTo || block.primaryMapsQuery || block.to || ''; return createGoogleMapsSearchUrl(query); }
+function createPlaceButtons(block){
+  const buttons=[];
+  if(block.primaryPlace && block.primaryMapsQuery){
+    buttons.push(`<a class="link" href="${createGoogleMapsSearchUrl(block.primaryMapsQuery)}" target="_blank" rel="noopener noreferrer">主推荐定位</a>`);
+  }
+  if(block.backupPlace && block.backupMapsQuery){
+    buttons.push(`<a class="link" href="${createGoogleMapsSearchUrl(block.backupMapsQuery)}" target="_blank" rel="noopener noreferrer">备选定位</a>`);
+  }
+  return buttons.join('');
+}
+function renderHotelStayCard(stay,label){ return '<article class="card"><div class="day-top"><div><span class="chip">'+label+'</span><h3>'+stay.name+'</h3></div><span class="status warn">'+stay.area+'</span></div><p class="mini">'+stay.stayType+'</p><p class="mini">'+stay.address+'</p><p class="mini">'+stay.checkInOut+'</p><p class="mini">'+stay.constraints+'</p><p class="mini">'+stay.notes+'</p><div class="copy-row"><a class="link" href="'+createHotelMapsUrl(stay)+'" target="_blank" rel="noopener noreferrer">Google Maps</a></div></article>'; }
+function renderHotelStays(){ const labels=['Day 1 住哪里','Day 2 住哪里','Day 3–4 住哪里']; return '<section class="section" id="stays"><div class="section-head"><span class="eyebrow">Hotel Plan</span><h2>这次 3 段住宿怎么住</h2><p>按你已经订好的 3 段住宿排，不再假设全程住弘大。</p></div><div class="days">'+hotelStays.map((stay,index)=>renderHotelStayCard(stay,labels[index])).join('')+'</div></section>'; }
+function sharePage(){const data={title:'韩国旅行清单增强版',text:'手机直接打开就能用的韩国旅行清单',url:location.href};if(navigator.share){navigator.share(data).catch(()=>{});}else{copyText(location.href);}}
+function setSearch(value){uiState.search=value;saveUi();render();}
+function toggleTodayMode(){uiState.todayOnly=!uiState.todayOnly;saveUi();render();}
+function setShoppingUseCase(key){uiState.shoppingUseCase=key;saveUi();render();}
+function renderTask(id,text){const done=isDone(id);return `<li class="task ${done?'done':''}"><label><input type="checkbox" data-check-id="${id}" ${done?'checked':''}><span class="task-text">${text}</span></label></li>`;}
+function renderPhases(){return phases.map((phase)=>{const visibleItems=phase.items.filter((item)=>matchesQuery([phase.title,phase.subtitle,item]));if(!visibleItems.length) return '';const total=visibleItems.length;const done=visibleItems.filter((_,i)=>isDone(`phase-${phase.title}-${phase.items.indexOf(visibleItems[i])}`)).length;return `<article class="card"><div class="phase-top"><div><span class="chip">${phase.title}</span><h3>${phase.subtitle}</h3></div><span class="status ${done===total?'ok':''}">${done}/${total}</span></div><ul class="checklist">${visibleItems.map((item)=>renderTask(`phase-${phase.title}-${phase.items.indexOf(item)}`,item)).join('')}</ul></article>`;}).join('');}
+function renderGuide(){
+  const visible=guideSections.filter((item)=>matchesQuery([item.title,...item.bullets]));
+  if(!visible.length) return '<div class="empty">指南里没有匹配结果。</div>';
+  const intro='<article class="card guide-lead"><span class="eyebrow">Guide Map</span><h3>这页不是只有一屏</h3><p>继续往下还有：住宿 / 每天任务 / 采购单 / 购物。先看今天和住宿，再按天执行。</p></article>';
+  return intro + visible.map((item,index)=>`<details class="guide" ${item.open||index<2?'open':''}><summary><span>${item.title}</span><small>${item.bullets[0]||'展开看细节'}</small></summary><div class="content"><ul>${item.bullets.map((line)=>`<li>${line}</li>`).join('')}</ul></div></details>`).join('');
+}
+function dayProgress(day){const total=day.tasks.length;const done=day.tasks.filter((task)=>isDone(task.id)).length;return {done,total};}
+function getVisibleDays(){let visible=days; if(uiState.todayOnly){visible=[days[getTodayIndex()]];} const q=uiState.search.trim(); if(q){visible=visible.filter((day)=>matchesQuery([day.day,day.goal,day.note,day.dayBudget,...(day.dayTags||[]),...(day.focusEat?Object.values(day.focusEat):[]),...(day.focusShop?Object.values(day.focusShop):[]),...(day.focusMove?Object.values(day.focusMove):[]),...(day.hardStop?Object.values(day.hardStop):[]),...day.times,...day.tasks.map((t)=>t.text),...day.routeBlocks.flatMap((block)=>[block.kind,block.start,block.end,block.title,block.from,block.to,block.transport,block.notes,block.fallback,block.mapsQueryFrom,block.mapsQueryTo,block.primaryPlace,block.primaryMapsQuery,block.backupPlace,block.backupMapsQuery,block.budget,block.whyThisStop]) ]));} return visible;}
+function renderRouteBlock(block){
+  const mapsUrl=createRouteMapsUrl(block);
+  const kindLabel={move:'移动',food:'吃饭',shop:'购物',checkin:'入住',airport:'机场'}[block.kind] || '行程';
+  return `<div class="route-block"><div class="route-top"><span class="route-time">${block.start}–${block.end}</span><span class="pill warn">${block.transport}</span></div><div class="route-meta"><span class="route-chip">${kindLabel}</span>${block.budget?`<span class="route-chip">${block.budget}</span>`:''}</div><h4>${block.title}</h4><p class="mini route-path"><strong>从：</strong>${block.from}</p><p class="mini route-path"><strong>到：</strong>${block.to}</p>${block.primaryPlace?`<div class="route-places"><p class="mini"><strong>主推荐：</strong>${block.primaryPlace}</p>${block.backupPlace?`<p class="mini"><strong>备选：</strong>${block.backupPlace}</p>`:''}</div>`:''}${block.whyThisStop?`<p class="mini route-why"><strong>为什么排这里：</strong>${block.whyThisStop}</p>`:''}<p class="mini">${block.notes}</p>${block.fallback?`<p class="mini route-fallback"><strong>兜底：</strong>${block.fallback}</p>`:''}<div class="route-actions"><a class="link" href="${mapsUrl}" target="_blank" rel="noopener noreferrer">Google Maps</a>${createPlaceButtons(block)}</div></div>`;
+}
+function renderDayCard(day){const {done,total}=dayProgress(day);return `<article class="card"><div class="day-top"><div><span class="chip">${day.day}</span><h3>${day.goal}</h3></div><span class="status ${done===total?'ok':''}">执行清单：${done}/${total}</span></div><div class="time-row">${day.times.map((t)=>`<span class="time-chip">${t}</span>`).join('')}</div><p class="mini">${day.note}</p><div class="route-list">${day.routeBlocks.map(renderRouteBlock).join('')}</div><ul class="checklist">${day.tasks.map((task)=>renderTask(task.id,task.text)).join('')}</ul><div class="copy-row"><button data-mark-day="${day.day}">当天全勾</button><button data-clear-day="${day.day}">清空当天</button></div></article>`;}
+function renderDays(){const visible=getVisibleDays(); if(!visible.length) return '<div class="empty">没有匹配到相关内容，试试搜 “退税” 或 “N6002”。</div>'; return visible.map(renderDayCard).join('');}
+function markDay(dayName,value){const day=days.find((d)=>d.day===dayName); if(!day) return; day.tasks.forEach((task)=>{tasksState[task.id]=value;}); saveTasks(); render();}
+function render(){
+  const totalTasks=[
+    ...phases.flatMap((p)=>p.items.map((_,i)=>`phase-${p.title}-${i}`)),
+    ...days.flatMap((d)=>d.tasks.map((t)=>t.id)),
+    ...shoppingDays.flatMap((d)=>d.tasks.map((t)=>t.id))
+  ];
+  const doneTasks=totalTasks.filter((id)=>isDone(id)).length;
+  const visibleDays=getVisibleDays();
+  const todayLabel=days[getTodayIndex()].day;
+  const tonightStay=getCurrentHotelStay();
+  const quickChips=['今天','住宿','明洞','弘大','药妆','GOTO','Musinsa','退税','礼物','午饭','晚饭','Daiso','Isaac','广藏市场','谷歌地图','MLB','雅诗兰黛','小棕瓶','鞋','代购','自己用','送人','代购更合适'];
+  const searchSection=`<section class="section" id="search-panel"><div class="card search-box"><div class="search-wrap"><input id="search-input" class="ghost-input" type="search" placeholder="搜 明洞 / 午饭 / GOTO / 退税 / 礼物 / Daiso" value="${uiState.search.replace(/"/g,'&quot;')}" /><div class="quick-row">${quickChips.map((chip)=>`<button class="quick-chip" data-quick="${chip}">${chip}</button>`).join('')}</div></div><div class="mode-row"><span class="chip result-chip">当前筛到：${visibleDays.length} 天</span><button id="toggle-today">${uiState.todayOnly ? `关闭今天模式（${todayLabel}）` : '只看今天'}</button><button id="clear-search">清空搜索</button><button id="reset">清空进度</button></div></div></section>`;
+  document.getElementById('app').innerHTML=`
+    <section class="hero card">
+      <div class="hero-head">
+        <div>
+          <span class="eyebrow">首尔 4/24–4/28</span>
+          <h1>韩国旅行清单增强版</h1>
+          <p>先看今天住哪、先做什么、今天吃什么和今天买什么；完整路线和细节攻略都在后面。</p>
+        </div>
+        <span class="hero-badge">Birdsnest → Boro → Lux</span>
+      </div>
+      <div class="hero-meta">
+        <span class="meta-pill">总任务：${doneTasks}/${totalTasks.length}</span>
+        <span class="meta-pill">4/24 深夜到达 T1</span>
+        <span class="meta-pill">4/28 23:40 从仁川起飞</span>
+      </div>
+      <div class="hero-actions">
+        <a class="link" href="./night-arrival-lite.html">🌙 落地夜</a>
+        <button id="share">分享</button>
+      </div>
+      <div class="hero-actions secondary">
+        <button id="copy-hotel">复制今晚酒店地址</button>
+        <button id="copy-airport">复制返程提醒</button>
+      </div>
+    </section>
+    ${renderPriorityBoard()}
+    ${renderTodayFocus()}
+    ${renderHotelStays()}
+    <section class="section" id="days">
+      <div class="section-head">
+        <span class="eyebrow">Daily Plan</span>
+        <h2>完整日程</h2>
+        <p>从这里开始看每天的完整路线、时间块、Google Maps、吃饭和购物顺序。</p>
+      </div>
+      <div class="days">${renderDays()}</div>
+    </section>
+    <section class="section" id="shopping-days">
+      <div class="section-head">
+        <span class="eyebrow">Day Shopping</span>
+        <h2>按天采购单</h2>
+        <p>药妆、衣服、回程补漏分开执行，不和主路线混成一锅。</p>
+      </div>
+      <div class="days">${renderShoppingDays()}</div>
+    </section>
+    <section class="section" id="shopping-overview">
+      <div class="section-head">
+        <span class="eyebrow">Shopping Overview</span>
+        <h2>购物明细总览</h2>
+        <p>先看最关心的线：爸爸 MLB、妈妈雅诗兰黛、鞋代购，再看药妆、护肤、伴手礼和基础服饰。</p>
+      </div>
+      <div class="note price-note">价格可能波动，仅供参考｜按 1 RMB ≈ 216 KRW 粗略估算｜先看需求，再看差价和体积。</div>
+      <div class="shop-grid">${renderShoppingOverview()}</div>
+    </section>
+    <section class="section" id="shopping-usecase">
+      <div class="section-head">
+        <span class="eyebrow">By Use Case</span>
+        <h2>按用途挑：自己用 / 送人 / 代购</h2>
+        <p>先按用途进，再看品牌型号、价格和风险；比从完整购物库里硬翻更快。</p>
+      </div>
+      <div class="note price-note">这块优先整理美妆 / 护肤 / 香氛的阅读顺序：自己用先看回购和差价，送人先看体面和低风险，代购先看透明度和体积。</div>
+      ${renderShoppingByUseCase()}
+    </section>
+    <section class="section" id="targets">
+      <div class="section-head">
+        <span class="eyebrow">Target Shopping</span>
+        <h2>爸爸 / 妈妈 / 鞋代购 分区</h2>
+        <p>这块专门给你解决指定需求：爸爸想要 MLB，妈妈想要雅诗兰黛，代购想要鞋。所有按钮都改成 Google 定位。</p>
+      </div>
+      <div class="note price-note">价格可能波动，仅供参考｜这里重点看双币价格、购买顺序、代购风险和主备店定位。</div>
+      <div class="shop-grid">${renderTargetShopping()}</div>
+    </section>
+    <section class="section" id="procurement-platform">
+      <div class="section-head">
+        <span class="eyebrow">Procurement</span>
+        <h2>韩国代购怎么买最省钱</h2>
+        <p>把代购渠道、便宜买法、利润感和避坑拆开看，不再挤在一段说明里。</p>
+      </div>
+      <div class="platform-grid">${renderProcurementChannels()}</div>
+    </section>
+    <section class="section" id="food-zones">
+      <div class="section-head">
+        <span class="eyebrow">Food</span>
+        <h2>美食与饭店价格</h2>
+        <p>按区域整理平价吃饭点：卖什么、特色、人均大概多少、一个人好不好吃，都直接写清楚。</p>
+      </div>
+      <div class="note price-note">菜单价格按常见单品估算，适合你快速判断贵不贵；点进去可直接跳 Google Maps。</div>
+      <div class="food-grid">${renderFoodZones()}</div>
+    </section>
+    <section class="section" id="tickets">
+      <div class="section-head">
+        <span class="eyebrow">Tickets</span>
+        <h2>景点 / 门票价格</h2>
+        <p>只放第一次去首尔最常见的点，免费和收费一眼分清，价格都按参考区间写。</p>
+      </div>
+      <div class="note price-note">门票和汇率会波动，仅供参考；免费点优先排在高性价比路线里。</div>
+      <div class="ticket-grid">${renderTickets()}</div>
+    </section>
+    <section class="section" id="budget">
+      <div class="section-head">
+        <span class="eyebrow">Budget</span>
+        <h2>5天预算参考</h2>
+        <p>按低配 / 正常 / 稍舒服三档给你看，韩元和人民币都写，价格可能波动，仅供参考。</p>
+      </div>
+      <div class="budget-grid">${renderBudgetCards()}</div>
+    </section>
+    <section class="section" id="money">
+      <div class="section-head">
+        <span class="eyebrow">Money</span>
+        <h2>交通与支付</h2>
+        <p>把交通、支付、汇率提醒单独拎出来，避免埋在攻略里找不到。</p>
+      </div>
+      <div class="platform-grid">${renderPaymentGuide()}</div>
+    </section>
+    <section class="section" id="saving">
+      <div class="section-head">
+        <span class="eyebrow">Save</span>
+        <h2>省钱技巧</h2>
+        <p>都是会直接影响预算和代购翻车率的实用提醒，不写空话。</p>
+      </div>
+      <div class="tips-grid">${renderSavingTips()}</div>
+    </section>
+    <section class="section" id="shopping-top">
+      <div class="section-head">
+        <span class="eyebrow">Top Picks</span>
+        <h2>先买这几样</h2>
+        <p>时间不够就先看这里，都是优先级最高或高的东西。</p>
+      </div>
+      <div class="shop-grid">${renderTopShopping()}</div>
+    </section>
+    ${searchSection}
+    <section class="section" id="guide">
+      <div class="section-head">
+        <span class="eyebrow">Ultimate Guide</span>
+        <h2>细节攻略</h2>
+        <p>这里放支付、交通卡、买什么、送礼和软件问句；不抢前面的主线位置。</p>
+      </div>
+      <div class="guide-grid">${renderGuide() || '<div class="empty">指南里没有匹配结果。</div>'}</div>
+      <div class="card meta-list">
+        <div class="meta-row"><span class="meta-label">今晚住宿：</span><span>${tonightStay.name}</span></div>
+        <div class="meta-row"><span class="meta-label">地图检索：</span><span>${tonightStay.mapsQuery || tonightStay.address}</span></div>
+        <div class="meta-row"><span class="meta-label">返程提醒：</span><span>4/28 晚班机返程版：19:00 左右从弘大往仁川 T1 走。</span></div>
+      </div>
+    </section>
+    <section class="section" id="shopping">
+      <div class="section-head">
+        <span class="eyebrow">Shopping</span>
+        <h2>完整购物库</h2>
+        <p>当你已经知道今天主线后，再来这里慢慢挑具体单品和礼物。</p>
+      </div>
+      <div class="shop-grid">${renderShopping()}</div>
+      <div class="note">17 岁这次最稳的策略：不碰烟酒，不碰大体积保健品，不走“像商业代购”的大货逻辑；有 Visa 就优先 Visa，失败再切 WOWPASS / 支付宝 / 现金三套兜底。</div>
+    </section>
+    <section class="section" id="phases">
+      <div class="section-head">
+        <span class="eyebrow">Timeline</span>
+        <h2>准备清单</h2>
+        <p>这块放出发前、机场、回程的总检查项，优先级低于主路线。</p>
+      </div>
+      <div class="list">${renderPhases() || '<div class="empty">四阶段里没有匹配结果。</div>'}</div>
+    </section>
+    <section class="section">
+      <div class="card offline-alert">
+        <h3>离线兜底</h3>
+        <ul>
+          <li>正式入口：总入口 → 完整版 → 落地夜极简页。</li>
+          <li>微信里不稳时，复制链接到 Safari。</li>
+          <li>离线版始终是出国保命兜底。</li>
+        </ul>
+        <div class="copy-row">
+          <a class="link" href="./safe-open.html">打不开先走安全入口</a>
+          <a class="link" href="./night-arrival-lite.html">🌙 现在是落地夜？点这里</a>
+        </div>
+      </div>
+    </section>
+    <div class="toolbar">
+      <div class="toolbar-inner">
+        <a class="link" href="#priority">现在</a>
+        <a class="link" href="#stays">住宿</a>
+        <a class="link" href="#days">日程</a>
+        <a class="link" href="#shopping-days">采购</a>
+        <a class="link" href="#shopping">购物</a>
+        <a class="link" href="#guide">攻略</a>
+      </div>
+    </div>`;
+  document.querySelectorAll('[data-check-id]').forEach((input)=>{input.addEventListener('change',(event)=>{tasksState[event.target.dataset.checkId]=event.target.checked;saveTasks();render();});});
+  document.querySelectorAll('[data-focus-day]').forEach((btn)=>btn.addEventListener('click',()=>setFocusDay(Number(btn.dataset.focusDay))));
+  document.querySelectorAll('[data-usecase]').forEach((btn)=>btn.addEventListener('click',()=>{uiState.shoppingUseCase=btn.dataset.usecase;saveUi();render();}));
+  document.querySelectorAll('[data-quick]').forEach((btn)=>btn.addEventListener('click',()=>{
+    const chip=btn.dataset.quick;
+    if(chip==='自己用') { setShoppingUseCase('self'); return; }
+    if(chip==='送人') { setShoppingUseCase('gift'); return; }
+    if(chip==='代购更合适') { setShoppingUseCase('resale'); return; }
+    setSearch(chip);
+  }));
+  document.querySelectorAll('[data-copy-stay]').forEach((btn)=>btn.addEventListener('click',()=>{const stay=hotelStays.find((item)=>item.key===btn.dataset.copyStay); if(stay) copyText(stay.mapsQuery || stay.address);}));
+  document.getElementById('search-input').addEventListener('input',(e)=>setSearch(e.target.value));
+  document.getElementById('clear-search').addEventListener('click',()=>setSearch(''));
+  document.getElementById('toggle-today').addEventListener('click',toggleTodayMode);
+  document.getElementById('reset').addEventListener('click',()=>{if(!confirm('确认清空当前设备里的所有勾选进度吗？')) return;tasksState={};saveTasks();render();});
+  document.getElementById('copy-hotel').addEventListener('click',()=>{const stay=getCurrentHotelStay(getFocusDayIndex()); copyText(stay.mapsQuery || stay.address);});
+  document.getElementById('copy-airport').addEventListener('click',()=>copyText('4/28 晚班机返程版：19:00 左右从弘大往仁川 T1 走，先确认退税 / 提货，再托运行李，再安检。'));
+  document.getElementById('share').addEventListener('click',sharePage);
+  document.querySelectorAll('[data-mark-day]').forEach((btn)=>btn.addEventListener('click',()=>markDay(btn.dataset.markDay,true)));
+  document.querySelectorAll('[data-clear-day]').forEach((btn)=>btn.addEventListener('click',()=>markDay(btn.dataset.clearDay,false)));
+}
+
+render();
+  </script>
+</body>
+</html>
+
