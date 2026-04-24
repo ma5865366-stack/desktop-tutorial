@@ -3775,6 +3775,7 @@ function renderHotelStays(){ const labels=['Day 1 住哪里','Day 2 住哪里','
 function sharePage(){const data={title:'韩国旅行清单增强版',text:'手机直接打开就能用的韩国旅行清单',url:location.href};if(navigator.share){navigator.share(data).catch(()=>{});}else{copyText(location.href);}}
 function setSearch(value){uiState.search=value;saveUi();render();}
 function toggleTodayMode(){uiState.todayOnly=!uiState.todayOnly;saveUi();render();}
+function setShoppingUseCase(key){uiState.shoppingUseCase=key;saveUi();render();}
 function renderTask(id,text){const done=isDone(id);return `<li class="task ${done?'done':''}"><label><input type="checkbox" data-check-id="${id}" ${done?'checked':''}><span class="task-text">${text}</span></label></li>`;}
 function renderPhases(){return phases.map((phase)=>{const visibleItems=phase.items.filter((item)=>matchesQuery([phase.title,phase.subtitle,item]));if(!visibleItems.length) return '';const total=visibleItems.length;const done=visibleItems.filter((_,i)=>isDone(`phase-${phase.title}-${phase.items.indexOf(visibleItems[i])}`)).length;return `<article class="card"><div class="phase-top"><div><span class="chip">${phase.title}</span><h3>${phase.subtitle}</h3></div><span class="status ${done===total?'ok':''}">${done}/${total}</span></div><ul class="checklist">${visibleItems.map((item)=>renderTask(`phase-${phase.title}-${phase.items.indexOf(item)}`,item)).join('')}</ul></article>`;}).join('');}
 function renderGuide(){
@@ -3991,13 +3992,19 @@ function render(){
   document.querySelectorAll('[data-check-id]').forEach((input)=>{input.addEventListener('change',(event)=>{tasksState[event.target.dataset.checkId]=event.target.checked;saveTasks();render();});});
   document.querySelectorAll('[data-focus-day]').forEach((btn)=>btn.addEventListener('click',()=>setFocusDay(Number(btn.dataset.focusDay))));
   document.querySelectorAll('[data-usecase]').forEach((btn)=>btn.addEventListener('click',()=>{uiState.shoppingUseCase=btn.dataset.usecase;saveUi();render();}));
-  document.querySelectorAll('[data-quick]').forEach((btn)=>btn.addEventListener('click',()=>setSearch(btn.dataset.quick)));
+  document.querySelectorAll('[data-quick]').forEach((btn)=>btn.addEventListener('click',()=>{
+    const chip=btn.dataset.quick;
+    if(chip==='自己用') { setShoppingUseCase('self'); return; }
+    if(chip==='送人') { setShoppingUseCase('gift'); return; }
+    if(chip==='代购更合适') { setShoppingUseCase('resale'); return; }
+    setSearch(chip);
+  }));
   document.querySelectorAll('[data-copy-stay]').forEach((btn)=>btn.addEventListener('click',()=>{const stay=hotelStays.find((item)=>item.key===btn.dataset.copyStay); if(stay) copyText(stay.mapsQuery || stay.address);}));
   document.getElementById('search-input').addEventListener('input',(e)=>setSearch(e.target.value));
   document.getElementById('clear-search').addEventListener('click',()=>setSearch(''));
   document.getElementById('toggle-today').addEventListener('click',toggleTodayMode);
   document.getElementById('reset').addEventListener('click',()=>{if(!confirm('确认清空当前设备里的所有勾选进度吗？')) return;tasksState={};saveTasks();render();});
-  document.getElementById('copy-hotel').addEventListener('click',()=>{const stay=getCurrentHotelStay(); copyText(stay.mapsQuery || stay.address);});
+  document.getElementById('copy-hotel').addEventListener('click',()=>{const stay=getCurrentHotelStay(getFocusDayIndex()); copyText(stay.mapsQuery || stay.address);});
   document.getElementById('copy-airport').addEventListener('click',()=>copyText('4/28 晚班机返程版：19:00 左右从弘大往仁川 T1 走，先确认退税 / 提货，再托运行李，再安检。'));
   document.getElementById('share').addEventListener('click',sharePage);
   document.querySelectorAll('[data-mark-day]').forEach((btn)=>btn.addEventListener('click',()=>markDay(btn.dataset.markDay,true)));
