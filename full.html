@@ -561,6 +561,47 @@ button:hover,
   color: #fff;
 }
 
+.usecase-tabs,
+.usecase-summary-grid {
+  display: grid;
+  gap: 0.72rem;
+}
+
+.usecase-tabs {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.usecase-tab {
+  min-height: 3rem;
+  padding: 0.72rem 0.8rem;
+  border: 1px solid rgba(30, 41, 59, 0.1);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--surface-ink);
+  font-size: 0.86rem;
+  font-weight: 800;
+  box-shadow: var(--shadow-soft);
+}
+
+.usecase-tab.active {
+  border-color: rgba(216, 154, 75, 0.45);
+  background: linear-gradient(135deg, #f1c16d, #d89a4b);
+  color: #fff;
+}
+
+.usecase-summary-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.usecase-summary-card {
+  display: grid;
+  gap: 0.58rem;
+}
+
+.usecase-summary-card h3 {
+  color: var(--surface-ink);
+}
+
 .priority-overview {
   display: grid;
   gap: 0.78rem;
@@ -1013,7 +1054,8 @@ details.guide .content {
   .food-grid,
   .ticket-grid,
   .budget-grid,
-  .tips-grid {
+  .tips-grid,
+  .usecase-summary-grid {
     grid-template-columns: 1fr;
   }
 }
@@ -1035,6 +1077,10 @@ details.guide .content {
 
   .quick-row {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .usecase-tabs {
+    grid-template-columns: 1fr;
   }
 
   .toolbar-inner {
@@ -2716,6 +2762,11 @@ const shoppingOverviewGroups=[
   {title:'伴手礼 / 小物',focus:'海苔、杏仁、咖啡包、文具小物',bestStore:'便利店 / Daiso / Artbox',area:'回程前补齐',mapsQuery:'다이소 명동역점',priceKRW:'2,000–18,000 KRW',priceRMB:'约 10–85 RMB',resaleFit:'利润低 / 最适合送人',carryLevel:'轻小好分',buyOrder:'先咖啡和海苔，再文具和小物',featuredModels:'Tom’s Honey Butter Almond / Maxim Mocha Gold / Artbox 平口袋'},
   {title:'服饰 / 基础款',focus:'Musinsa Standard、袜子、帽子、小包',bestStore:'Musinsa Standard 弘大',area:'弘大',mapsQuery:'무신사 스탠다드 홍대',priceKRW:'5,000–89,000 KRW',priceRMB:'约 24–412 RMB',resaleFit:'更适合自己买或指定需求',carryLevel:'中等',buyOrder:'先袜子帽子，再 T 恤，最后薄外套',featuredModels:'Basic Crew Neck Tee / Standard Sweatshirt / Straight Denim'}
 ];
+const shoppingUseCaseSections=[
+  {key:'self',title:'自己用最值',summary:'优先买回购高、自己能判断适不适合的东西。',best:'防晒、精华、自己色号明确的唇妆 / 底妆',avoid:'为了差价硬囤不确定会不会用的东西',budget:'500–2000 RMB 更合理',channel:'Olive Young > 百货 / 免税 > Daiso 补漏'},
+  {key:'gift',title:'送人最稳',summary:'优先买轻小、体面、接受度高的型号，不赌气味和色号。',best:'护手霜小件、香氛小件、妈妈护肤线、小礼物组合',avoid:'大瓶香水、底妆、强功效护肤、难控尺码衣服',budget:'80–400 RMB / 人最自然',channel:'Tamburins / Nonfiction / 百货 / 免税 / Daiso / Artbox'},
+  {key:'resale',title:'代购更合适',summary:'优先买价格透明、差价稳定、好带且新手不容易翻车的线。',best:'鞋代购、痘痘贴、防晒、少量药妆补单',avoid:'大体积液体、色号型彩妆、限量鞋、玻璃香水',budget:'300–1800 RMB / 单线',channel:'Olive Young > Musinsa Kicks > MLB / 指定需求店'}
+];
 const shoppingDetailCatalog={
   "MLB 弘大店 / 明洞中央店":{brand:"MLB",model:"NY Yankees / LA Dodgers 队标帽、Basic Logo Tee、卫衣",spec:"帽子 / T恤 / 卫衣",priceKRW:"49,000–150,000 KRW",priceRMB:"约 227–695 RMB",domesticRMB:"国内参考：约 320–980 RMB",spreadNote:"帽子最稳，T 恤其次，厚卫衣差价没想象中大"},
   "乐天免税店明洞本店 / 雅诗兰黛":{brand:"Estée Lauder",model:"Advanced Night Repair / ANR Eye / Revitalizing Supreme+",spec:"20ml / 30ml / 50ml / 套装",priceKRW:"34,000–220,000 KRW",priceRMB:"约 157–1,019 RMB",domesticRMB:"国内参考：约 220–1,460 RMB",spreadNote:"小棕瓶和套装差价更明显，面霜先比活动"},
@@ -3641,6 +3692,46 @@ function renderTodayFocus(){const day=days[getTodayIndex()]; const shoppingIdx=g
 function renderPriceRows(rows){if(!rows?.length) return ''; return `<div class="price-list">${rows.map((row)=>`<div class="price-line"><div class="price-main"><strong>${row.label}</strong><span>${row.fit || ''}</span></div><div class="price-values"><span class="price-badge">${row.krw}</span><span class="price-badge soft">${row.rmb}</span>${row.domestic?`<span class="price-badge muted">${row.domestic}</span>`:''}${row.resale?`<span class="price-badge muted">${row.resale}</span>`:''}</div></div>`).join('')}</div>`;}
 function renderMenuRows(menus){if(!menus?.length) return ''; return `<div class="menu-list">${menus.map((menu)=>`<div class="price-line"><div class="price-main"><strong>${menu.name}</strong><span class="menu-note">${menu.note || ''}</span></div><div class="price-values"><span class="price-badge">${menu.krw}</span><span class="price-badge soft">${menu.rmb}</span></div></div>`).join('')}</div>`;}
 function getShoppingDetail(item){return {...item,...(shoppingDetailCatalog[item.name]||{})};}
+function getShoppingMeta(base){
+  const item={...getShoppingDetail(base)};
+  const kind=item.kind || '';
+  const useCases=(item.useCase ? String(item.useCase).split(',').map((part)=>part.trim()).filter(Boolean) : []);
+  if(!useCases.length){
+    if(/礼物|家人|老师同学|朋友/.test(kind)) useCases.push('gift');
+    if(kind.includes('代购 / 鞋') || /代购/.test(kind) || /价格透明/.test(item.resaleFit || '')) useCases.push('resale');
+    if(/护肤|防晒|精华|爽肤水/.test(kind)) useCases.push('self');
+    if(/面膜|痘痘贴/.test(kind)) useCases.push('self','gift','resale');
+    if(/唇妆/.test(kind)) useCases.push('self','gift');
+    if(/底妆/.test(kind)) useCases.push('self');
+    if(/香氛|香水/.test(kind)) useCases.push('gift','self');
+    if(/MLB|衣服|鞋包|配饰/.test(kind) && !useCases.length) useCases.push('self','gift');
+    if(!useCases.length) useCases.push('self');
+  }
+  item.useCases=Array.from(new Set(useCases));
+  item.useCase=item.useCases.join(',');
+  item.selfUseValue=item.selfUseValue || (/底妆/.test(kind) ? '自己明确色号后最值' : /护肤|防晒|精华|爽肤水/.test(kind) ? '回购高、自己最好判断' : /香氛/.test(kind) ? '先闻再买更稳' : '自己明确需求时更值');
+  item.giftSafety=item.giftSafety || (/礼物/.test(kind) || item.giftFor ? '送人最稳' : /底妆/.test(kind) ? '送人风险高' : /唇妆/.test(kind) ? '知道色号才适合送人' : /香氛/.test(kind) ? '先闻味道再送人' : '明确需求再送');
+  item.resaleSafety=item.resaleSafety || (item.useCases.includes('resale') ? (/底妆|香水/.test(kind) ? '不建议代购' : /价格透明/.test(item.resaleFit || '') ? '适合代购补单' : /液体|鞋盒/.test(item.carryLevel || '') ? '可代购，但要控体积' : '适合代购补单') : '不建议代购');
+  item.usePriority=item.usePriority || (item.useCases.includes('resale') && !item.useCases.includes('gift') ? '代购更合适' : item.useCases.includes('gift') && !item.useCases.includes('resale') ? '送人最稳' : item.useCases.includes('self') && !item.useCases.includes('gift') ? '自己用最值' : item.useCases.includes('gift') ? '送人 / 自己用都行' : '自己用最值');
+  return item;
+}
+function getUseCaseSection(){const key=uiState.shoppingUseCase || 'self'; return shoppingUseCaseSections.find((item)=>item.key===key) || shoppingUseCaseSections[0];}
+function renderUseCasePills(item){
+  const labels=[];
+  if(item.useCases.includes('self')) labels.push('自己用最值');
+  if(item.useCases.includes('gift')) labels.push('送人最稳');
+  if(item.useCases.includes('resale')) labels.push(item.resaleSafety === '不建议代购' ? '不建议代购' : '代购更合适');
+  return `<div class="tag-row">${labels.map((label)=>`<span class="pill">${label}</span>`).join('')}</div>`;
+}
+function renderShoppingByUseCase(){
+  const current=getUseCaseSection();
+  const visible=shopping.filter((base)=>{const item=getShoppingMeta(base); return item.useCases.includes(current.key) && matchesQuery([current.title,current.summary,current.best,current.avoid,current.budget,current.channel,item.kind,item.brand,item.model,item.spec,item.usePriority,item.giftSafety,item.resaleSafety,item.selfUseValue]);});
+  if(!visible.length) return '<div class="empty">按用途挑没有匹配结果。</div>';
+  const tabs=`<div class="usecase-tabs">${shoppingUseCaseSections.map((section)=>`<button class="usecase-tab ${section.key===current.key?'active':''}" data-usecase="${section.key}">${section.title}</button>`).join('')}</div>`;
+  const summary=`<div class="usecase-summary-grid"><article class="card usecase-summary-card"><span class="chip">${current.title}</span><h3>${current.summary}</h3><p class="mini">更适合：${current.best}</p><p class="mini">别乱买：${current.avoid}</p></article><article class="card usecase-summary-card"><span class="chip">预算 / 渠道</span><h3>${current.budget}</h3><p class="mini">优先渠道：${current.channel}</p><p class="mini">价格仍按参考区间写，先按用途决定，再看品牌和型号。</p></article></div>`;
+  const cards=visible.map((base)=>{const item=getShoppingMeta(base); const legacyKR=/KRW/i.test(item.kr||''); const legacyRmbInKr=/RMB/i.test(item.kr||''); const priceKRW=item.priceKRW || (legacyKR ? item.kr : '到店看活动'); const priceRMB=item.priceRMB || (legacyRmbInKr ? item.kr : item.budget || '按预算控制'); const domesticRMB=item.domesticRMB || item.cn || '国内价格看平台波动'; const spreadNote=item.spreadNote || item.gap || ''; const storeHint=item.storeHint || item.where; const channel=item.channel || item.where; const carryLevel=item.carryLevel || '看体积'; const newbieLevel=item.newbieLevel || '按熟悉度决定'; const resaleFit=item.resaleFit || '更适合自用或送人'; return `<article class="shop-card"><div class="shop-price"><span class="pill warn">${item.kind}</span><span class="pill bad">${item.budget}</span></div><h3>${item.brand || item.name}</h3><p class="mini"><strong>型号：</strong>${item.model || item.name}${item.spec?`｜${item.spec}`:''}</p>${renderUseCasePills(item)}<div class="shop-price"><span class="pill">${storeHint}</span><span class="pill warn">适合：${item.bestFor}</span></div><div class="tag-row"><span class="pill">${channel}</span><span class="pill warn">${carryLevel}</span><span class="pill bad">${newbieLevel}</span><span class="pill">${resaleFit}</span></div><div class="price-list"><div class="price-line"><div class="price-main"><strong>韩国参考</strong><span>${priceKRW}</span></div><div class="price-values"><span class="price-badge soft">${priceRMB}</span></div></div><div class="price-line"><div class="price-main"><strong>国内参考</strong><span>${domesticRMB}</span></div><div class="price-values">${spreadNote?`<span class="price-badge muted">${spreadNote}</span>`:''}</div></div></div><div class="tag-row"><span class="pill">${item.selfUseValue}</span><span class="pill warn">${item.giftSafety}</span><span class="pill bad">${item.resaleSafety}</span></div><p class="mini">什么时候买：${item.buyWhen}</p><p class="mini">避坑：${item.avoid}</p></article>`;}).join('');
+  return `${tabs}${summary}<div class="shop-grid">${cards}</div>`;
+}
 function renderShoppingOverview(){const visible=shoppingOverviewGroups.filter((item)=>matchesQuery([item.title,item.focus,item.bestStore,item.area,item.priceKRW,item.priceRMB,item.resaleFit,item.carryLevel,item.buyOrder,item.featuredModels])); if(!visible.length) return '<div class="empty">购物总览没有匹配结果。</div>'; return visible.map((item)=>`<article class="shop-card"><div class="shop-price"><span class="pill warn">${item.title}</span><span class="pill bad">${item.area}</span></div><h3>${item.bestStore}</h3><p class="mini">主看：${item.focus}</p>${item.featuredModels?`<p class="mini"><strong>代表型号：</strong>${item.featuredModels}</p>`:''}<div class="price-list"><div class="price-line"><div class="price-main"><strong>价格区间</strong><span>按 1 RMB ≈ 216 KRW 粗略估算</span></div><div class="price-values"><span class="price-badge">${item.priceKRW}</span><span class="price-badge soft">${item.priceRMB}</span></div></div></div><div class="tag-row"><span class="pill">${item.resaleFit}</span><span class="pill warn">${item.carryLevel}</span></div><div class="detail-section"><h4>购买顺序</h4><ul class="detail-list"><li>${item.buyOrder}</li></ul></div><div class="route-actions"><a class="link" href="${createGoogleMapsSearchUrl(item.mapsQuery)}" target="_blank" rel="noopener noreferrer">Google Maps</a></div></article>`).join('');}
 function renderTargetShopping(){const visible=targetShoppingSections.filter((item)=>matchesQuery([item.title,item.area,item.primaryStore,item.backupStore,item.primaryLocation,item.backupLocation,item.feature,item.signature,...(item.priceRows||[]).flatMap((row)=>[row.label,row.krw,row.rmb,row.domestic,row.fit,row.resale]),...(item.buyOrder||[]),...(item.riskNotes||[]),...(item.tags||[]),item.note])); if(!visible.length) return '<div class="empty">指定购物区没有匹配结果。</div>'; return visible.map((item)=>`<article class="shop-card"><div class="shop-price"><span class="pill warn">${item.title}</span><span class="pill bad">${item.area}</span></div><h3>${item.primaryStore}</h3><p class="mini">定位：${item.primaryLocation}</p><p class="mini">卖什么：${item.feature}</p><p class="mini">特色：${item.signature}</p><div class="tag-row">${(item.tags||[]).map((tag)=>`<span class="pill">${tag}</span>`).join('')}</div>${renderPriceRows(item.priceRows)}<div class="detail-section"><h4>购买顺序</h4><ul class="detail-list">${(item.buyOrder||[]).map((line)=>`<li>${line}</li>`).join('')}</ul></div><div class="detail-section"><h4>代购提醒</h4><ul class="detail-list">${(item.riskNotes||[]).map((line)=>`<li>${line}</li>`).join('')}</ul></div><p class="mini">备注：${item.note}</p><div class="route-actions"><a class="link" href="${createGoogleMapsSearchUrl(item.primaryQuery)}" target="_blank" rel="noopener noreferrer">主推荐定位</a><a class="link" href="${createGoogleMapsSearchUrl(item.backupQuery)}" target="_blank" rel="noopener noreferrer">备选定位</a></div></article>`).join('');}
 function renderProcurementChannels(){return procurementChannels.map((item)=>`<article class="shop-card"><div class="shop-price"><span class="pill warn">${item.title}</span><span class="pill bad">${item.where}</span></div><p class="mini">适合买：${item.best}</p><p class="mini">更便宜的买法：${item.cheap}</p><p class="mini">避坑：${item.avoid}</p><div class="shop-price"><span class="pill">${item.newbie}</span><span class="pill warn">${item.profit}</span></div><p class="mini">${item.summary}</p></article>`).join('');}
@@ -3649,10 +3740,10 @@ function renderTickets(){return ticketCards.map((item)=>`<article class="shop-ca
 function renderBudgetCards(){return budgetCards.map((item,idx)=>`<article class="shop-card"><div class="shop-price"><span class="pill warn">${item.tier}</span><span class="pill bad">${item.rmb}</span></div><p class="mini">韩元参考：${item.krw}</p><div class="budget-bar"><div class="budget-fill" style="width:${[48,72,100][idx]}%"></div></div><div class="budget-list">${item.parts.map((part)=>`<div class="budget-row"><strong>${part[0]}</strong><span class="mini">${part[1]} RMB</span></div>`).join('')}</div><p class="mini">说明：${item.note}</p></article>`).join('');}
 function renderPaymentGuide(){return paymentTips.map((item)=>`<article class="shop-card"><div class="shop-price"><span class="pill warn">${item.title}</span></div><ul class="tip-list">${item.items.map((line)=>`<li>${line}</li>`).join('')}</ul></article>`).join('');}
 function renderSavingTips(){return savingTips.map((line)=>`<article class="shop-card"><p class="mini">${line}</p></article>`).join('');}
-function renderTopShopping(){const top=shopping.filter((item)=>['最高','高'].includes(item.priority)).slice(0,8);return top.map((base)=>{const item=getShoppingDetail(base);return `<article class="shop-card"><div class="shop-price"><span class="pill">${item.priority}</span><span class="pill warn">${item.kind}</span><span class="pill bad">${item.budget}</span></div><h3>${item.brand || item.name}</h3><p class="mini"><strong>型号：</strong>${item.model || item.name}${item.spec?`｜${item.spec}`:''}</p><p class="mini">适合：${item.bestFor}</p>${item.giftFor?`<p class="mini">适合送：${item.giftFor}</p>`:''}${item.whyMeaningful?`<p class="mini">为什么更有意义：${item.whyMeaningful}</p>`:''}<div class="price-values"><span class="price-badge">${item.priceKRW || '到店看活动'}</span><span class="price-badge soft">${item.priceRMB || item.budget}</span></div><p class="mini">怎么买：${item.buyWhen}</p><p class="mini">避坑：${item.avoid}</p></article>`;}).join('');}
-function renderShopping(){const visible=shopping.filter((base)=>{const item=getShoppingDetail(base);return matchesQuery([item.kind,item.zone,item.budget,item.name,item.where,item.fit,item.priority,item.bestFor,item.buyWhen,item.avoid,item.kr,item.cn,item.gap,item.tip,item.whyMeaningful,item.giftFor,item.giftBudget,item.notFor,item.priceKRW,item.priceRMB,item.domesticRMB,item.spreadNote,item.channel,item.storeHint,item.carryLevel,item.newbieLevel,item.resaleFit,item.brand,item.model,item.spec]);}); if(!visible.length) return '<div class="empty">购物区没有匹配结果。</div>'; return visible.map((base)=>{const item=getShoppingDetail(base);const legacyKR=/KRW/i.test(item.kr||'');const legacyRmbInKr=/RMB/i.test(item.kr||'');const priceKRW=item.priceKRW || (legacyKR ? item.kr : '到店看活动');const priceRMB=item.priceRMB || (legacyRmbInKr ? item.kr : item.budget || '按预算控制');const domesticRMB=item.domesticRMB || item.cn || '国内价格看平台波动';const spreadNote=item.spreadNote || item.gap || '';const storeHint=item.storeHint || item.where;const channel=item.channel || item.where;const carryLevel=item.carryLevel || '看体积';const newbieLevel=item.newbieLevel || '按熟悉度决定';const resaleFit=item.resaleFit || '更适合自用或送人';return `<article class="shop-card"><div class="shop-price"><span class="pill">${item.kind}</span><span class="pill warn">${item.priority}</span><span class="pill bad">${item.budget}</span></div><h3>${item.brand || item.name}</h3><p class="mini"><strong>型号：</strong>${item.model || item.name}${item.spec?`｜${item.spec}`:''}</p><div class="shop-price"><span class="pill">${storeHint}</span><span class="pill warn">适合：${item.bestFor}</span></div>${item.giftFor?`<div class="shop-price"><span class="pill warn">适合送：${item.giftFor}</span>${item.giftBudget?`<span class="pill">预算：${item.giftBudget}</span>`:''}</div>`:''}<div class="tag-row"><span class="pill">${channel}</span><span class="pill warn">${carryLevel}</span><span class="pill bad">${newbieLevel}</span><span class="pill">${resaleFit}</span></div><div class="price-list"><div class="price-line"><div class="price-main"><strong>韩国参考</strong><span>${priceKRW}</span></div><div class="price-values"><span class="price-badge soft">${priceRMB}</span></div></div><div class="price-line"><div class="price-main"><strong>国内参考</strong><span>${domesticRMB}</span></div><div class="price-values">${spreadNote?`<span class="price-badge muted">${spreadNote}</span>`:''}</div></div></div>${item.whyMeaningful?`<p class="mini">为什么更有意义：${item.whyMeaningful}</p>`:''}<p class="mini">什么时候买：${item.buyWhen}</p><p class="mini">避坑：${item.avoid}</p>${item.notFor?`<p class="mini">不建议送：${item.notFor}</p>`:''}<p class="mini">${item.tip}</p></article>`;}).join('');}
+function renderTopShopping(){const top=shopping.filter((item)=>['最高','高'].includes(item.priority)).slice(0,8);return top.map((base)=>{const item=getShoppingMeta(base);return `<article class="shop-card"><div class="shop-price"><span class="pill">${item.priority}</span><span class="pill warn">${item.kind}</span><span class="pill bad">${item.budget}</span></div><h3>${item.brand || item.name}</h3><p class="mini"><strong>型号：</strong>${item.model || item.name}${item.spec?`｜${item.spec}`:''}</p>${renderUseCasePills(item)}<p class="mini">适合：${item.bestFor}</p>${item.giftFor?`<p class="mini">适合送：${item.giftFor}</p>`:''}${item.whyMeaningful?`<p class="mini">为什么更有意义：${item.whyMeaningful}</p>`:''}<div class="price-values"><span class="price-badge">${item.priceKRW || '到店看活动'}</span><span class="price-badge soft">${item.priceRMB || item.budget}</span></div><p class="mini">怎么买：${item.buyWhen}</p><p class="mini">避坑：${item.avoid}</p></article>`;}).join('');}
+function renderShopping(){const visible=shopping.filter((base)=>{const item=getShoppingMeta(base);return matchesQuery([item.kind,item.zone,item.budget,item.name,item.where,item.fit,item.priority,item.bestFor,item.buyWhen,item.avoid,item.kr,item.cn,item.gap,item.tip,item.whyMeaningful,item.giftFor,item.giftBudget,item.notFor,item.priceKRW,item.priceRMB,item.domesticRMB,item.spreadNote,item.channel,item.storeHint,item.carryLevel,item.newbieLevel,item.resaleFit,item.brand,item.model,item.spec,item.useCase,item.usePriority,item.giftSafety,item.resaleSafety,item.selfUseValue]);}); if(!visible.length) return '<div class="empty">购物区没有匹配结果。</div>'; return visible.map((base)=>{const item=getShoppingMeta(base);const legacyKR=/KRW/i.test(item.kr||'');const legacyRmbInKr=/RMB/i.test(item.kr||'');const priceKRW=item.priceKRW || (legacyKR ? item.kr : '到店看活动');const priceRMB=item.priceRMB || (legacyRmbInKr ? item.kr : item.budget || '按预算控制');const domesticRMB=item.domesticRMB || item.cn || '国内价格看平台波动';const spreadNote=item.spreadNote || item.gap || '';const storeHint=item.storeHint || item.where;const channel=item.channel || item.where;const carryLevel=item.carryLevel || '看体积';const newbieLevel=item.newbieLevel || '按熟悉度决定';const resaleFit=item.resaleFit || '更适合自用或送人';return `<article class="shop-card"><div class="shop-price"><span class="pill">${item.kind}</span><span class="pill warn">${item.priority}</span><span class="pill bad">${item.budget}</span></div><h3>${item.brand || item.name}</h3><p class="mini"><strong>型号：</strong>${item.model || item.name}${item.spec?`｜${item.spec}`:''}</p>${renderUseCasePills(item)}<div class="shop-price"><span class="pill">${storeHint}</span><span class="pill warn">适合：${item.bestFor}</span></div>${item.giftFor?`<div class="shop-price"><span class="pill warn">适合送：${item.giftFor}</span>${item.giftBudget?`<span class="pill">预算：${item.giftBudget}</span>`:''}</div>`:''}<div class="tag-row"><span class="pill">${channel}</span><span class="pill warn">${carryLevel}</span><span class="pill bad">${newbieLevel}</span><span class="pill">${resaleFit}</span></div><div class="price-list"><div class="price-line"><div class="price-main"><strong>韩国参考</strong><span>${priceKRW}</span></div><div class="price-values"><span class="price-badge soft">${priceRMB}</span></div></div><div class="price-line"><div class="price-main"><strong>国内参考</strong><span>${domesticRMB}</span></div><div class="price-values">${spreadNote?`<span class="price-badge muted">${spreadNote}</span>`:''}</div></div></div><div class="tag-row"><span class="pill">${item.selfUseValue}</span><span class="pill warn">${item.giftSafety}</span><span class="pill bad">${item.resaleSafety}</span></div>${item.whyMeaningful?`<p class="mini">为什么更有意义：${item.whyMeaningful}</p>`:''}<p class="mini">什么时候买：${item.buyWhen}</p><p class="mini">避坑：${item.avoid}</p>${item.notFor?`<p class="mini">不建议送：${item.notFor}</p>`:''}<p class="mini">${item.tip}</p></article>`;}).join('');}
 function loadTasks(){try{return JSON.parse(localStorage.getItem(TASK_KEY)||'{}')}catch{return {}}}
-function loadUi(){try{return JSON.parse(localStorage.getItem(UI_KEY)||'{"search":"","todayOnly":false,"focusDayIndex":null}')}catch{return {search:'',todayOnly:false,focusDayIndex:null}}}
+function loadUi(){try{return JSON.parse(localStorage.getItem(UI_KEY)||'{"search":"","todayOnly":false,"focusDayIndex":null,"shoppingUseCase":"self"}')}catch{return {search:'',todayOnly:false,focusDayIndex:null,shoppingUseCase:'self'}}}
 let tasksState=loadTasks();
 let uiState=loadUi();
 function saveTasks(){localStorage.setItem(TASK_KEY,JSON.stringify(tasksState));}
@@ -3712,7 +3803,7 @@ function render(){
   const visibleDays=getVisibleDays();
   const todayLabel=days[getTodayIndex()].day;
   const tonightStay=getCurrentHotelStay();
-  const quickChips=['今天','住宿','明洞','弘大','药妆','GOTO','Musinsa','退税','礼物','午饭','晚饭','Daiso','Isaac','广藏市场','谷歌地图','MLB','雅诗兰黛','小棕瓶','鞋','代购'];
+  const quickChips=['今天','住宿','明洞','弘大','药妆','GOTO','Musinsa','退税','礼物','午饭','晚饭','Daiso','Isaac','广藏市场','谷歌地图','MLB','雅诗兰黛','小棕瓶','鞋','代购','自己用','送人','代购更合适'];
   const searchSection=`<section class="section" id="search-panel"><div class="card search-box"><div class="search-wrap"><input id="search-input" class="ghost-input" type="search" placeholder="搜 明洞 / 午饭 / GOTO / 退税 / 礼物 / Daiso" value="${uiState.search.replace(/"/g,'&quot;')}" /><div class="quick-row">${quickChips.map((chip)=>`<button class="quick-chip" data-quick="${chip}">${chip}</button>`).join('')}</div></div><div class="mode-row"><span class="chip result-chip">当前筛到：${visibleDays.length} 天</span><button id="toggle-today">${uiState.todayOnly ? `关闭今天模式（${todayLabel}）` : '只看今天'}</button><button id="clear-search">清空搜索</button><button id="reset">清空进度</button></div></div></section>`;
   document.getElementById('app').innerHTML=`
     <section class="hero card">
@@ -3765,6 +3856,15 @@ function render(){
       </div>
       <div class="note price-note">价格可能波动，仅供参考｜按 1 RMB ≈ 216 KRW 粗略估算｜先看需求，再看差价和体积。</div>
       <div class="shop-grid">${renderShoppingOverview()}</div>
+    </section>
+    <section class="section" id="shopping-usecase">
+      <div class="section-head">
+        <span class="eyebrow">By Use Case</span>
+        <h2>按用途挑：自己用 / 送人 / 代购</h2>
+        <p>先按用途进，再看品牌型号、价格和风险；比从完整购物库里硬翻更快。</p>
+      </div>
+      <div class="note price-note">这块优先整理美妆 / 护肤 / 香氛的阅读顺序：自己用先看回购和差价，送人先看体面和低风险，代购先看透明度和体积。</div>
+      ${renderShoppingByUseCase()}
     </section>
     <section class="section" id="targets">
       <div class="section-head">
@@ -3890,6 +3990,7 @@ function render(){
     </div>`;
   document.querySelectorAll('[data-check-id]').forEach((input)=>{input.addEventListener('change',(event)=>{tasksState[event.target.dataset.checkId]=event.target.checked;saveTasks();render();});});
   document.querySelectorAll('[data-focus-day]').forEach((btn)=>btn.addEventListener('click',()=>setFocusDay(Number(btn.dataset.focusDay))));
+  document.querySelectorAll('[data-usecase]').forEach((btn)=>btn.addEventListener('click',()=>{uiState.shoppingUseCase=btn.dataset.usecase;saveUi();render();}));
   document.querySelectorAll('[data-quick]').forEach((btn)=>btn.addEventListener('click',()=>setSearch(btn.dataset.quick)));
   document.querySelectorAll('[data-copy-stay]').forEach((btn)=>btn.addEventListener('click',()=>{const stay=hotelStays.find((item)=>item.key===btn.dataset.copyStay); if(stay) copyText(stay.mapsQuery || stay.address);}));
   document.getElementById('search-input').addEventListener('input',(e)=>setSearch(e.target.value));
