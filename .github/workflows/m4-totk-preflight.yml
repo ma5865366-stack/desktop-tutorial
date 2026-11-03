@@ -1,0 +1,46 @@
+name: M4-TOTK · 安全源码预检
+on:
+  push:
+    branches: [m4-totk-cloud-v0.6]
+    paths:
+      - 'm4-totk-cloud/**'
+      - '.github/workflows/m4-totk-*.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Ensure only developer source, no Nintendo assets or signing keys
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          root=Path('m4-totk-cloud')
+          blocked={'.ipa','.xci','.nsp','.nsz','.xcz','.mngpack','.p12','.p8','.mobileprovision','.pfx','.key'}
+          bad=[str(p) for p in root.rglob('*') if p.is_file() and (p.suffix.lower() in blocked or p.name.lower() in {'prod.keys','title.keys','activation.code'})]
+          assert not bad, f'Forbidden resource/signing files: {bad}'
+          for name in ('ios/M4Profiles.swift','ios/M4ControlPanel.swift','demo/project.yml'):
+              assert (root/name).is_file(), name
+          print('Developer source only. No game data found by filename/extension guard.')
+          PY
+      - name: Check real upstream iOS integration anchors
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone --depth 1 https://github.com/ly05010419/MacNativeGames.git "$RUNNER_TEMP/MacNativeGames"
+          python3 - <<'PY'
+          import os
+          from pathlib import Path
+          repo=Path(os.environ['RUNNER_TEMP'])/'MacNativeGames'
+          main=(repo/'games/totk/ios/Sources/main.m').read_text()
+          front=(repo/'games/totk/runtime/frontend_ios.m').read_text()
+          assert '@interface TOTKGameController' in main, 'Game controller changed upstream'
+          assert 'CADisplayLink' in front and 'preferredFrameRateRange' in front, 'iOS sync changed upstream'
+          print('Upstream source anchors found. This does NOT compile the game.')
+          PY
