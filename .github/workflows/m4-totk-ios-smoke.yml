@@ -1,0 +1,39 @@
+name: M4-TOTK · iOS 面板试编译（手动）
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  swift-panel:
+    runs-on: macos-26
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Show build environment
+        run: |
+          xcodebuild -version
+          xcrun --sdk iphoneos --show-sdk-version
+          df -h .
+      - name: Install XcodeGen
+        run: |
+          if ! command -v xcodegen >/dev/null; then brew install xcodegen; fi
+      - name: Build unsigned settings-only iOS sample
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd m4-totk-cloud/demo
+          xcodegen generate --spec project.yml
+          xcodebuild -project M4SettingsSmoke.xcodeproj -scheme M4SettingsSmoke \
+            -configuration Debug -sdk iphoneos -destination 'generic/platform=iOS' \
+            -derivedDataPath "$RUNNER_TEMP/M4SmokeDerivedData" \
+            CODE_SIGNING_ALLOWED=NO build 2>&1 | tee ../../xcodebuild-m4-smoke.log
+      - name: Upload log, NOT a game IPA
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: m4-settings-smoke-log
+          path: xcodebuild-m4-smoke.log
+          if-no-files-found: warn
+          retention-days: 7
